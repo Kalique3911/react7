@@ -4,23 +4,15 @@
     padding: 20px;
 }
 
-.dialogs {
+.page {
     display: grid;
     grid-template-columns: 2fr 10fr;
 }
 
-.dialogsItems {
+.dialogs {
     padding: 10px;
-}
-
-.dialog {
-
 }
 
 .messages {
     padding: 10px;
-}
-
-.message {
-
 }
