@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './MyPosts.module.css'
 import Post from "../Post/Post";
 
-const MyPosts = () => {
+const MyPosts = (props) => {
     return <div className={classes.item}>
         <div>
             create your new post
@@ -14,8 +14,7 @@ const MyPosts = () => {
             <button>Add post</button>
         </div>
         <div className={classes.posts}>
-        <Post message='Pillaging Balkans' likes='15 likes '/>
-        <Post message='Besieging Constantinople' likes='20 likes '/>
+            {props.postData.map(el => <Post text={el.text} likes={el.likes}/>)}
         </div>
     </div>
 }
