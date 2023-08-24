@@ -8,16 +8,10 @@ let state = {
     },
     dialogs: {
         dialogsData: [
-            {id: 1, name: "Feodosij"},
-            {id: 2, name: "Bleda"},
-            {id: 3, name: "Ellac"},
-            {id: 4, name: "Flavius"},
-
-        ],
-        messagesData: [
-            {id: 1, message: "Hi"},
-            {id: 2, message: "Stop your business"},
-            {id: 3, message: "I offer you gold"},
+            {id: 1, name: "Feodosij", messagesData:[ {id: 1, message: "Hi"}, {id: 2, message: "Stop your business"}, {id: 3, message: "I offer you gold"},], ava:"pheodosij" },
+            {id: 2, name: "Bleda", messagesData: [ {id:1, message: "Lol"}]},
+            {id: 3, name: "Ellac", messagesData: []},
+            {id: 4, name: "Flavius", messagesData: []},
 
         ],
     },
