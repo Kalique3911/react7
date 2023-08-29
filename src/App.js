@@ -8,6 +8,7 @@ import News from "./jsxCmpnts/News/News";
 import Settings from "./jsxCmpnts/Settings/Settings";
 import Music from "./jsxCmpnts/Music/Music";
 import Messages from "./jsxCmpnts/Messages/Messages"
+import state from "./redux/State";
 
 const App = (props) => {
     return <BrowserRouter>
@@ -18,11 +19,12 @@ const App = (props) => {
                 <Route path="/" element={<News/>}/>
                 <Route path="/news" element={<News/>}/>
                 <Route path="/messages" element={<Dialogs state={props.state}/>}/>
-                <Route path={"/messages/dialog/1"} element={<Messages state={props.state.dialogs.dialogsData[0]}/>}/>
+                <Route path={"/messages/dialog/1"} element={<Messages state={props.state.dialogs.dialogsData[0]} addFunction={props.state.dialogs.dialogsData[0].addFunction.bind(state)} updateFunction={props.state.dialogs.dialogsData[0].updateFunction.bind(state)}/>}/>
                 <Route path={"/messages/dialog/2"} element={<Messages state={props.state.dialogs.dialogsData[1]}/>}/>
                 <Route path={"/messages/dialog/3"} element={<Messages state={props.state.dialogs.dialogsData[2]}/>}/>
                 <Route path={"/messages/dialog/4"} element={<Messages state={props.state.dialogs.dialogsData[3]}/>}/>
-                <Route path="/profile" element={<Profile postData={props.state.profile.postData}/>}/>
+                <Route path="/profile" element={<Profile state={props.state.profile} addPost={props.addPost}
+                                                         updateNewPostChange={props.updateNewPostChange}/>}/>
                 <Route path="/settings" element={<Settings/>}/>
                 <Route path="/music" element={<Music/>}/>
             </Routes>
