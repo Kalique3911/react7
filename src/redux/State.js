@@ -1,3 +1,6 @@
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_CHANGE = 'UPDATE-NEW-POST-CHANGE'
+
 let store = {
     state: {
         profile: {
@@ -78,13 +81,31 @@ let store = {
         this.state.profile.newPostText = ''
         this.rerender(this.state)
     }, updateNewPostChange(newText) {
-        this.state.profile.newPostText = (newText)
+        this.state.profile.newPostText = newText
         this.rerender(this.state)
     }, subscribe(obdrister) {
         this.rerender = obdrister
+    }, dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPost = {
+                id: 5, text: this.state.profile.newPostText, likes: "0 likes "
+            }
+            this.state.profile.postData.push(newPost)
+            this.state.profile.newPostText = ''
+            this.rerender(this.state)
+        } else if (action.type === 'UPDATE-NEW-POST-CHANGE') {
+            this.state.profile.newPostText = action.newText
+            this.rerender(this.state)
+        }
     }
 
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST})
+
+export const updateNewPostTextActionCreator = text => ({type: UPDATE_NEW_POST_CHANGE, newText: text})
+
+
 
 window.store = store
 export default store

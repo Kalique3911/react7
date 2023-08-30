@@ -1,25 +1,24 @@
 import React from 'react'
 import classes from './MyPosts.module.css'
 import Post from "../Post/Post";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/State";
 
 const MyPosts = (props) => {
 
     let newPostElement = React.createRef()
-
-    let onPostChange = () => {
-        props.updateNewPostChange(newPostElement.current.value)
-    }
 
     return <div className={classes.item}>
         <div>
             create your new post
         </div>
         <div>
-            <textarea onChange={onPostChange} ref={newPostElement} value={props.state.newPostText}/>
+            <textarea onChange={() => {
+                props.dispatch(updateNewPostTextActionCreator(newPostElement.current.value))
+            }} ref={newPostElement} value={props.state.newPostText}/>
         </div>
         <div>
             <button onClick={() => {
-                props.addPost()
+                props.dispatch(addPostActionCreator(newPostElement.current.value))
             }}>Add post
             </button>
         </div>
