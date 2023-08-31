@@ -1,17 +1,18 @@
 import classes from "./Messages.module.css";
 import React from "react";
 import Message from "./Message/Message";
+import {addMessageActionCreator, updateNewMessageTextActionCreator,} from "../../redux/dialogsReducer";
 
 const Messages = (props) => {
 
     let newMessageElement = React.createRef()
 
     let onMessageChange = () => {
-        props.updateFunction(newMessageElement.current.value)
+        props.dispatch(updateNewMessageTextActionCreator(newMessageElement.current.value))
     }
     return <div className={classes.messages}>
         <div>
-            <h3>{props.state.name}</h3>
+            <h3>{props.state.usersData[0].name}</h3>
         </div>
         <div>
             {props.state.messagesData.map(el => <Message text={el.message}/>)}
@@ -21,7 +22,7 @@ const Messages = (props) => {
         </div>
         <div>
             <button onClick={() => {
-                props.addFunction()
+                props.dispatch(addMessageActionCreator(newMessageElement.current.value))
             }}>add Message
             </button>
         </div>
