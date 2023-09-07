@@ -25,9 +25,7 @@ let initialState = {
     }, {
         id: 4,
         name: "Flavius",
-    },
-
-    ],
+    },],
     newMessageText: 'kal'
 }
 
@@ -37,12 +35,13 @@ const dialogsReducer = (state = initialState, action) => {
             id: 4,
             message: state.newMessageText,
         }
-        state.messagesData.push(newMessage)
-        state.newMessageText = ''
+        return {...state, messagesData: [...state.messagesData, newMessage], newMessageText: ''}
     } else if (action.type === UPDATE_NEW_MESSAGE_CHANGE) {
-        state.newMessageText = (action.newText)
+        return {...state, newMessageText: (action.newText)}
+    } else {
+        return state
     }
-    return state
+
 }
 
 export const addMessageActionCreator = () => ({type: ADD_MESSAGE})

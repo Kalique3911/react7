@@ -25,12 +25,12 @@ const profileReducer = (state = initialState, action) => {
             text: state.newPostText,
             likes: "0 likes "
         }
-        state.postData.push(newPost)
-        state.newPostText = ''
+        return {...state, postData: [...state.postData, newPost], newPostText: ''}
     } else if (action.type === UPDATE_NEW_POST_CHANGE) {
-        state.newPostText = action.newText
+        return {...state, newPostText: action.newText}
+    } else {
+        return state
     }
-    return state
 }
 
 export const addPostActionCreator = () => ({type: ADD_POST})
@@ -38,4 +38,3 @@ export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = text => ({type: UPDATE_NEW_POST_CHANGE, newText: text})
 
 export default profileReducer
-
