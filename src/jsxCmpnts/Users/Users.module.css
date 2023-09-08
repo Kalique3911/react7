@@ -1,3 +1,8 @@
+.user {
+    grid-area: content;
+    background-color: dimgray;
+}
+
 .user img {
     width: 100px;
     height: 100px;
