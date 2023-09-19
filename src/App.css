@@ -7,8 +7,8 @@
   "header header"
   "nav content";
 
-    grid-template-rows: 80px 6fr;
+    grid-template-rows: 1fr 15fr;
     grid-template-columns: 2fr 10fr;
-    /* grid-gap: 10px; */
-
+    grid-gap: 10px;
+    background-color: darkgray;
 }
