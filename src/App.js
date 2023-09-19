@@ -1,7 +1,6 @@
 import './App.css';
 import Header from './jsxCmpnts/Header/Header'
 import Navbar from './jsxCmpnts/Navbar/Navbar'
-import Profile from "./jsxCmpnts/Profile/Profile";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import News from "./jsxCmpnts/News/News";
 import Settings from "./jsxCmpnts/Settings/Settings";
@@ -9,6 +8,7 @@ import Music from "./jsxCmpnts/Music/Music";
 import DialogsContainer from "./jsxCmpnts/Dialogs/DialogsContainer";
 import MessagesContainer from "./jsxCmpnts/Messages/MessagesContainer";
 import UsersContainer from "./jsxCmpnts/Users/UsersContainer";
+import Profile from "./jsxCmpnts/Profile/Profile";
 
 const App = () => {
     return <BrowserRouter>

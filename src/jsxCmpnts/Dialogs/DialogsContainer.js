@@ -3,7 +3,7 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 
 const mapStateToProps = (state) => {
-    return {usersData: state.dialogs.usersData}
+    return {usersData: state.dialogsPage.usersData}
 }
 
 const DialogsContainer = connect(mapStateToProps)(Dialogs)
