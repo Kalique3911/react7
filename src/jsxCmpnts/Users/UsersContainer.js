@@ -1,5 +1,5 @@
-import React from "react";
-import {connect} from "react-redux";
+import React from "react"
+import {connect} from "react-redux"
 import {
     follow,
     setCurrentPage,
@@ -7,10 +7,10 @@ import {
     setUsers,
     toggleIsFetching,
     unfollow
-} from "../../redux/usersReducer";
-import axios from "axios";
-import Users from "./Users";
-import preloader from "../../images/preloader.gif";
+} from "../../redux/usersReducer"
+import axios from "axios"
+import Users from "./Users"
+import preloader from "../../images/preloader.gif"
 
 class UsersAPI extends React.Component {
     componentDidMount() {

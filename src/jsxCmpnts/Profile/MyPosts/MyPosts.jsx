@@ -21,7 +21,7 @@ const MyPosts = (props) => {
             </button>
         </div>
         <div className={classes.posts}>
-            {props.postData.map(el => <Post text={el.text} likes={el.likes}/>)}
+            {props.postData.map(el => <Post key={el.id} text={el.text} likes={el.likes}/>)}
         </div>
     </div>
 }

@@ -13,7 +13,7 @@ let initialState = {
         likes: '20 likes '
     }, {
         id: 3,
-        text: 'Moving to Gallia',
+        text: 'Moving to Gaul',
         likes: '5 likes '
     },],
     newPostText: 'kal',

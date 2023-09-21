@@ -10,7 +10,7 @@ const Messages = (props) => {
             <h3>{props.name}</h3>
         </div>
         <div>
-            {props.messagesData.map(el => <Message text={el.message}/>)}
+            {props.messagesData.map(el => <Message key={el.id} text={el.message}/>)}
         </div>
         <div>
             <textarea onChange={() => props.updateNewMessageElement(newMessageElement.current.value)} ref={newMessageElement}
