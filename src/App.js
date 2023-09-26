@@ -1,5 +1,4 @@
 import './App.css';
-import Header from './jsxCmpnts/Header/Header'
 import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import News from "./jsxCmpnts/News/News";
@@ -9,11 +8,12 @@ import DialogsContainer from "./jsxCmpnts/Dialogs/DialogsContainer";
 import MessagesContainer from "./jsxCmpnts/Messages/MessagesContainer";
 import UsersContainer from "./jsxCmpnts/Users/UsersContainer";
 import Profile from "./jsxCmpnts/Profile/Profile";
+import HeaderContainer from './jsxCmpnts/Header/HeaderContainer';
 
 const App = () => {
     return <BrowserRouter>
         <div className='app-wrapper'>
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <Routes>
                 <Route path="/" element={<News/>}/>

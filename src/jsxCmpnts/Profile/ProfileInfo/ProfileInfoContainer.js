@@ -8,7 +8,6 @@ import withRouter from '../../../common/functions/withRouter'
 class ProfileInfoContainer extends React.Component {
 
     componentDidMount() {
-        debugger
         let userId = this.props.router.params.userId
         if (!userId) {
             userId = 30001
