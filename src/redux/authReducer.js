@@ -1,4 +1,5 @@
 const SET_AUTH_USER_DATA = 'SET-AUTH-USER-DATA'
+const SET_AUTH_USER_PHOTO = 'SET-AUTH-USER-PHOTO'
 
 let initialState = {
     data: {
@@ -10,6 +11,7 @@ let initialState = {
     fieldsErrors: [],
     resultCode: 0,
     isAuth: false,
+    smallPhoto: null,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -20,11 +22,17 @@ const authReducer = (state = initialState, action) => {
                 data: action.data,
                 isAuth: true,
             }
+        case SET_AUTH_USER_PHOTO:
+            return {
+                ...state,
+                smallPhoto: action.small
+            }
         default:
             return state
     }
 }
 
 export const setAuthUserData = (id, email, login) => ({type: SET_AUTH_USER_DATA, data: {id, email, login}})
+export const setAuthUserPhoto = (small) => ({type: SET_AUTH_USER_PHOTO, small: small})
 
 export default authReducer
