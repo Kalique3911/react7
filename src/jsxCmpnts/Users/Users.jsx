@@ -27,29 +27,39 @@ const Users = (props) => {
                         </NavLink>
                     </div>
                     <div>
-                        {user.followed
-                            ? <button
-                                onClick={() => unfollow(user.id).then(data => {
+                        {user.followed ? <button
+                                disabled={props.followingInProgress.some(id => id === user.id)}
+                                onClick={() => {
+                                    props.toggleFollowingProgress(true, user.id)
+                                    unfollow(user.id).then(data => {
                                         if (data.resultCode === 0) {
                                             props.unfollow(user.id)
                                         }
-                                    })}>Unfollow</button>
+                                        props.toggleFollowingProgress(false, user.id)
+                                    })
+                                }}
+                            >Unfollow</button>
 
                             : <button
-                                onClick={() => follow(user.id).then(data => {
-                                    if (data.resultCode === 0) {
-                                        props.follow(user.id)
-                                    }
-                                    })}>Follow</button>}
-                                    </div>
-                                    </span>
-                                    <span>
-                                    <span>
-                                    <div>{user.name}</div><div>{user.status}</div>
-                                    </span>
-                                    </span>
-                                    </div>)}
-                            </div>
-                            }
+                                disabled={props.followingInProgress.some(id => id === user.id)}
+                                onClick={() => {
+                                    props.toggleFollowingProgress(true, user.id)
+                                    follow(user.id).then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.follow(user.id)
+                                        }
+                                        props.toggleFollowingProgress(false, user.id)
+                                    })
+                                }}
+                            >Follow</button>}
+                    </div>
+                </span>
+            <span>
+                <div>{user.name}</div><div>{user.status}</div>
+            </span>
 
-                            export default Users
+        </div>)}
+    </div>
+}
+
+export default Users

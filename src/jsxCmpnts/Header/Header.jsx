@@ -12,5 +12,5 @@ const Header = (props) => {
         </div>
     </header>
 }
-// todo avatar
+
 export default Header
