@@ -8,15 +8,15 @@ const instance = axios.create({
     }
 })
 
-export const getUsers = (currentPage = 1, pageSize = 10) => {
+export const getUsersAPI = (currentPage = 1, pageSize = 10) => {
     return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
 }
 
-export const unfollow = (id) => {
+export const unfollowAPI = (id) => {
     return instance.delete(`follow/${id}`).then(response => response.data)
 }
 
-export const follow = (id) => {
+export const followAPI = (id) => {
     return instance.post(`follow/${id}`, {}).then(response => response.data)
 }
 
@@ -31,3 +31,5 @@ export const getUserProfile  = (userId) => {
 export const getAuthUserAva  = (userId) => {
     return instance.get(`profile/${userId}`).then(response => response.data.photos.small)
 }
+
+// todo perevesti vsio na sanki
