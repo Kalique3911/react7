@@ -1,14 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {
-    follow, getUsers,
-    setCurrentPage,
-    unfollow,
+    follow, getUsers, setCurrentPage, unfollow,
 } from '../../redux/usersReducer'
 import Users from './Users'
 import preloader from '../../images/preloader.gif'
 
-class UsersAPI extends React.Component {
+class UsersContainer extends React.Component {
     componentDidMount() {
 
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
@@ -21,8 +19,7 @@ class UsersAPI extends React.Component {
 
     render() {
         return <div>
-            <div>{this.props.isFetching ?
-                <img src={preloader}/> : null}
+            <div>{this.props.isFetching ? <img src={preloader}/> : null}
             </div>
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
@@ -48,9 +45,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const UsersContainer = connect(mapStateToProps,
-    {
-        follow, unfollow, setCurrentPage, getUsers
-    })(UsersAPI)
-
-export default UsersContainer
+export default connect(mapStateToProps, {
+    follow, unfollow, setCurrentPage, getUsers
+})(UsersContainer)

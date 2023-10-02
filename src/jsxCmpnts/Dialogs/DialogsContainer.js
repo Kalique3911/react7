@@ -1,6 +1,13 @@
-import React from "react"
-import Dialogs from "./Dialogs";
-import {connect} from "react-redux";
+import React from 'react'
+import Dialogs from './Dialogs'
+import {connect} from 'react-redux'
+import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate';
+
+class DialogsContainer extends React.Component {
+    render() {
+        return <Dialogs {...this.props}/>
+    }
+}
 
 const mapStateToProps = (state) => {
     return {
@@ -9,6 +16,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const DialogsContainer = connect(mapStateToProps)(Dialogs)
+const AuthNavigateComponent = withAuthNavigate(DialogsContainer)
 
-export default DialogsContainer
+export default connect(mapStateToProps)(AuthNavigateComponent)
