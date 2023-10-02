@@ -1,13 +1,12 @@
-import React from "react"
-import {connect} from "react-redux"
+import React from 'react'
+import {connect} from 'react-redux'
 import {
-    follow, followUser, getUsers,
+    follow, getUsers,
     setCurrentPage,
-    toggleFollowingProgress,
-    unfollow, unfollowUser
+    unfollow,
 } from '../../redux/usersReducer'
-import Users from "./Users"
-import preloader from "../../images/preloader.gif"
+import Users from './Users'
+import preloader from '../../images/preloader.gif'
 
 class UsersAPI extends React.Component {
     componentDidMount() {
@@ -32,7 +31,6 @@ class UsersAPI extends React.Component {
                    usersData={this.props.usersData}
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
-                   toggleFollowingProgress={this.props.toggleFollowingProgress}
                    followingInProgress={this.props.followingInProgress}
             />
         </div>
@@ -52,8 +50,7 @@ const mapStateToProps = (state) => {
 
 const UsersContainer = connect(mapStateToProps,
     {
-        follow, unfollow, setCurrentPage,
-        getUsers, toggleFollowingProgress
+        follow, unfollow, setCurrentPage, getUsers
     })(UsersAPI)
 
 export default UsersContainer

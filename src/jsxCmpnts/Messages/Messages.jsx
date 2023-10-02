@@ -1,9 +1,15 @@
 import classes from "./Messages.module.css";
 import React from "react";
 import Message from "./Message/Message";
+import {Navigate} from 'react-router-dom';
 
 const Messages = (props) => {
+
     const newMessageElement = React.createRef()
+
+    if (!props.isAuth) {
+        return <Navigate to={'/login'}/>
+    }
 
     return <div className={classes.messages}>
         <div>

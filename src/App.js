@@ -1,14 +1,15 @@
-import './App.css';
+import './App.css'
 import Navbar from './jsxCmpnts/Navbar/Navbar'
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import News from "./jsxCmpnts/News/News";
-import Settings from "./jsxCmpnts/Settings/Settings";
-import Music from "./jsxCmpnts/Music/Music";
-import DialogsContainer from "./jsxCmpnts/Dialogs/DialogsContainer";
-import MessagesContainer from "./jsxCmpnts/Messages/MessagesContainer";
-import UsersContainer from "./jsxCmpnts/Users/UsersContainer";
-import Profile from "./jsxCmpnts/Profile/Profile";
-import HeaderContainer from './jsxCmpnts/Header/HeaderContainer';
+import {BrowserRouter, Route, Routes} from "react-router-dom"
+import News from "./jsxCmpnts/News/News"
+import Settings from "./jsxCmpnts/Settings/Settings"
+import Music from "./jsxCmpnts/Music/Music"
+import DialogsContainer from "./jsxCmpnts/Dialogs/DialogsContainer"
+import MessagesContainer from "./jsxCmpnts/Messages/MessagesContainer"
+import UsersContainer from "./jsxCmpnts/Users/UsersContainer"
+import Profile from "./jsxCmpnts/Profile/Profile"
+import HeaderContainer from './jsxCmpnts/Header/HeaderContainer'
+import Login from './jsxCmpnts/Login/Login'
 
 const App = () => {
     return <BrowserRouter>
@@ -24,9 +25,12 @@ const App = () => {
                 <Route path="/settings" element={<Settings/>}/>
                 <Route path="/music" element={<Music/>}/>
                 <Route path="/users" element={<UsersContainer/>}/>
+                <Route path="/login" element={<Login/>}/>
             </Routes>
         </div>
     </BrowserRouter>
 }
 
-export default App;
+export default App
+
+// todo perevesti navigate, withRouter na hooki

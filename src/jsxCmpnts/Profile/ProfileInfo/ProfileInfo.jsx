@@ -2,8 +2,14 @@ import React from 'react'
 import classes from './ProfileInfo.module.css'
 import steppe from '../../../images/steppe.jpg'
 import preloader from '../../../images/preloader.gif';
+import {Navigate} from 'react-router-dom';
 
 const ProfileInfo = (props) => {
+
+    if (!props.isAuth) {
+        return <Navigate to={'/login'}/>
+    }
+
     if (!props.profile) {
         return <img src={preloader}/>
     }

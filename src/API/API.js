@@ -20,16 +20,14 @@ export const followAPI = (id) => {
     return instance.post(`follow/${id}`, {}).then(response => response.data)
 }
 
-export const getUserData = () => {
+export const getUserDataAPI = () => {
     return instance.get(`auth/me`).then(response => response.data)
 }
 
-export const getUserProfile  = (userId) => {
+export const getUserProfileAPI = (userId) => {
     return instance.get(`profile/${userId}`).then(response => response.data)
 }
 
-export const getAuthUserAva  = (userId) => {
+export const getAuthUserAvaAPI = (userId) => {
     return instance.get(`profile/${userId}`).then(response => response.data.photos.small)
 }
-
-// todo perevesti vsio na sanki

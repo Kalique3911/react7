@@ -1,7 +1,7 @@
-import classes from './Users.module.css';
-import defaultAva from '../../images/defaultAva.jpg';
-import React from 'react';
-import {NavLink} from 'react-router-dom';
+import classes from './Users.module.css'
+import defaultAva from '../../images/defaultAva.jpg'
+import React from 'react'
+import {NavLink} from 'react-router-dom'
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
