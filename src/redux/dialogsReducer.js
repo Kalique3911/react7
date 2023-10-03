@@ -4,27 +4,27 @@ const UPDATE_NEW_MESSAGE_CHANGE = 'UPDATE-NEW-MESSAGE-CHANGE'
 let initialState = {
     messagesData: [{
         id: 1,
-        message: "Hi"
+        message: 'Hi'
     }, {
         id: 2,
-        message: "Stop your business"
+        message: 'Stop your business'
     }, {
         id: 3,
-        message: "I offer you gold"
+        message: 'I offer you gold'
     },
     ],
     usersData: [{
         id: 1,
-        name: "Feodosij",
+        name: 'Feodosij',
     }, {
         id: 2,
-        name: "Bleda",
+        name: 'Bleda',
     }, {
         id: 3,
-        name: "Ellac",
+        name: 'Ellac',
     }, {
         id: 4,
-        name: "Flavius",
+        name: 'Flavius',
     },],
     newMessageText: 'kal'
 }

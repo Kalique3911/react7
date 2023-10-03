@@ -2,7 +2,7 @@ import {
     useLocation,
     useNavigate,
     useParams,
-} from "react-router-dom"
+} from 'react-router-dom'
 
 function withRouter(Component) {
     function ComponentWithRouterProp(props) {
@@ -12,12 +12,12 @@ function withRouter(Component) {
         return (
             <Component
                 {...props}
-                router={{ location, navigate, params }}
+                router={{location, navigate, params}}
             />
-        );
+        )
     }
 
-    return ComponentWithRouterProp;
+    return ComponentWithRouterProp
 }
 
 export default withRouter

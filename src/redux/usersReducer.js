@@ -1,4 +1,4 @@
-import {followAPI, getUsersAPI, unfollowAPI} from '../API/API';
+import {followAPI, getUsersAPI, unfollowAPI} from '../API/API'
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'

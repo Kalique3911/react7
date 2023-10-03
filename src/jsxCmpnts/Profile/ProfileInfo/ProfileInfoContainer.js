@@ -2,8 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import ProfileInfo from './ProfileInfo'
 import withRouter from '../../../common/functions/withRouter'
-import {getUserProfile} from '../../../redux/profileReducer'
-import {withAuthNavigate} from '../../../common/HOCs/withAuthNavigate';
+import {getUserProfile, setUserStatus, updateUserStatus} from '../../../redux/profileReducer'
+import {withAuthNavigate} from '../../../common/HOCs/withAuthNavigate'
+import {compose} from 'redux'
 
 class ProfileInfoContainer extends React.Component {
 
@@ -13,17 +14,19 @@ class ProfileInfoContainer extends React.Component {
             userId = 30001
         }
         this.props.getUserProfile(userId)
+        this.props.setUserStatus(userId)
     }
 
     render() {
-        return <ProfileInfo {...this.props}/>
+        return <ProfileInfo {...this.props} status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
     }
 }
 
-let AuthNavigateComponent = withAuthNavigate(ProfileInfoContainer)
-
 const mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile, status: state.profilePage.status
 })
 
-export default connect(mapStateToProps, {getUserProfile})(withRouter(AuthNavigateComponent))
+export default compose(connect(mapStateToProps, {
+        getUserProfile, setUserStatus, updateUserStatus
+    }), withRouter, //withAuthNavigate
+)(ProfileInfoContainer)

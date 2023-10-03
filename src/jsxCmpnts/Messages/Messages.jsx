@@ -1,7 +1,7 @@
-import classes from "./Messages.module.css";
-import React from "react";
-import Message from "./Message/Message";
-import {Navigate} from 'react-router-dom';
+import classes from './Messages.module.css'
+import React from 'react'
+import Message from './Message/Message'
+import {Navigate} from 'react-router-dom'
 
 const Messages = (props) => {
 
@@ -19,7 +19,8 @@ const Messages = (props) => {
             {props.messagesData.map(el => <Message key={el.id} text={el.message}/>)}
         </div>
         <div>
-            <textarea onChange={() => props.updateNewMessageElement(newMessageElement.current.value)} ref={newMessageElement}
+            <textarea onChange={() => props.updateNewMessageElement(newMessageElement.current.value)}
+                      ref={newMessageElement}
                       value={props.newMessageText}/>
         </div>
         <div>

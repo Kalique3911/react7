@@ -1,7 +1,8 @@
 import React from 'react'
 import Dialogs from './Dialogs'
 import {connect} from 'react-redux'
-import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate';
+import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
+import {compose} from 'redux'
 
 class DialogsContainer extends React.Component {
     render() {
@@ -11,11 +12,8 @@ class DialogsContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        usersData: state.dialogsPage.usersData,
-        isAuth: state.auth.isAuth,
+        usersData: state.dialogsPage.usersData, isAuth: state.auth.isAuth,
     }
 }
 
-const AuthNavigateComponent = withAuthNavigate(DialogsContainer)
-
-export default connect(mapStateToProps)(AuthNavigateComponent)
+export default compose(connect(mapStateToProps), withAuthNavigate)(DialogsContainer)

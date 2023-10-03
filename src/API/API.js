@@ -31,3 +31,11 @@ export const getUserProfileAPI = (userId) => {
 export const getAuthUserAvaAPI = (userId) => {
     return instance.get(`profile/${userId}`).then(response => response.data.photos.small)
 }
+
+export const getUserStatusAPI = (userId) => {
+    return instance.get(`profile/status/${userId}`)
+}
+
+export const updateUserStatusAPI = (status) => {
+    return instance.put(`profile/status`, {status: status})
+}

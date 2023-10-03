@@ -5,6 +5,8 @@ import {
 } from '../../redux/usersReducer'
 import Users from './Users'
 import preloader from '../../images/preloader.gif'
+import {compose} from 'redux'
+import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -45,6 +47,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {
-    follow, unfollow, setCurrentPage, getUsers
-})(UsersContainer)
+export default compose(
+    connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers}),
+    withAuthNavigate
+)(UsersContainer)
