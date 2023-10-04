@@ -1,22 +1,17 @@
 import React from 'react'
 import classes from './ProfileInfo.module.css'
-import steppe from '../../../images/steppe.jpg'
 import preloader from '../../../images/preloader.gif'
 import ProfileStatus from './ProfileStatus/ProfileStatus'
 
 const ProfileInfo = (props) => {
 
     if (!props.profile) {
-        return <img src={preloader}/>
+        return <img src={preloader} alt={'preloader'}/>
     }
 
     return <div>
-        {/*<div>*/}
-        {/*    <img*/}
-        {/*        src={steppe}/>*/}
-        {/*</div>*/}
         <div className={classes.info}>
-            <img src={props.profile.photos.large}/>
+            <img src={props.profile.photos.large} alt={'large photo'}/>
             <h3>{props.profile.fullName}</h3>
             <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
             <div>{props.profile.aboutMe}</div>

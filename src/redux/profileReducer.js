@@ -4,7 +4,6 @@ const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_CHANGE = 'UPDATE-NEW-POST-CHANGE'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_USER_STATUS = 'SET-USER-STATUS'
-const UPDATE_USER_STATUS = 'UPDATE-USER-STATUS'
 
 let initialState = {
     postData: [{
@@ -16,7 +15,7 @@ let initialState = {
     },],
     newPostText: 'kal',
     profile: null,
-    status: ''
+    status: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -28,7 +27,7 @@ const profileReducer = (state = initialState, action) => {
             return {...state, postData: [...state.postData, newPost], newPostText: ''}
 
         case UPDATE_NEW_POST_CHANGE:
-            return {...state, newPostText: action.newText}
+            return {...state, newPostText: action.text}
         case SET_USER_PROFILE:
             return {...state, profile: action.prof}
         case SET_USER_STATUS:
@@ -40,7 +39,7 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPost = () => ({type: ADD_POST})
 export const setUserProfile = (prof) => ({type: SET_USER_PROFILE, prof})
-export const updateNewPostText = text => ({type: UPDATE_NEW_POST_CHANGE, newText: text})//todo uberi obj
+export const updateNewPostText = text => ({type: UPDATE_NEW_POST_CHANGE, text})
 export const setUserStatusSuccess = status => ({type: SET_USER_STATUS, status})
 
 export const getUserProfile = (userId) => {
@@ -63,7 +62,7 @@ export const updateUserStatus = (status) => {
     return (dispatch) => {
         updateUserStatusAPI(status).then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(setUserStatusSuccess(response.data))
+                dispatch(setUserStatusSuccess(status))
             }
         })
     }

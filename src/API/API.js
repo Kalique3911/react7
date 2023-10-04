@@ -17,7 +17,7 @@ export const unfollowAPI = (id) => {
 }
 
 export const followAPI = (id) => {
-    return instance.post(`follow/${id}`, {}).then(response => response.data)
+    return instance.post(`follow/${id}`).then(response => response.data)
 }
 
 export const getUserDataAPI = () => {

@@ -21,7 +21,7 @@ class UsersContainer extends React.Component {
 
     render() {
         return <div>
-            <div>{this.props.isFetching ? <img src={preloader}/> : null}
+            <div>{this.props.isFetching ? <img src={preloader} alt={'preloader'}/> : null}
             </div>
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
