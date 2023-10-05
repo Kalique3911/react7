@@ -28,5 +28,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(connect(mapStateToProps, {
         getUserProfile, setUserStatus, updateUserStatus
-    }), withRouter, //withAuthNavigate
+    }), withRouter, withAuthNavigate
 )(ProfileInfoContainer)
