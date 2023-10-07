@@ -9,7 +9,7 @@ import MessagesContainer from './jsxCmpnts/Messages/MessagesContainer'
 import UsersContainer from './jsxCmpnts/Users/UsersContainer'
 import Profile from './jsxCmpnts/Profile/Profile'
 import HeaderContainer from './jsxCmpnts/Header/HeaderContainer'
-import Login from './jsxCmpnts/Login/Login'
+import LoginContainer from './jsxCmpnts/Login/LoginContainer'
 
 const App = () => {
     return <BrowserRouter>
@@ -25,7 +25,7 @@ const App = () => {
                 <Route path="/settings" element={<Settings/>}/>
                 <Route path="/music" element={<Music/>}/>
                 <Route path="/users" element={<UsersContainer/>}/>
-                <Route path="/login" element={<Login/>}/>
+                <Route path="/login" element={<LoginContainer/>}/>
             </Routes>
         </div>
     </BrowserRouter>
