@@ -1,5 +1,6 @@
 import {getAuthUserAvaAPI, getUserDataAPI, loginAPI, logoutAPI} from '../API/API'
 import defaultAva from './../images/defaultAva.jpg'
+import {stopSubmit} from 'redux-form'
 
 const SET_AUTH_USER_DATA = 'SET-AUTH-USER-DATA'
 const SET_AUTH_USER_PHOTO = 'SET-AUTH-USER-PHOTO'
@@ -36,7 +37,7 @@ const authReducer = (state = initialState, action) => {
 }
 
 export const setAuthUserData = (id, email, login, isAuth) => ({type: SET_AUTH_USER_DATA, id, email, login, isAuth})
-export const setAuthUserPhoto = (small) => ({type: SET_AUTH_USER_PHOTO, small: small})
+export const setAuthUserPhoto = (small) => ({type: SET_AUTH_USER_PHOTO, small})
 
 export const getUserData = () => {
     return (dispatch) => {
@@ -57,6 +58,8 @@ export const loginUser = (formData) => {
         loginAPI(formData.email, formData.password, formData.rememberMe).then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(getUserData())
+                } else if (response.data.resultCode === 1) {
+                    dispatch(stopSubmit('login', {email: response.data.messages, password: ' '}))
                 }
             }
         )

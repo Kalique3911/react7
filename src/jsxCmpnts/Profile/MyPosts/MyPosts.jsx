@@ -9,7 +9,7 @@ const MyPostsForm = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
             <Field placeholder={'your new post'} name={'myPost'} component={Textarea}
-                   validate={[requireField, maxLengthCreator(30)]}/>
+                   validate={[requireField, maxLengthCreator(16384)]}/>
         </div>
         <div>
             <button>Add post</button>
