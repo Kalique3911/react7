@@ -11,23 +11,25 @@ class ProfileInfoContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.router.params.userId // beriom userId iz URL s pomosch'ju withRouter
         if (!userId) {
-            userId = this.props.userId
+            userId = this.props.authUserId
         }
         this.props.getUserProfile(userId)
         this.props.setUserStatus(userId)
     }
 
     render() {
-        return <ProfileInfo {...this.props} status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
+        return <ProfileInfo {...this.props} status={this.props.status} updateUserStatus={this.props.updateUserStatus}
+                            userId={this.props.router.params.userId} authUserId = {this.props.authUserId}
+        />
     }
 }
 
 const mapStateToProps = (state) => ({
     profile: state.profilePage.profile, status: state.profilePage.status,
-    userId: state.auth.id
+    authUserId: state.auth.id
 })
 
-export default compose(connect(mapStateToProps, {
-        getUserProfile, setUserStatus, updateUserStatus
-    }), withRouter, withAuthNavigate
+export default compose(connect(mapStateToProps, {getUserProfile, setUserStatus, updateUserStatus}),
+    withRouter,
+    withAuthNavigate
 )(ProfileInfoContainer)

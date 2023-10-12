@@ -10,25 +10,43 @@ import UsersContainer from './jsxCmpnts/Users/UsersContainer'
 import Profile from './jsxCmpnts/Profile/Profile'
 import HeaderContainer from './jsxCmpnts/Header/HeaderContainer'
 import LoginContainer from './jsxCmpnts/Login/LoginContainer'
+import {Component} from 'react'
+import {connect} from 'react-redux'
+import {getUserData} from './redux/authReducer'
+import preloader from './images/preloader.gif'
 
-const App = () => {
-    return <BrowserRouter>
-        <div className="app-wrapper">
-            <HeaderContainer/>
-            <Navbar/>
-            <Routes>
-                <Route path="/" element={<News/>}/>
-                <Route path="/news" element={<News/>}/>
-                <Route path="/messages" element={<DialogsContainer/>}/>
-                <Route path="/messages/dialog/1" element={<MessagesContainer/>}/>
-                <Route path="/profile/:userId?" element={<Profile/>}/>
-                <Route path="/settings" element={<Settings/>}/>
-                <Route path="/music" element={<Music/>}/>
-                <Route path="/users" element={<UsersContainer/>}/>
-                <Route path="/login" element={<LoginContainer/>}/>
-            </Routes>
-        </div>
-    </BrowserRouter>
+class App extends Component {
+
+    componentDidMount() {
+        this.props.getUsersData()
+    }
+
+    render() {
+        if (!this.props.isInitialized) {
+            return <img src={preloader} alt={'preloader'}/>
+        }
+        return <BrowserRouter>
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <Navbar/>
+                <Routes>
+                    <Route path='/' element={<News/>}/>
+                    <Route path='/news' element={<News/>}/>
+                    <Route path='/messages' element={<DialogsContainer/>}/>
+                    <Route path='/messages/dialog/1' element={<MessagesContainer/>}/>
+                    <Route path='/profile/:userId?' element={<Profile/>}/>
+                    <Route path='/settings' element={<Settings/>}/>
+                    <Route path='/music' element={<Music/>}/>
+                    <Route path='/users' element={<UsersContainer/>}/>
+                    <Route path='/login' element={<LoginContainer/>}/>
+                </Routes>
+            </div>
+        </BrowserRouter>
+    }
 }
 
-export default App
+const mapStateToProps = (state) => ({
+    isInitialized: state.auth.isInitialized
+})
+
+export default connect(mapStateToProps, {getUsersData: getUserData})(App)

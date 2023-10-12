@@ -4,6 +4,7 @@ import {stopSubmit} from 'redux-form'
 
 const SET_AUTH_USER_DATA = 'SET-AUTH-USER-DATA'
 const SET_AUTH_USER_PHOTO = 'SET-AUTH-USER-PHOTO'
+const INITIALIZE = 'INITIALIZE'
 
 let initialState = {
     id: null,
@@ -14,6 +15,7 @@ let initialState = {
     fieldsErrors: [],
     resultCode: 0,
     smallPhoto: defaultAva,
+    isInitialized: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -31,6 +33,11 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 smallPhoto: action.small
             }
+        case INITIALIZE:
+            return {
+                ...state,
+                isInitialized: true
+            }
         default:
             return state
     }
@@ -38,10 +45,12 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuthUserData = (id, email, login, isAuth) => ({type: SET_AUTH_USER_DATA, id, email, login, isAuth})
 export const setAuthUserPhoto = (small) => ({type: SET_AUTH_USER_PHOTO, small})
+export const initializingSuccess = () => ({type: INITIALIZE})
 
 export const getUserData = () => {
     return (dispatch) => {
         getUserDataAPI().then(data => {
+            dispatch(initializingSuccess())
             if (data.resultCode === 0) {
                 let {id, email, login} = data.data
                 dispatch(setAuthUserData(id, email, login, true))
