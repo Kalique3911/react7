@@ -24,10 +24,12 @@ class ProfileInfoContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    profile: state.profilePage.profile, status: state.profilePage.status,
+const mapStateToProps = (state) => {
+    return {
+    profile: state.profilePage.profile,
+    status: state.profilePage.status,
     authUserId: state.auth.id
-})
+}}
 
 export default compose(connect(mapStateToProps, {getUserProfile, setUserStatus, updateUserStatus}),
     withRouter,

@@ -1,4 +1,4 @@
-import {followAPI, getUsersAPI, unfollowAPI} from '../API/API'
+import {insertFollow, fetchUsers, insertUnfollow} from '../API/API'
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -9,7 +9,13 @@ const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
 
 let initialState = {
-    usersData: [], pageSize: 100, totalUsersCount: 0, currentPage: 1, isFetching: false, followingInProgress: [],
+    usersData: [],
+    pageSize: 100,
+    totalUsersCount: 0,
+    currentPage: 1,
+    isFetching: false,
+    followingInProgress: [],
+    fake: 10
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -53,6 +59,11 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 followingInProgress: action.isFetching ? [...state.followingInProgress, action.userId] : [state.followingInProgress.filter(id => id != action.userId)]
             }
+        case 'FAKE':
+            return {
+                ...state,
+                fake: state.fake + 1
+            }
         default:
             return state
     }
@@ -74,7 +85,7 @@ export const getUsers = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
 
-        getUsersAPI(currentPage, pageSize).then(data => {
+        fetchUsers(currentPage, pageSize).then(data => {
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
@@ -84,7 +95,7 @@ export const getUsers = (currentPage, pageSize) => {
 export const unfollow = (userId) => {
     return (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
-        unfollowAPI(userId).then(data => {
+        insertUnfollow(userId).then(data => {
             if (data.resultCode === 0) {
                 dispatch(unfollowSuccess(userId))
             }
@@ -95,7 +106,7 @@ export const unfollow = (userId) => {
 export const follow = (userId) => {
     return (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
-        followAPI(userId).then(data => {
+        insertFollow(userId).then(data => {
             if (data.resultCode === 0) {
                 dispatch(followSuccess(userId))
             }

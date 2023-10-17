@@ -7,6 +7,7 @@ import Users from './Users'
 import preloader from '../../images/preloader.gif'
 import {compose} from 'redux'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
+import {getUsersSelector} from '../../redux/selectors'
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -20,6 +21,7 @@ class UsersContainer extends React.Component {
     }
 
     render() {
+        console.log('rerender')
         return <div>
             <div>{this.props.isFetching ? <img src={preloader} alt={'preloader'}/> : null}
             </div>
@@ -37,8 +39,9 @@ class UsersContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log('mapStateToProps')
     return {
-        usersData: state.usersPage.usersData,
+        usersData: getUsersSelector(state),
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,

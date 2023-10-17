@@ -1,4 +1,4 @@
-import {getAuthUserAvaAPI, getUserDataAPI, loginAPI, logoutAPI} from '../API/API'
+import {fetchAuthUserAva, fetchUserData, loginAPI, logoutAPI} from '../API/API'
 import defaultAva from './../images/defaultAva.jpg'
 import {stopSubmit} from 'redux-form'
 
@@ -49,12 +49,12 @@ export const initializingSuccess = () => ({type: INITIALIZE})
 
 export const getUserData = () => {
     return (dispatch) => {
-        getUserDataAPI().then(data => {
+        fetchUserData().then(data => {
             dispatch(initializingSuccess())
             if (data.resultCode === 0) {
                 let {id, email, login} = data.data
                 dispatch(setAuthUserData(id, email, login, true))
-                getAuthUserAvaAPI(data.data.id).then(small => {
+                fetchAuthUserAva(data.data.id).then(small => {
                     dispatch(setAuthUserPhoto(small))
                 })
             }

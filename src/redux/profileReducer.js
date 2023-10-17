@@ -1,4 +1,4 @@
-import {getUserProfileAPI, getUserStatusAPI, updateUserStatusAPI} from '../API/API'
+import {fetchUserProfile, fetchUserStatus, insertUserStatus} from '../API/API'
 
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
@@ -44,7 +44,7 @@ export const setUserStatusSuccess = status => ({type: SET_USER_STATUS, status})
 
 export const getUserProfile = (userId) => {
     return (dispatch) => {
-        getUserProfileAPI(userId).then(data => {
+        fetchUserProfile(userId).then(data => {
             dispatch(setUserProfile(data))
         })
     }
@@ -52,7 +52,7 @@ export const getUserProfile = (userId) => {
 
 export const setUserStatus = (userId) => {
     return (dispatch) => {
-        getUserStatusAPI(userId).then(response => {
+        fetchUserStatus(userId).then(response => {
             dispatch(setUserStatusSuccess(response.data))
         })
     }
@@ -60,7 +60,7 @@ export const setUserStatus = (userId) => {
 
 export const updateUserStatus = (status) => {
     return (dispatch) => {
-        updateUserStatusAPI(status).then(response => {
+        insertUserStatus(status).then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(setUserStatusSuccess(status))
             }
