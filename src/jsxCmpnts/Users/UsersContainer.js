@@ -1,45 +1,40 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {
-    follow, getUsers, setCurrentPage, unfollow,
-} from '../../redux/usersReducer'
+import {follow, getUsers, setCurrentPage, unfollow,} from '../../redux/usersReducer'
 import Users from './Users'
 import preloader from '../../images/preloader.gif'
 import {compose} from 'redux'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 import {getUsersSelector} from '../../redux/selectors'
 
-class UsersContainer extends React.Component {
-    componentDidMount() {
+function UsersContainer(props) {
 
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+    useEffect(() => {
+        props.getUsers(props.currentPage, props.pageSize)
+    }, [props.currentPage, props.pageSize])
+
+    const onPageChange = (pageNumber) => {
+        props.setCurrentPage(pageNumber)
+        props.getUsers(pageNumber, props.pageSize)
     }
 
-    onPageChange = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber)
-        this.props.getUsers(pageNumber, this.props.pageSize)
-    }
-
-    render() {
-        console.log('rerender')
-        return <div>
-            <div>{this.props.isFetching ? <img src={preloader} alt={'preloader'}/> : null}
-            </div>
-            <Users totalUsersCount={this.props.totalUsersCount}
-                   pageSize={this.props.pageSize}
-                   currentPage={this.props.currentPage}
-                   onPageChange={this.onPageChange}
-                   usersData={this.props.usersData}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
-                   followingInProgress={this.props.followingInProgress}
-            />
+    return <div>
+        <div>
+            {props.isFetching ? <img src={preloader} alt={'preloader'}/> : null}
         </div>
-    }
+        <Users totalUsersCount={props.totalUsersCount}
+               pageSize={props.pageSize}
+               currentPage={props.currentPage}
+               onPageChange={onPageChange}
+               usersData={props.usersData}
+               follow={props.follow}
+               unfollow={props.unfollow}
+               followingInProgress={props.followingInProgress}
+        />
+    </div>
 }
 
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps')
     return {
         usersData: getUsersSelector(state),
         pageSize: state.usersPage.pageSize,

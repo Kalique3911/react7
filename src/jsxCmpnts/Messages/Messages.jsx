@@ -1,7 +1,6 @@
 import classes from './Messages.module.css'
 import React from 'react'
 import Message from './Message/Message'
-import {Navigate} from 'react-router-dom'
 import {Field, reduxForm} from 'redux-form'
 import {Textarea} from '../../common/FormsControls/FormsControls'
 import {maxLengthCreator, requireField} from '../../common/functions/validators'
@@ -25,10 +24,6 @@ const Messages = (props) => {
         console.log(formData)
         props.addMessage(formData.message)
         formData.message = ''
-    }
-
-    if (!props.isAuth) {
-        return <Navigate to={'/login'}/>
     }
 
     return <div className={classes.messages}>

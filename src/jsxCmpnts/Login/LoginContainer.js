@@ -1,12 +1,10 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {loginUser} from '../../redux/authReducer'
 import Login from './Login'
 
-class LoginContainer extends Component {
-    render() {
-        return <Login {...this.props}/>
-    }
+function LoginContainer(props) {
+    return <Login {...props}/>
 }
 
 const mapStateToProps = (state) => ({

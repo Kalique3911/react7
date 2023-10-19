@@ -1,37 +1,38 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ProfileInfo from './ProfileInfo'
-import withRouter from '../../../common/functions/withRouter'
 import {getUserProfile, setUserStatus, updateUserStatus} from '../../../redux/profileReducer'
 import {withAuthNavigate} from '../../../common/HOCs/withAuthNavigate'
 import {compose} from 'redux'
+import {useEffect} from 'react'
+import {useParams} from 'react-router-dom'
 
-class ProfileInfoContainer extends React.Component {
+function ProfileInfoContainer(props) {
+    //  beriom userId iz URL s pomosch'ju useParams
+    let {userId} = useParams()
 
-    componentDidMount() {
-        let userId = this.props.router.params.userId // beriom userId iz URL s pomosch'ju withRouter
+    useEffect(() => {
         if (!userId) {
-            userId = this.props.authUserId
+            userId = props.authUserId
         }
-        this.props.getUserProfile(userId)
-        this.props.setUserStatus(userId)
-    }
 
-    render() {
-        return <ProfileInfo {...this.props} status={this.props.status} updateUserStatus={this.props.updateUserStatus}
-                            userId={this.props.router.params.userId} authUserId = {this.props.authUserId}
-        />
-    }
+        props.getUserProfile(userId)
+        props.setUserStatus(userId)
+    }, [props.authUserId, userId])
+
+    return <ProfileInfo {...props} status={props.status} updateUserStatus={props.updateUserStatus}
+                        userId={userId} authUserId={props.authUserId}
+    />
 }
 
 const mapStateToProps = (state) => {
     return {
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authUserId: state.auth.id
-}}
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
+        authUserId: state.auth.id
+    }
+}
 
 export default compose(connect(mapStateToProps, {getUserProfile, setUserStatus, updateUserStatus}),
-    withRouter,
     withAuthNavigate
 )(ProfileInfoContainer)
