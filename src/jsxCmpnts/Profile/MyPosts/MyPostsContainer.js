@@ -4,6 +4,7 @@ import {addPost} from '../../../redux/profileReducer'
 import {connect} from 'react-redux'
 
 const MyPostsContainer = (props) => {
+    console.log('kal')
     return <MyPosts {...props}/>
 }
 
@@ -14,11 +15,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addPost: (body) => {
-            dispatch(addPost(body))
-        },
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(MyPostsContainer)
+export default connect(mapStateToProps, {addPost})(MyPostsContainer)

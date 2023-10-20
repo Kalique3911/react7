@@ -17,12 +17,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addMessage: (body) => {
-            dispatch(addMessage(body))
-        }
-    }
-}
-
-export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthNavigate)(MessagesContainer)
+export default compose(connect(mapStateToProps, {addMessage}), withAuthNavigate)(MessagesContainer)
