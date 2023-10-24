@@ -1,4 +1,5 @@
 import {fetchUserProfile, fetchUserStatus, insertUserStatus} from '../API/API'
+import { createAction } from '@reduxjs/toolkit'
 
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
@@ -30,7 +31,7 @@ const profileReducer = (state = initialState, action) => {
             }
             return state
         case SET_USER_PROFILE:
-            return {...state, profile: action.prof}
+            return {...state, profile: action.payload}
         case SET_USER_STATUS:
             return {...state, status: action.status}
         default:
@@ -39,7 +40,8 @@ const profileReducer = (state = initialState, action) => {
 }
 
 export const addPost = (body) => ({type: ADD_POST, body})
-export const setUserProfile = (prof) => ({type: SET_USER_PROFILE, prof})
+// export const setUserProfile = (prof) => ({type: SET_USER_PROFILE, prof})
+export const setUserProfile = createAction('SET-USER-PROFILE')
 export const setUserStatusSuccess = status => ({type: SET_USER_STATUS, status})
 
 export const getUserProfile = (userId) => {
