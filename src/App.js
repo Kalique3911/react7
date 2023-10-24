@@ -50,4 +50,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {getUsersData: getUserData})(App)
 
 //todo dobavit' k funkcijam memo
-//todo peredelat' connect na useSelector i useDispatch huki
+//todo peredelat' connect na useSelector i useDispatch huki i izbavit'sia ot kontejnernyh komponent

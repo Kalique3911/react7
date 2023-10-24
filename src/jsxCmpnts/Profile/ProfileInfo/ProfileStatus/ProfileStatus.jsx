@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {memo, useEffect, useState} from 'react'
 
-const ProfileStatus = (props) => {
+const ProfileStatus = memo(function ProfileStatus(props) {
+    console.log('rerender status')
 
     let [editMode, setEditMode] = useState(false)
     let [status, setStatus] = useState(props.status)
@@ -37,6 +38,6 @@ const ProfileStatus = (props) => {
             <input autoFocus={true} onBlur={deactivateEditMode} onChange={onStatusChange} value={status}/>
         </div>}
     </div>
-}
+})
 
 export default ProfileStatus

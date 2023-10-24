@@ -4,7 +4,6 @@ import {addPost} from '../../../redux/profileReducer'
 import {connect} from 'react-redux'
 
 const MyPostsContainer = (props) => {
-    console.log('kal')
     return <MyPosts {...props}/>
 }
 

@@ -6,6 +6,7 @@ import {withAuthNavigate} from '../../../common/HOCs/withAuthNavigate'
 import {compose} from 'redux'
 import {useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+import {getAuthUserId, getProfile, getStatus} from '../../../redux/selectors'
 
 function ProfileInfoContainer(props) {
     //  beriom userId iz URL s pomosch'ju useParams
@@ -27,9 +28,9 @@ function ProfileInfoContainer(props) {
 
 const mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile,
-        status: state.profilePage.status,
-        authUserId: state.auth.id
+        // profile: getProfile(state),
+        status: getStatus(state),
+        authUserId: getAuthUserId(state),
     }
 }
 
