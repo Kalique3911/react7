@@ -1,9 +1,5 @@
 import {fetchUserProfile, fetchUserStatus, insertUserStatus} from '../API/API'
-import { createAction } from '@reduxjs/toolkit'
-
-const ADD_POST = 'ADD-POST'
-const SET_USER_PROFILE = 'SET-USER-PROFILE'
-const SET_USER_STATUS = 'SET-USER-STATUS'
+import {createAction} from '@reduxjs/toolkit'
 
 let initialState = {
     postData: [{
@@ -13,36 +9,38 @@ let initialState = {
     }, {
         id: 3, text: 'Moving to Gaul', likes: '5 likes '
     },],
-    newPostText: 'kal',
     profile: null,
     status: null,
+    fake: 1
 }
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POST:
+        case 'ADD-POST':
             let newPost = {
-                id: 5, text: action.body, likes: '0 likes '
+                id: 5, text: action.payload, likes: '0 likes '
             }
-            if (action.body) {
+            if (action.payload) {
                 return {...state, postData: [...state.postData, newPost]}
             } else {
                 newPost = undefined
             }
             return state
-        case SET_USER_PROFILE:
+        case 'SET-USER-PROFILE':
             return {...state, profile: action.payload}
-        case SET_USER_STATUS:
-            return {...state, status: action.status}
+        case 'SET-USER-STATUS':
+            return {...state, status: action.payload}
+        case 'FAKE':
+            return {...state, fake: state.fake + 1}
         default:
             return state
     }
 }
 
-export const addPost = (body) => ({type: ADD_POST, body})
-// export const setUserProfile = (prof) => ({type: SET_USER_PROFILE, prof})
-export const setUserProfile = createAction('SET-USER-PROFILE')
-export const setUserStatusSuccess = status => ({type: SET_USER_STATUS, status})
+export const addPost = createAction('ADD-POST')
+export const fakeAC = createAction('FAKE')
+const setUserProfile = createAction('SET-USER-PROFILE')
+const setUserStatusSuccess = createAction('SET-USER-STATUS')
 
 export const getUserProfile = (userId) => {
     return (dispatch) => {

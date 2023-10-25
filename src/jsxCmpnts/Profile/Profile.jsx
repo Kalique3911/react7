@@ -1,13 +1,14 @@
-import React from 'react'
+import React, {memo} from 'react'
 import classes from './Profile.module.css'
-import MyPostsContainer from './MyPosts/MyPostsContainer'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
+import {compose} from 'redux'
+import MyPosts from './MyPosts/MyPosts'
 
 const Profile = (props) => {
     return <div className={classes.content}>
         <ProfileInfo/>
-        <MyPostsContainer/>
+        <MyPosts/>
     </div>
 }
 
-export default Profile
+export default compose(memo)(Profile)

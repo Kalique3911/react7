@@ -1,8 +1,9 @@
 import React, {memo, useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {updateUserStatus} from '../../../../redux/profileReducer'
+import {compose} from 'redux'
 
-const ProfileStatus = memo(function ProfileStatus(props) {
+const ProfileStatus = props => {
     console.log('rerender status')
 
     let [editMode, setEditMode] = useState(false)
@@ -41,6 +42,6 @@ const ProfileStatus = memo(function ProfileStatus(props) {
             <input autoFocus={true} onBlur={deactivateEditMode} onChange={onStatusChange} value={status}/>
         </div>}
     </div>
-})
+}
 
-export default ProfileStatus
+export default compose(memo)(ProfileStatus)

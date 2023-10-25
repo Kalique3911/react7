@@ -15,7 +15,7 @@ import preloader from './images/preloader.gif'
 import NavbarContainer from './jsxCmpnts/Navbar/NavbarContainer'
 import {useEffect} from 'react'
 
-function App(props) {
+const App = props => {
 
     useEffect(() => {
         props.getUsersData()
