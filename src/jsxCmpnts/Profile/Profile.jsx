@@ -4,7 +4,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo'
 import {compose} from 'redux'
 import MyPosts from './MyPosts/MyPosts'
 
-const Profile = (props) => {
+const Profile = props => {
     return <div className={classes.content}>
         <ProfileInfo/>
         <MyPosts/>

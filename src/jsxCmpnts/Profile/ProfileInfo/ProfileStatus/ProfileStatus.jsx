@@ -1,7 +1,7 @@
 import React, {memo, useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
-import {updateUserStatus} from '../../../../redux/profileReducer'
 import {compose} from 'redux'
+import {setUserStatus} from '../../../../redux/profileSlice'
 
 const ProfileStatus = props => {
     console.log('rerender status')
@@ -27,7 +27,7 @@ const ProfileStatus = props => {
 
     const deactivateEditMode = () => {
         setEditMode(false)
-        dispatch(updateUserStatus(status))
+        dispatch(setUserStatus(status))
     }
 
     const onStatusChange = (e) => {

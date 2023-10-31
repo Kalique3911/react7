@@ -12,7 +12,7 @@ let initialState = {
         message: 'I offer you gold'
     },
     ],
-    usersData: [{
+    dialogsData: [{
         id: 1,
         name: 'Feodosij',
     }, {

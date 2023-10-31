@@ -3,14 +3,15 @@ import classes from './ProfileInfo.module.css'
 import preloader from '../../../images/preloader.gif'
 import ProfileStatus from './ProfileStatus/ProfileStatus'
 import {useDispatch, useSelector} from 'react-redux'
-import {getAuthUserId, getProfile, getStatus} from '../../../redux/selectors'
+import {getProfile, getStatus} from '../../../selectors/profileSelectors'
+import {getAuthUserId} from '../../../selectors/authSelectors'
 import {useParams} from 'react-router-dom'
 import {useEffect} from 'react'
-import {fakeAC, getUserProfile, setUserStatus} from '../../../redux/profileReducer'
 import {withAuthNavigate} from '../../../common/HOCs/withAuthNavigate'
 import {compose} from 'redux'
+import {fakeIncrementor, getUserProfile, getUserStatus} from '../../../redux/profileSlice'
 
-const ProfileInfo = (props) => {
+const ProfileInfo = props => {
     const dispatch = useDispatch()
     //  beriom userId iz URL s pomosch'ju useParams
     let {userId} = useParams()
@@ -23,7 +24,7 @@ const ProfileInfo = (props) => {
         }
 
         dispatch(getUserProfile(userId))
-        dispatch(setUserStatus(userId))
+        dispatch(getUserStatus(userId))
     }, [authUserId, userId])
 
     const profile = useSelector((state) => getProfile(state))
@@ -42,7 +43,7 @@ const ProfileInfo = (props) => {
             <div>{profile.aboutMe}</div>
             <div>{profile.lookingForAJob ? 'ищу работу' : 'не ищу работу'}</div>
             <div>{profile.lookingForAJobDescription}</div>
-            <button onClick={() => dispatch(fakeAC())}>{fake}</button>
+            <button onClick={() => dispatch(fakeIncrementor())}>{fake}</button>
         </div>
     </div>
 }

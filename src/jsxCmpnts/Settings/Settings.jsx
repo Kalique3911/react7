@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {memo} from 'react'
 import classes from './Settings.module.css'
+import {compose} from 'redux'
 
-const Settings = () => {
+const Settings = props => {
     return <div className={classes.content}>
         Settings
     </div>
 }
 
-export default Settings
+export default compose(memo)(Settings)

@@ -5,10 +5,11 @@ import {Field, reduxForm} from 'redux-form'
 import {requireField, maxLengthCreator} from '../../../common/functions/validators'
 import {Textarea} from '../../../common/FormsControls/FormsControls'
 import {useDispatch, useSelector} from 'react-redux'
-import {addPost} from '../../../redux/profileReducer'
 import {compose} from 'redux'
+import {addPost} from '../../../redux/profileSlice'
+import {getPostData} from '../../../selectors/profileSelectors'
 
-const MyPostsForm = (props) => {
+const MyPostsForm = props => {
     return <form onSubmit={props.handleSubmit}>
         <div>
             <Field placeholder={'your new post'} name={'myPost'} component={Textarea}
@@ -24,12 +25,11 @@ const MyPostsReduxForm = reduxForm({form: 'myPosts'})(MyPostsForm)
 
 const MyPosts = (props) => {
     const dispatch = useDispatch()
-    const postData = useSelector((state) => state.profilePage.postData)
+    const postData = useSelector((state) => getPostData(state))
 
     const onSubmit = (formData) => {
         console.log(formData)
         dispatch(addPost(formData.myPost))
-        formData.myPost = ''
     }
 
     return <div className={classes.item}>

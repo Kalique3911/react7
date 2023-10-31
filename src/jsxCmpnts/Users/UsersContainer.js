@@ -5,7 +5,7 @@ import Users from './Users'
 import preloader from '../../images/preloader.gif'
 import {compose} from 'redux'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
-import {getUsersSelector} from '../../redux/selectors'
+import {getUsersSelector} from '../../selectors/usersSelectors'
 
 function UsersContainer(props) {
 

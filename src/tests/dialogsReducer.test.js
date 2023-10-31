@@ -1,4 +1,4 @@
-import dialogsReducer, {addMessage} from './dialogsReducer'
+import dialogsReducer, {addMessage} from '../redux/dialogsReducer'
 
 it('kakatest', () => {
     let newState = dialogsReducer({
@@ -13,7 +13,7 @@ it('kakatest', () => {
             message: 'I offer you gold'
         },
         ],
-        usersData: [{
+        dialogsData: [{
             id: 1,
             name: 'Feodosij',
         }, {

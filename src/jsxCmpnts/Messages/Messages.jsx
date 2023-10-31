@@ -1,11 +1,15 @@
 import classes from './Messages.module.css'
-import React from 'react'
+import React, {memo} from 'react'
 import Message from './Message/Message'
 import {Field, reduxForm} from 'redux-form'
 import {Textarea} from '../../common/FormsControls/FormsControls'
 import {maxLengthCreator, requireField} from '../../common/functions/validators'
+import {useDispatch, useSelector} from 'react-redux'
+import {getDialog, getMessagesData} from '../../selectors/dialogsSelectors'
+import {addMessage} from '../../redux/dialogsReducer'
+import {compose} from 'redux'
 
-const MessagesForm = (props) => {
+const MessagesForm = props => {
     return <form onSubmit={props.handleSubmit}>
         <div>
             <Field placeholder={'your new message'} name={'message'} component={Textarea}
@@ -19,22 +23,26 @@ const MessagesForm = (props) => {
 
 const MessagesReduxForm = reduxForm({form: 'messages'})(MessagesForm)
 
-const Messages = (props) => {
+const Messages = props => {
+    const dispatch = useDispatch()
+
+    const messagesData = useSelector((state) => getMessagesData(state))
+    const dialog = useSelector((state) => {getDialog(state)})
+
     const onSubmit = (formData) => {
         console.log(formData)
-        props.addMessage(formData.message)
-        formData.message = ''
+        dispatch(addMessage(formData.message))
     }
 
     return <div className={classes.messages}>
         <div>
-            <h3>{props.name}</h3>
+            <h3>{dialog}</h3>
         </div>
         <div>
-            {props.messagesData.map(el => <Message key={el.id} text={el.message}/>)}
+            {messagesData.map(el => <Message key={el.id} text={el.message}/>)}
         </div>
         <MessagesReduxForm onSubmit={onSubmit}/>
     </div>
 }
 
-export default Messages
+export default compose(memo)(Messages)
