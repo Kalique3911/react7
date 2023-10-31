@@ -15,7 +15,7 @@ import preloader from './images/preloader.gif'
 import NavbarContainer from './jsxCmpnts/Navbar/NavbarContainer'
 import {useEffect} from 'react'
 
-export const App = props => {
+export const App = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
