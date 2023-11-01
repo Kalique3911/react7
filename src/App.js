@@ -5,14 +5,14 @@ import Settings from './jsxCmpnts/Settings/Settings'
 import Music from './jsxCmpnts/Music/Music'
 import Dialogs from './jsxCmpnts/Dialogs/Dialogs'
 import Messages from './jsxCmpnts/Messages/Messages'
-import UsersContainer from './jsxCmpnts/Users/UsersContainer'
+import Users from './jsxCmpnts/Users/Users'
 import Profile from './jsxCmpnts/Profile/Profile'
-import HeaderContainer from './jsxCmpnts/Header/HeaderContainer'
-import LoginContainer from './jsxCmpnts/Login/LoginContainer'
+import Header from './jsxCmpnts/Header/Header'
+import Login from './jsxCmpnts/Login/Login'
 import {useDispatch, useSelector} from 'react-redux'
 import {getUserData} from './redux/authReducer'
 import preloader from './images/preloader.gif'
-import NavbarContainer from './jsxCmpnts/Navbar/NavbarContainer'
+import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
 
 export const App = () => {
@@ -27,8 +27,8 @@ export const App = () => {
     }
     return <BrowserRouter>
         <div className="app-wrapper">
-            <HeaderContainer/>
-            <NavbarContainer/>
+            <Header/>
+            <Navbar/>
             <Routes>
                 <Route path="/" element={<News/>}/>
                 <Route path="/news" element={<News/>}/>
@@ -37,8 +37,8 @@ export const App = () => {
                 <Route path="/profile/:userId?" element={<Profile/>}/>
                 <Route path="/settings" element={<Settings/>}/>
                 <Route path="/music" element={<Music/>}/>
-                <Route path="/users" element={<UsersContainer/>}/>
-                <Route path="/login" element={<LoginContainer/>}/>
+                <Route path="/users" element={<Users/>}/>
+                <Route path="/login" element={<Login/>}/>
             </Routes>
         </div>
     </BrowserRouter>

@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {memo, useState} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {maxLengthCreator, requireField} from '../../common/functions/validators'
 import {Input} from '../../common/FormsControls/FormsControls'
 import {Navigate} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {loginUser} from '../../redux/authReducer'
+import {getIsAuth} from '../../selectors/authSelectors'
+import {compose} from 'redux'
 
 const LoginForm = (props) => {
     return <form onSubmit={props.handleSubmit}>
@@ -25,13 +29,17 @@ const LoginForm = (props) => {
 
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
-const Login = (props) => {
+const Login = props => {
+    const dispatch = useDispatch()
+
+    const isAuth = useSelector((state) => getIsAuth(state))
+
     const onSubmit = (formData) => {
         console.log(formData)
-        props.loginUser(formData)
+        dispatch(loginUser(formData))
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Navigate to={'/profile'}/>
     }
 
@@ -43,4 +51,4 @@ const Login = (props) => {
     </div>
 }
 
-export default Login
+export default compose(memo)(Login)

@@ -1,11 +1,16 @@
-import React from 'react'
+import React, {memo} from 'react'
 import classes from './Navbar.module.css'
 import {NavLink} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import {compose} from 'redux'
 
-const Navbar = (props) => {
+const Navbar = props => {
+
+    const authUserId = useSelector(state => state.auth.id)
+
     return <nav className={classes.nav}>
         <div className={classes.item}>
-            <NavLink to={`/profile/${props.authUserId}`}>My Page</NavLink>
+            <NavLink to={`/profile/${authUserId}`}>My Page</NavLink>
         </div>
         <div className={classes.item}>
             <NavLink to='/messages'>Messages</NavLink>
@@ -25,4 +30,4 @@ const Navbar = (props) => {
     </nav>
 }
 
-export default Navbar
+export default compose(memo)(Navbar)

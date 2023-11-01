@@ -1,21 +1,32 @@
-import React from 'react'
+import React, {memo} from 'react'
 import classes from './Header.module.css'
 import logo from '../../images/logo.jpg'
 import {NavLink} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {getIsAuth, getLogin, getSmallPhoto} from '../../selectors/authSelectors'
+import {logoutUser} from '../../redux/authReducer'
+import {compose} from 'redux'
 
-const Header = (props) => {
+const Header = props => {
+
+    const dispatch = useDispatch()
+
+    const isAuth = useSelector((state) => getIsAuth(state))
+    const login = useSelector((state) => getLogin(state))
+    const smallPhoto = useSelector((state) => getSmallPhoto(state))
+
     return <header className={classes.header}>
         <img src={logo} alt={'logo'}/>
         <div className={classes.loginBlock}>
-            {props.isAuth
+            {isAuth
                 ? <div>
-                    <div>{props.login}</div>
-                    <span onDoubleClick={props.logoutUser}>Logout</span>
+                    <div>{login}</div>
+                    <span onDoubleClick={dispatch(logoutUser)}>Logout</span>
             </div>
                 : <NavLink to={'/login'}>Login</NavLink>}
-            <img src={props.smallPhoto} alt={'small photo'}/>
+            <img src={smallPhoto} alt={'small photo'}/>
         </div>
     </header>
 }
 
-export default Header
+export default compose(memo)(Header)

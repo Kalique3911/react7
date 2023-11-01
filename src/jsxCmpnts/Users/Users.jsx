@@ -1,23 +1,58 @@
 import classes from './Users.module.css'
 import defaultAva from '../../images/defaultAva.jpg'
-import React from 'react'
+import React, {memo} from 'react'
 import {NavLink} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {
+    getCurrentPage, getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersSelector
+} from '../../selectors/usersSelectors'
+import {follow, getUsers, setCurrentPage, unfollow} from '../../redux/usersReducer'
+import {useEffect} from 'react'
+import preloader from '../../images/preloader.gif'
+import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
+import {compose} from 'redux'
 
-const Users = (props) => {
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+const Users = props => {
+    const dispatch = useDispatch()
+
+    const usersData = useSelector((state) => getUsersSelector(state))
+    const pageSize = useSelector((state) => getPageSize(state))
+    const totalUsersCount = useSelector((state) => getTotalUsersCount(state))
+    const currentPage = useSelector((state) => getCurrentPage(state))
+    const isFetching = useSelector((state) => getIsFetching(state))
+    const followingInProgress = useSelector((state) => getFollowingInProgress(state))
+
+    useEffect(() => {
+        dispatch(getUsers(currentPage, pageSize))
+    }, [currentPage, pageSize])
+
+    let pagesCount = Math.ceil(totalUsersCount / pageSize)
 
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+
+    const onPageChange = (pageNumber) => {
+        dispatch(setCurrentPage(pageNumber))
+        dispatch(getUsers(pageNumber, pageSize))
+    }
+
     return <div className={classes.user}>
+        <div>
+            {isFetching ? <img src={preloader} alt={'preloader'}/> : null}
+        </div>
         <div className={classes.page}>
             {pages.map(p => {
-                return <span className={props.currentPage === p ? classes.selectedPage : ''} key={p}
-                             onClick={() => props.onPageChange(p)}>{p}</span>
+                return <span className={currentPage === p ? classes.selectedPage : ''} key={p}
+                             onClick={() => onPageChange(p)}>{p}</span>
             })}
         </div>
-        {props.usersData.map(user => <div key={user.id}>
+        {usersData.map(user => <div key={user.id}>
 
                 <span>
                     <div>
@@ -27,16 +62,16 @@ const Users = (props) => {
                     </div>
                     <div>
                         {user.followed ? <button
-                                disabled={props.followingInProgress.some(id => id === user.id)}
+                                disabled={followingInProgress.some(id => id === user.id)}
                                 onClick={() => {
-                                    props.unfollow(user.id)
+                                    dispatch(unfollow(user.id))
                                 }}
                             >Unfollow</button>
 
                             : <button
-                                disabled={props.followingInProgress.some(id => id === user.id)}
+                                disabled={followingInProgress.some(id => id === user.id)}
                                 onClick={() => {
-                                    props.follow(user.id)
+                                    dispatch(follow(user.id))
                                 }}
                             >Follow</button>}
                     </div>
@@ -49,4 +84,4 @@ const Users = (props) => {
     </div>
 }
 
-export default Users
+export default compose(withAuthNavigate, memo)(Users)

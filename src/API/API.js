@@ -20,6 +20,10 @@ export const insertFollow = (id) => {
     return instance.post(`follow/${id}`).then(response => response.data)
 }
 
+export const checkFollow = (id) => {
+    return instance.get(`follow/${id}`).then(response => response.data)
+}
+
 export const fetchUserData = () => {
     return instance.get(`auth/me`).then(response => response.data)
 }
