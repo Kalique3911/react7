@@ -10,7 +10,7 @@ import {
     getTotalUsersCount,
     getUsersSelector
 } from '../../selectors/usersSelectors'
-import {follow, getUsers, setCurrentPage, unfollow} from '../../redux/usersReducer'
+import {follow, getUsers, setCurrentPage, unfollow} from '../../redux/usersSlice'
 import {useEffect} from 'react'
 import preloader from '../../images/preloader.gif'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'

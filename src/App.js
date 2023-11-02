@@ -44,5 +44,4 @@ export const App = () => {
     </BrowserRouter>
 }
 
-//todo dobavit' k funkcijam memo
-//todo peredelat' connect na useSelector i useDispatch huki i izbavit'sia ot kontejnernyh komponent
+//todo pieriedielat' ried'jusery
