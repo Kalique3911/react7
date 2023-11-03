@@ -49,10 +49,9 @@ export const loginAPI = (email, password, rememberMe) => {
 }
 
 export const logoutAPI = () => {
-    return instance.delete(`/auth/login`)
+    return instance.delete(`/auth/login`).then(response => response.data)
 }
 
 export const getCaptcha = () => {
     return instance.get(`/security/get-captcha-url`).then(response => response.data)
 }
-

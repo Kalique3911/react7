@@ -10,7 +10,7 @@ import Profile from './jsxCmpnts/Profile/Profile'
 import Header from './jsxCmpnts/Header/Header'
 import Login from './jsxCmpnts/Login/Login'
 import {useDispatch, useSelector} from 'react-redux'
-import {getUserData} from './redux/authReducer'
+import {getUserData} from './redux/authSlice'
 import preloader from './images/preloader.gif'
 import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
@@ -43,5 +43,3 @@ export const App = () => {
         </div>
     </BrowserRouter>
 }
-
-//todo pieriedielat' ried'jusery

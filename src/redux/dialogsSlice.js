@@ -1,7 +1,8 @@
-import dialogsReducer, {setMessage} from '../redux/dialogsSlice'
+import {createSlice} from '@reduxjs/toolkit'
 
-it('kakatest', () => {
-    let newState = dialogsReducer({
+const dialogsSlice = createSlice({
+    name: 'dialogs',
+    initialState: {
         messagesData: [{
             id: 1,
             message: 'Hi'
@@ -26,7 +27,14 @@ it('kakatest', () => {
             id: 4,
             name: 'Flavius',
         },],
-    }, setMessage('kal'))
-
-    expect(newState.messagesData[3].message).toBe('kal')
+    },
+    reducers: {
+        setMessage: (state, action) => {
+            state.messagesData.push({id: 4, message: action.payload})
+        }
+    }
 })
+
+export default dialogsSlice.reducer
+
+export const {setMessage} = dialogsSlice.actions

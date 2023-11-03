@@ -16,7 +16,7 @@ export const profileSlice = createSlice({
         fake: 1
     },
     reducers: {
-        addPost: (state, action) => {
+        setPost: (state, action) => {
             // provieriajem, est' li dannyje v pejload
             if (action.payload) {
                 state.postData.push({id: 5, text: action.payload, likes: '0 likes '})
@@ -24,10 +24,10 @@ export const profileSlice = createSlice({
                 return undefined
             }
         },
-        addUserProfile: (state, action) => {
+        setUserProfile: (state, action) => {
             state.profile = action.payload
         },
-        addUserStatus: (state, action) => {
+        setUserStatus: (state, action) => {
             state.status = action.payload
         },
         fakeIncrementor: state => {
@@ -41,7 +41,7 @@ window.profileSlice = profileSlice
 export const getUserProfile = userId =>
     dispatch => {
         fetchUserProfile(userId).then(data => {
-            dispatch(addUserProfile(data))
+            dispatch(setUserProfile(data))
         })
     }
 
@@ -49,16 +49,16 @@ export const getUserProfile = userId =>
 export const getUserStatus = userId =>
     dispatch => {
         fetchUserStatus(userId).then(response => {
-            dispatch(addUserStatus(response.data))
+            dispatch(setUserStatus(response.data))
         })
     }
 
 
-export const setUserStatus = status =>
+export const passUserStatus = status =>
     dispatch => {
         insertUserStatus(status).then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(addUserStatus(status))
+                dispatch(setUserStatus(status))
             }
         })
     }
@@ -66,4 +66,4 @@ export const setUserStatus = status =>
 
 export default profileSlice.reducer
 
-export const {addPost, addUserProfile, addUserStatus, fakeIncrementor} = profileSlice.actions
+export const {setPost, setUserProfile, setUserStatus, fakeIncrementor} = profileSlice.actions

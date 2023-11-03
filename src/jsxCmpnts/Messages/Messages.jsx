@@ -6,7 +6,7 @@ import {Textarea} from '../../common/FormsControls/FormsControls'
 import {maxLengthCreator, requireField} from '../../common/functions/validators'
 import {useDispatch, useSelector} from 'react-redux'
 import {getDialog, getMessagesData} from '../../selectors/dialogsSelectors'
-import {addMessage} from '../../redux/dialogsReducer'
+import {setMessage} from '../../redux/dialogsSlice'
 import {compose} from 'redux'
 
 const MessagesForm = props => {
@@ -31,7 +31,7 @@ const Messages = props => {
 
     const onSubmit = (formData) => {
         console.log(formData)
-        dispatch(addMessage(formData.message))
+        dispatch(setMessage(formData.message))
     }
 
     return <div className={classes.messages}>

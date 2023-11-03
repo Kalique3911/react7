@@ -4,7 +4,7 @@ import {maxLengthCreator, requireField} from '../../common/functions/validators'
 import {Input} from '../../common/FormsControls/FormsControls'
 import {Navigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {loginUser} from '../../redux/authReducer'
+import {loginUser} from '../../redux/authSlice'
 import {getIsAuth} from '../../selectors/authSelectors'
 import {compose} from 'redux'
 

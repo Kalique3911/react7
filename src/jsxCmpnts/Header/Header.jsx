@@ -4,7 +4,7 @@ import logo from '../../images/logo.jpg'
 import {NavLink} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {getIsAuth, getLogin, getSmallPhoto} from '../../selectors/authSelectors'
-import {logoutUser} from '../../redux/authReducer'
+import {logoutUser} from '../../redux/authSlice'
 import {compose} from 'redux'
 
 const Header = props => {
@@ -21,8 +21,8 @@ const Header = props => {
             {isAuth
                 ? <div>
                     <div>{login}</div>
-                    <span onDoubleClick={dispatch(logoutUser)}>Logout</span>
-            </div>
+                    <span onDoubleClick={() => dispatch(logoutUser())}>Logout</span>
+                </div>
                 : <NavLink to={'/login'}>Login</NavLink>}
             <img src={smallPhoto} alt={'small photo'}/>
         </div>

@@ -98,4 +98,12 @@ export const follow = (userId) => {
 
 export default usersSlice.reducer
 
-export const {setUnfollow, setFollow, setUsers, setCurrentPage, setTotalUsersCount, setToggleIsFetching, setToggleIsFollowingProgress} = usersSlice.actions
+export const {
+    setUnfollow,
+    setFollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    setToggleIsFetching,
+    setToggleIsFollowingProgress
+} = usersSlice.actions

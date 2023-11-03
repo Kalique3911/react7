@@ -6,7 +6,7 @@ import {requireField, maxLengthCreator} from '../../../common/functions/validato
 import {Textarea} from '../../../common/FormsControls/FormsControls'
 import {useDispatch, useSelector} from 'react-redux'
 import {compose} from 'redux'
-import {addPost} from '../../../redux/profileSlice'
+import {setPost} from '../../../redux/profileSlice'
 import {getPostData} from '../../../selectors/profileSelectors'
 
 const MyPostsForm = props => {
@@ -29,7 +29,7 @@ const MyPosts = (props) => {
 
     const onSubmit = (formData) => {
         console.log(formData)
-        dispatch(addPost(formData.myPost))
+        dispatch(setPost(formData.myPost))
     }
 
     return <div className={classes.item}>
