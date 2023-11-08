@@ -55,19 +55,18 @@ export const getUserData = () => {
 }
 
 export const loginUser = (formData) => {
-    return (dispatch) => {
-        loginAPI(formData.email, formData.password, formData.rememberMe).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(getUserData())
-            } else if (response.data.resultCode === 1) {
-                dispatch(stopSubmit('login', {email: response.data.messages, password: ' '}))
-            }
-        })
+    return async (dispatch) => {
+        let response = await loginAPI(formData.email, formData.password, formData.rememberMe)
+        if (response.data.resultCode === 0) {
+            dispatch(getUserData())
+        } else if (response.data.resultCode === 1) {
+            dispatch(stopSubmit('login', {email: response.data.messages, password: ' '}))
+        }
     }
 }
 
 export const logoutUser = () => {
-    return (dispatch) => {//raznyje dispatchi??????????????
+    return (dispatch) => {
         logoutAPI().then(data => {
                 if (data.resultCode === 0) {
                     dispatch(setAuthUserData(null, null, null, false))
@@ -79,4 +78,4 @@ export const logoutUser = () => {
 
 export default authSlice.reducer
 
-export const {setAuthUserData, setAuthUserPhoto, initialize, unAuthUser} = authSlice.actions
+export const {setAuthUserData, setAuthUserPhoto, initialize} = authSlice.actions

@@ -45,14 +45,12 @@ export const getUserProfile = userId =>
         })
     }
 
-
 export const getUserStatus = userId =>
     dispatch => {
         fetchUserStatus(userId).then(response => {
             dispatch(setUserStatus(response.data))
         })
     }
-
 
 export const passUserStatus = status =>
     dispatch => {
@@ -62,7 +60,6 @@ export const passUserStatus = status =>
             }
         })
     }
-
 
 export default profileSlice.reducer
 

@@ -43,3 +43,6 @@ export const App = () => {
         </div>
     </BrowserRouter>
 }
+
+//todo pieriedielat' API; ostavit' redux tol'ko dlia UI? Vse dannyie brat' chieriez RTK Query?
+//todo pieriedielat' thunks
