@@ -9,20 +9,25 @@ import Users from './jsxCmpnts/Users/Users'
 import Profile from './jsxCmpnts/Profile/Profile'
 import Header from './jsxCmpnts/Header/Header'
 import Login from './jsxCmpnts/Login/Login'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {getUserData} from './redux/authSlice'
 import preloader from './images/preloader.gif'
 import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
+import {useGetInitQuery} from './API/authAPI'
 
 export const App = () => {
+    const isInit = useGetInitQuery().isSuccess
+
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getUserData())
+        if (isInit) {
+            dispatch(getUserData())
+        }
     })
 
-    if (!useSelector(state => state.auth.isInitialized)) {
+    if (!isInit) {
         return <img src={preloader} alt={'preloader'}/>
     }
     return <BrowserRouter>
@@ -43,6 +48,5 @@ export const App = () => {
         </div>
     </BrowserRouter>
 }
-
 //todo pieriedielat' API; ostavit' redux tol'ko dlia UI? Vse dannyie brat' chieriez RTK Query?
-//todo pieriedielat' thunks
+//todo pieriedielat' formy

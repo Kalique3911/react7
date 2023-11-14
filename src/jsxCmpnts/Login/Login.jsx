@@ -35,7 +35,6 @@ const Login = props => {
     const isAuth = useSelector((state) => getIsAuth(state))
 
     const onSubmit = (formData) => {
-        console.log(formData)
         dispatch(loginUser(formData))
     }
 

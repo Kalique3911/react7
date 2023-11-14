@@ -30,7 +30,6 @@ const Messages = props => {
     const dialog = useSelector((state) => {getDialog(state)})
 
     const onSubmit = (formData) => {
-        console.log(formData)
         dispatch(setMessage(formData.message))
     }
 

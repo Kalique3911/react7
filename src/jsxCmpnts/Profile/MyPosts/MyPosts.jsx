@@ -28,7 +28,6 @@ const MyPosts = (props) => {
     const postData = useSelector((state) => getPostData(state))
 
     const onSubmit = (formData) => {
-        console.log(formData)
         dispatch(setPost(formData.myPost))
     }
 

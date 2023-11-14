@@ -3,56 +3,47 @@ import defaultAva from '../../images/defaultAva.jpg'
 import React, {memo} from 'react'
 import {NavLink} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {
-    getCurrentPage, getFollowingInProgress,
-    getIsFetching,
-    getPageSize,
-    getTotalUsersCount,
-    getUsersSelector
-} from '../../selectors/usersSelectors'
-import {follow, getUsers, setCurrentPage, unfollow} from '../../redux/usersSlice'
-import {useEffect} from 'react'
+import {getCurrentPage, getFollowingInProgress, getPageSize} from '../../selectors/usersSelectors'
+import {setCurrentPage, setToggleIsFollowingProgress} from '../../redux/usersSlice'
 import preloader from '../../images/preloader.gif'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 import {compose} from 'redux'
+import {useFollowMutation, useGetUsersQuery, useUnfollowMutation} from '../../API/usersAPI'
 
 const Users = props => {
     const dispatch = useDispatch()
-
-    const usersData = useSelector((state) => getUsersSelector(state))
     const pageSize = useSelector((state) => getPageSize(state))
-    const totalUsersCount = useSelector((state) => getTotalUsersCount(state))
     const currentPage = useSelector((state) => getCurrentPage(state))
-    const isFetching = useSelector((state) => getIsFetching(state))
     const followingInProgress = useSelector((state) => getFollowingInProgress(state))
-
-    useEffect(() => {
-        dispatch(getUsers(currentPage, pageSize))
-    }, [currentPage, pageSize])
-
-    let pagesCount = Math.ceil(totalUsersCount / pageSize)
-
+    const {data: usersData, refetch, isFetching} = useGetUsersQuery({currentPage, pageSize})
+    const [follow] = useFollowMutation()
+    const [unfollow] = useUnfollowMutation()
     let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
+
+    if (usersData) {
+        let totalUsersCount = usersData.totalCount
+        let pagesCount = Math.ceil(totalUsersCount / pageSize)
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
     }
 
     const onPageChange = (pageNumber) => {
         dispatch(setCurrentPage(pageNumber))
-        dispatch(getUsers(pageNumber, pageSize))
+    }
+
+    if (isFetching) {
+        return <img src={preloader} alt={'preloader'}/>
     }
 
     return <div className={classes.user}>
-        <div>
-            {isFetching ? <img src={preloader} alt={'preloader'}/> : null}
-        </div>
         <div className={classes.page}>
             {pages.map(p => {
                 return <span className={currentPage === p ? classes.selectedPage : ''} key={p}
                              onClick={() => onPageChange(p)}>{p}</span>
             })}
         </div>
-        {usersData.map(user => <div key={user.id}>
+        {usersData.items.map(user => <div key={user.id}>
 
                 <span>
                     <div>
@@ -63,15 +54,21 @@ const Users = props => {
                     <div>
                         {user.followed ? <button
                                 disabled={followingInProgress.some(id => id === user.id)}
-                                onClick={() => {
-                                    dispatch(unfollow(user.id))
+                                onClick={async () => {
+                                    dispatch(setToggleIsFollowingProgress(user.id, true))
+                                    await unfollow(user.id)
+                                    dispatch(setToggleIsFollowingProgress(user.id, false))
+                                    refetch()
                                 }}
                             >Unfollow</button>
 
                             : <button
                                 disabled={followingInProgress.some(id => id === user.id)}
-                                onClick={() => {
-                                    dispatch(follow(user.id))
+                                onClick={async () => {
+                                    dispatch(setToggleIsFollowingProgress(user.id, true))
+                                    await follow(user.id)
+                                    dispatch(setToggleIsFollowingProgress(user.id, false))
+                                    refetch()
                                 }}
                             >Follow</button>}
                     </div>

@@ -1,20 +1,19 @@
 import React, {memo, useEffect, useState} from 'react'
-import {useDispatch} from 'react-redux'
 import {compose} from 'redux'
-import {passUserStatus} from '../../../../redux/profileSlice'
+import {useGetUserStatusQuery, usePassUserStatusMutation} from '../../../../API/profileAPI'
 
 const ProfileStatus = props => {
-    console.log('rerender status')
-
-    let [editMode, setEditMode] = useState(false)
-    let [status, setStatus] = useState(props.status)
     let [userId, setUserId] = useState(props.userId)
-    const dispatch = useDispatch()
+    let [editMode, setEditMode] = useState(false)
+    const status = useGetUserStatusQuery(userId ? userId : props.authUserId).data
+    let [localStatus, setStatus] = useState(status)
+    const [passUserStatus] = usePassUserStatusMutation()
+    const refetch = useGetUserStatusQuery(userId ? userId : props.authUserId).refetch
 
     useEffect(() => {
-        setStatus(props.status)
+        setStatus(status)
         setUserId(props.userId)
-    }, [props.status, props.userId])
+    }, [status, props.userId])
 
     const activateEditMode = () => {
         if (!userId) {
@@ -25,9 +24,10 @@ const ProfileStatus = props => {
         }
     }
 
-    const deactivateEditMode = () => {
+    const deactivateEditMode = async () => {
         setEditMode(false)
-        dispatch(passUserStatus(status))
+        await passUserStatus({status: localStatus}).unwrap()
+        refetch() //eto nuzhno iz-za togo, chto v deactivateEditMode nie mieniajet'sia state
     }
 
     const onStatusChange = (e) => {
@@ -36,10 +36,10 @@ const ProfileStatus = props => {
 
     return <div>
         {!editMode && <div>
-            <span onDoubleClick={activateEditMode}> {props.status || '---'}</span>
+            <span onDoubleClick={activateEditMode}> {status || '---'}</span>
         </div>}
         {editMode && <div>
-            <input autoFocus={true} onBlur={deactivateEditMode} onChange={onStatusChange} value={status}/>
+            <input autoFocus={true} onBlur={deactivateEditMode} onChange={onStatusChange} value={localStatus}/>
         </div>}
     </div>
 }

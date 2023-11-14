@@ -4,7 +4,6 @@ import attila from '../../../images/attila.jpg'
 import {compose} from 'redux'
 
 const Post = (props) => {
-    console.log('render post')
     return <div className={classes.item}>
         <div>
             <div>
