@@ -15,12 +15,13 @@ const ProfileInfo = () => {
     //  beriom userId iz URL s pomosch'ju useParams
     let {userId} = useParams()
 
-    const {data: authUserId} = useGetAuthUserIdQuery() //todo eta suka nie dielajet zapros poslie logina???
-    const {data: profile} = useGetUserProfileQuery(userId ? userId : authUserId, {
-        skip: !authUserId //todo pieriepisat' etu hujniu na selectFromResult
+    const {data: authUserId} = useGetAuthUserIdQuery(undefined, {
+        refetchOnMountOrArgChange: true
     })
-    debugger
-    window.authId = authUserId
+    const {data: profile} = useGetUserProfileQuery(userId ? userId : authUserId, {
+        skip: !authUserId
+    })
+
     const fake = useSelector((state) => state.profilePage.fake)
 
     if (!profile) {

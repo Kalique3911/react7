@@ -1,12 +1,13 @@
-import React, {memo, useState} from 'react'
+import React, {memo} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {maxLengthCreator, requireField} from '../../common/functions/validators'
 import {Input} from '../../common/FormsControls/FormsControls'
 import {Navigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {loginUser} from '../../redux/authSlice'
+import {setAuth} from '../../redux/authSlice'
 import {getIsAuth} from '../../selectors/authSelectors'
 import {compose} from 'redux'
+import {useLoginMutation} from '../../API/authAPI'
 
 const LoginForm = (props) => {
     return <form onSubmit={props.handleSubmit}>
@@ -34,8 +35,16 @@ const Login = props => {
 
     const isAuth = useSelector((state) => getIsAuth(state))
 
-    const onSubmit = (formData) => {
-        dispatch(loginUser(formData))
+    const [login] = useLoginMutation()
+
+    const onSubmit = async (formData) => {
+        const {email, password, rememberMe} = formData
+        let response = await login({email, password, rememberMe})
+        if (response.data.resultCode === 0) {
+            dispatch(setAuth(true))
+        } else if (response.data.resultCode === 1 || response.data.resultCode === 10) {
+            alert(response.data.messages[0])
+        }
     }
 
     if (isAuth) {

@@ -7,16 +7,17 @@ export const authAPI = createApi({
         credentials: 'include',
     }),
     endpoints: (build) => ({
+        getAuthUserLogin: build.query({
+            query: () => `/me`,
+            transformResponse: responseData => responseData.data.login
+        }),
         getAuthUserId: build.query({
             query: () => `/me`,
             transformResponse: responseData => responseData.data.id
         }),
         getInit: build.query({
-            query: () => `/me`
-        }),
-        getAuthUserLogin: build.query({
             query: () => `/me`,
-            transformResponse: responseData => responseData.data.login
+            transformResponse: responseData => responseData.resultCode
         }),
         login: build.mutation({
             query: ({email, password, rememberMe}) => ({

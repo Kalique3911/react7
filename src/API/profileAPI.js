@@ -12,7 +12,7 @@ export const profileAPI = createApi({
         }),
         getAuthUserAva: build.query({
             query: userId => `${userId}`,
-            transformResponse: responseData => responseData.data.photos.small
+            transformResponse: responseData => responseData.photos.small
         }),
         getUserStatus: build.query({
             query: (userId) => `status/${userId}`
@@ -22,7 +22,5 @@ export const profileAPI = createApi({
         })
     })
 })
-
-window.profileAPI = profileAPI
 
 export const {useGetUserProfileQuery, useGetUserStatusQuery, usePassUserStatusMutation, useGetAuthUserAvaQuery} = profileAPI

@@ -9,23 +9,26 @@ import Users from './jsxCmpnts/Users/Users'
 import Profile from './jsxCmpnts/Profile/Profile'
 import Header from './jsxCmpnts/Header/Header'
 import Login from './jsxCmpnts/Login/Login'
-import {useDispatch} from 'react-redux'
-import {getUserData} from './redux/authSlice'
+import {useDispatch, useSelector} from 'react-redux'
+import {setAuth, setInit} from './redux/authSlice'
 import preloader from './images/preloader.gif'
 import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
 import {useGetInitQuery} from './API/authAPI'
 
 export const App = () => {
-    const isInit = useGetInitQuery().isSuccess
-
     const dispatch = useDispatch()
 
+    const result = useGetInitQuery().data
+
     useEffect(() => {
-            dispatch(getUserData())
+        dispatch(setInit(true))
+        if (result === 0) {
+            dispatch(setAuth(true))
+        }
     })
 
-    if (!isInit) {
+    if (!useSelector(state => state.auth.isInit)) {
         return <img src={preloader} alt={'preloader'}/>
     }
     return <BrowserRouter>

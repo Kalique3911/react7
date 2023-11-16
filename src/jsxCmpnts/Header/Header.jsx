@@ -4,9 +4,9 @@ import logo from '../../images/logo.jpg'
 import {NavLink} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {getIsAuth} from '../../selectors/authSelectors'
-import {logoutUser} from '../../redux/authSlice'
+import {setAuth} from '../../redux/authSlice'
 import {compose} from 'redux'
-import {useGetAuthUserIdQuery, useGetAuthUserLoginQuery} from '../../API/authAPI'
+import {useGetAuthUserIdQuery, useGetAuthUserLoginQuery, useLogoutMutation} from '../../API/authAPI'
 import {useGetAuthUserAvaQuery} from '../../API/profileAPI'
 import defaultAva from '../../images/defaultAva.jpg'
 
@@ -14,9 +14,18 @@ const Header = props => {
     const dispatch = useDispatch()
 
     const isAuth = useSelector((state) => getIsAuth(state))
-    const login = useGetAuthUserLoginQuery().data
-    const authUserId = useGetAuthUserIdQuery().data
-    const smallPhoto = useGetAuthUserAvaQuery(authUserId).data
+    const {data: login} = useGetAuthUserLoginQuery(undefined, {
+        refetchOnMountOrArgChange: true,
+        skip: !isAuth
+    })
+    const {data: authUserId} = useGetAuthUserIdQuery(undefined, {
+        refetchOnMountOrArgChange: true,
+        skip: !isAuth
+    })
+    const {data: smallPhoto} = useGetAuthUserAvaQuery(authUserId, {
+        skip: !authUserId
+    })
+    const [logoutUser] = useLogoutMutation()
 
     return <header className={classes.header}>
         <img src={logo} alt={'logo'}/>
@@ -24,10 +33,13 @@ const Header = props => {
             {isAuth
                 ? <div>
                     <div>{login}</div>
-                    <span onDoubleClick={() => dispatch(logoutUser())}>Logout</span>
+                    <span onDoubleClick={async () => {
+                        await logoutUser()
+                        dispatch(setAuth(false))
+                    }}>Logout</span>
+                    <img src={smallPhoto ? smallPhoto : defaultAva} alt={'small photo'}/>
                 </div>
                 : <NavLink to={'/login'}>Login</NavLink>}
-            <img src={smallPhoto ? smallPhoto : defaultAva} alt={'small photo'}/>
         </div>
     </header>
 }

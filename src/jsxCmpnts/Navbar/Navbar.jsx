@@ -3,10 +3,16 @@ import classes from './Navbar.module.css'
 import {NavLink} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {compose} from 'redux'
+import {useGetAuthUserIdQuery} from '../../API/authAPI'
+import {getIsAuth} from '../../selectors/authSelectors'
 
 const Navbar = props => {
 
-    const authUserId = useSelector(state => state.auth.id)
+    const isAuth = useSelector((state) => getIsAuth(state))
+    const {data: authUserId} = useGetAuthUserIdQuery(undefined, {
+        refetchOnMountOrArgChange: true,
+        skip: !isAuth
+    })
 
     return <nav className={classes.nav}>
         <div className={classes.item}>
