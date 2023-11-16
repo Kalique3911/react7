@@ -41,11 +41,11 @@ const authSlice = createSlice({
 
 export const getUserData = () => {
     return (dispatch) => {
-        fetchUserData().then(data => {
-            dispatch(initialize())
+        fetchUserData().then(async data => {
             if (data.resultCode === 0) {
                 let {id, email, login} = data.data
-                dispatch(setAuthUserData(id, email, login, true))
+                await dispatch(setAuthUserData(id, email, login, true))
+                dispatch(initialize())
                 fetchAuthUserAva(data.data.id).then(small => {
                     dispatch(setAuthUserPhoto(small))
                 })

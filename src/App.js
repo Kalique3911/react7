@@ -22,9 +22,7 @@ export const App = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (isInit) {
             dispatch(getUserData())
-        }
     })
 
     if (!isInit) {
