@@ -9,14 +9,17 @@ import {compose} from 'redux'
 import {fakeIncrementor} from '../../../redux/profileSlice'
 import {useGetUserProfileQuery} from '../../../API/profileAPI'
 import {useGetAuthUserIdQuery} from '../../../API/authAPI'
+import {getIsAuth} from '../../../selectors/authSelectors'
 
 const ProfileInfo = () => {
     const dispatch = useDispatch()
     //  beriom userId iz URL s pomosch'ju useParams
     let {userId} = useParams()
 
+    const isAuth = useSelector((state) => getIsAuth(state))
     const {data: authUserId} = useGetAuthUserIdQuery(undefined, {
-        refetchOnMountOrArgChange: true
+        refetchOnMountOrArgChange: true,
+        skip: !isAuth
     })
     const {data: profile} = useGetUserProfileQuery(userId ? userId : authUserId, {
         skip: !authUserId

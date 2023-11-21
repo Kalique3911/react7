@@ -1,36 +1,23 @@
 import classes from './Messages.module.css'
 import React, {memo} from 'react'
 import Message from './Message/Message'
-import {Field, reduxForm} from 'redux-form'
-import {Textarea} from '../../common/FormsControls/FormsControls'
-import {maxLengthCreator, requireField} from '../../common/functions/validators'
 import {useDispatch, useSelector} from 'react-redux'
 import {getDialog, getMessagesData} from '../../selectors/dialogsSelectors'
-import {setMessage} from '../../redux/dialogsSlice'
 import {compose} from 'redux'
-
-const MessagesForm = props => {
-    return <form onSubmit={props.handleSubmit}>
-        <div>
-            <Field placeholder={'your new message'} name={'message'} component={Textarea}
-                   validate={[requireField, maxLengthCreator(2000)]}/>
-        </div>
-        <div>
-            <button>Send</button>
-        </div>
-    </form>
-}
-
-const MessagesReduxForm = reduxForm({form: 'messages'})(MessagesForm)
+import {setMessage} from '../../redux/dialogsSlice'
+import {useForm} from 'react-hook-form'
 
 const Messages = props => {
     const dispatch = useDispatch()
+    const {register, handleSubmit, formState: {errors}, reset} = useForm({mode: 'onChange'})
 
     const messagesData = useSelector((state) => getMessagesData(state))
-    const dialog = useSelector((state) => {getDialog(state)})
-
-    const onSubmit = (formData) => {
-        dispatch(setMessage(formData.message))
+    const dialog = useSelector((state) => {
+        getDialog(state)
+    })
+    const onSubmit = data => {
+        dispatch(setMessage(data.message))
+        reset()
     }
 
     return <div className={classes.messages}>
@@ -40,7 +27,17 @@ const Messages = props => {
         <div>
             {messagesData.map(el => <Message key={el.id} text={el.message}/>)}
         </div>
-        <MessagesReduxForm onSubmit={onSubmit}/>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register('message', {
+                required: 'Message require filed',
+                maxLength: {value: 2000, message: 'max length is 2000'}//todo sdielat' vyvod watch dliny
+            })} placeholder={'your new message'}
+            />
+            {errors.message && <div style={{color: 'red'}}>{errors.message.message}</div>}
+            <div>
+                <button>Send</button>
+            </div>
+        </form>
     </div>
 }
 

@@ -1,49 +1,30 @@
 import React, {memo} from 'react'
-import {Field, reduxForm} from 'redux-form'
-import {maxLengthCreator, requireField} from '../../common/functions/validators'
-import {Input} from '../../common/FormsControls/FormsControls'
 import {Navigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {setAuth} from '../../redux/authSlice'
-import {getIsAuth} from '../../selectors/authSelectors'
+import {setAuth, setLoginError} from '../../redux/authSlice'
+import {getIsAuth, getLoginError} from '../../selectors/authSelectors'
 import {compose} from 'redux'
 import {useLoginMutation} from '../../API/authAPI'
-
-const LoginForm = (props) => {
-    return <form onSubmit={props.handleSubmit}>
-        <div>
-            <Field placeholder={'email'} name={'email'} component={Input}
-                   validate={[requireField, maxLengthCreator(100)]}/>
-        </div>
-        <div>
-            <Field placeholder={'password'} name={'password'} component={Input}
-                   validate={[requireField, maxLengthCreator(50)]}/>
-        </div>
-        <div>
-            <Field type={'checkbox'} name={'rememberMe'} component={'input'}/> remember me
-        </div>
-        <div>
-            <button>Login</button>
-        </div>
-    </form>
-}
-
-const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
+import {useForm} from 'react-hook-form'
 
 const Login = props => {
     const dispatch = useDispatch()
-
+    const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onChange'})
     const isAuth = useSelector((state) => getIsAuth(state))
+    const loginError = useSelector((state) => getLoginError(state))
 
     const [login] = useLoginMutation()
 
-    const onSubmit = async (formData) => {
-        const {email, password, rememberMe} = formData
+    const onSubmit = async data => {
+        const email = data.email
+        const password = data.password
+        const rememberMe = data.rememberMe
         let response = await login({email, password, rememberMe})
         if (response.data.resultCode === 0) {
             dispatch(setAuth(true))
+            dispatch(setLoginError(null))
         } else if (response.data.resultCode === 1 || response.data.resultCode === 10) {
-            alert(response.data.messages[0])
+            dispatch(setLoginError(response.data.messages[0]))
         }
     }
 
@@ -55,7 +36,33 @@ const Login = props => {
         <div>
             <h2>LOGIN</h2>
         </div>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+                <input {...register('email', {
+                    required: 'Email require filed',
+                    maxLength: {value: 100, message: 'max length is 100'},
+                    pattern: {
+                        value: /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
+                        message: 'Please enter valid email!'
+                    }
+                })} placeholder={'email'}></input>
+            </div>
+            {errors.email && <div style={{color: 'red'}}>{errors.email.message}</div>}
+            <div>
+                <input {...register('password', {
+                    required: 'Password require filed',
+                    maxLength: {value: 50, message: 'max length is 50'}
+                })} placeholder={'password'}></input>
+            </div>
+            {errors.password && <div style={{color: 'red'}}>{errors.password.message}</div>}
+            <div>
+                <input {...register('rememberMe')} type={'checkbox'}/>remember me
+            </div>
+            <div>
+                <button>Login</button>
+            </div>
+            {loginError && <div style={{color: 'red'}}>{loginError}</div>}
+        </form>
     </div>
 }
 

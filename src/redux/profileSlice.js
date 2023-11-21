@@ -10,8 +10,6 @@ export const profileSlice = createSlice({
         }, {
             id: 3, text: 'Moving to Gaul', likes: '5 likes '
         },],
-        profile: null,
-        status: null,
         fake: 1
     },
     reducers: {

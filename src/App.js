@@ -4,7 +4,6 @@ import News from './jsxCmpnts/News/News'
 import Settings from './jsxCmpnts/Settings/Settings'
 import Music from './jsxCmpnts/Music/Music'
 import Dialogs from './jsxCmpnts/Dialogs/Dialogs'
-import Messages from './jsxCmpnts/Messages/Messages'
 import Users from './jsxCmpnts/Users/Users'
 import Profile from './jsxCmpnts/Profile/Profile'
 import Header from './jsxCmpnts/Header/Header'
@@ -15,6 +14,8 @@ import preloader from './images/preloader.gif'
 import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
 import {useGetInitQuery} from './API/authAPI'
+import Messages from './jsxCmpnts/Messages/Messages'
+
 
 export const App = () => {
     const dispatch = useDispatch()
@@ -49,5 +50,4 @@ export const App = () => {
         </div>
     </BrowserRouter>
 }
-//todo pieriedielat' API; ostavit' redux tol'ko dlia UI? Vse dannyie brat' chieriez RTK Query?
-//todo pieriedielat' formy
+//todo pieriedielat' formy i pizdovat' vierstat', huli
