@@ -23,4 +23,4 @@ export const profileAPI = createApi({
     })
 })
 
-export const {useGetUserProfileQuery, useGetUserStatusQuery, usePassUserStatusMutation, useGetAuthUserAvaQuery} = profileAPI
+export const {useGetUserProfileQuery, useGetUserStatusQuery, usePassUserStatusMutation, useGetAuthUserAvaQuery, useLazyGetUserStatusQuery} = profileAPI

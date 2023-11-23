@@ -24,14 +24,16 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(setInit(true))
-        if (result === 0) {
-            dispatch(setAuth(true))
-        }
     })
 
-    if (!useSelector(state => state.auth.isInit)) {
+    if (!useSelector(state => state.auth.isInit) || result === undefined) {
         return <img src={preloader} alt={'preloader'}/>
     }
+
+    if (result === 0) {
+        dispatch(setAuth(true))
+    }
+
     return <BrowserRouter>
         <div className="app-wrapper">
             <Header/>
@@ -50,4 +52,3 @@ export const App = () => {
         </div>
     </BrowserRouter>
 }
-//todo pieriedielat' formy i pizdovat' vierstat', huli

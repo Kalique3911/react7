@@ -1,4 +1,4 @@
-import React, {memo} from 'react'
+import React, {memo, useState} from 'react'
 import {Navigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAuth, setLoginError} from '../../redux/authSlice'
@@ -9,12 +9,15 @@ import {useForm} from 'react-hook-form'
 
 const Login = props => {
     const dispatch = useDispatch()
-    const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onChange'})
+    const {register, handleSubmit, formState: {errors}, watch} = useForm({mode: 'onChange'})
     const isAuth = useSelector((state) => getIsAuth(state))
     const loginError = useSelector((state) => getLoginError(state))
-
+    let [emailLength, setEmailLength] = useState(0)
+    let [passwordLength, setPasswordLength] = useState(0)
     const [login] = useLoginMutation()
 
+    const watchEmail = watch((data) => {if (data.email) {setEmailLength(data.email.length)}})
+    const watchPassword = watch((data) => {if (data.password) {setPasswordLength(data.password.length)}})
     const onSubmit = async data => {
         const email = data.email
         const password = data.password
@@ -48,6 +51,7 @@ const Login = props => {
                 })} placeholder={'email'}></input>
             </div>
             {errors.email && <div style={{color: 'red'}}>{errors.email.message}</div>}
+            {100 - emailLength < 20 && <div>{`${100 - emailLength} symbols left`}</div>}
             <div>
                 <input {...register('password', {
                     required: 'Password require filed',
@@ -55,6 +59,7 @@ const Login = props => {
                 })} placeholder={'password'}></input>
             </div>
             {errors.password && <div style={{color: 'red'}}>{errors.password.message}</div>}
+            {50 - passwordLength < 10 && <div>{`${50 - passwordLength} symbols left`}</div>}
             <div>
                 <input {...register('rememberMe')} type={'checkbox'}/>remember me
             </div>

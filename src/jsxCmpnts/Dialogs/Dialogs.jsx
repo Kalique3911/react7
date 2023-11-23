@@ -4,6 +4,7 @@ import Dialog from './Dialog/Dialog'
 import {useSelector} from 'react-redux'
 import {getDialogsData} from '../../selectors/dialogsSelectors'
 import {compose} from 'redux'
+import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 
 const Dialogs = props => {
 
@@ -18,4 +19,4 @@ const Dialogs = props => {
     </div>
 }
 
-export default compose(memo)(Dialogs)
+export default compose(withAuthNavigate, memo)(Dialogs)

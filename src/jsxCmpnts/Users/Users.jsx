@@ -15,7 +15,7 @@ const Users = props => {
     const pageSize = useSelector((state) => getPageSize(state))
     const currentPage = useSelector((state) => getCurrentPage(state))
     const followingInProgress = useSelector((state) => getFollowingInProgress(state))
-    const {data: usersData, refetch, isFetching} = useGetUsersQuery({currentPage, pageSize})
+    const {data: usersData, refetch, isLoading} = useGetUsersQuery({currentPage, pageSize})
     const [follow] = useFollowMutation()
     const [unfollow] = useUnfollowMutation()
     let pages = []
@@ -32,7 +32,7 @@ const Users = props => {
         dispatch(setCurrentPage(pageNumber))
     }
 
-    if (isFetching) {
+    if (isLoading) {
         return <img src={preloader} alt={'preloader'}/>
     }
 
@@ -43,7 +43,8 @@ const Users = props => {
                              onClick={() => onPageChange(p)}>{p}</span>
             })}
         </div>
-        {usersData.items.map(user => <div key={user.id}>
+        {usersData.items.map(user => {
+            return <div key={user.id}>
 
                 <span>
                     <div>
@@ -57,8 +58,8 @@ const Users = props => {
                                 onClick={async () => {
                                     dispatch(setToggleIsFollowingProgress(user.id, true))
                                     await unfollow(user.id)
+                                    await refetch()
                                     dispatch(setToggleIsFollowingProgress(user.id, false))
-                                    refetch()
                                 }}
                             >Unfollow</button>
 
@@ -67,17 +68,17 @@ const Users = props => {
                                 onClick={async () => {
                                     dispatch(setToggleIsFollowingProgress(user.id, true))
                                     await follow(user.id)
+                                    await refetch()
                                     dispatch(setToggleIsFollowingProgress(user.id, false))
-                                    refetch()
                                 }}
                             >Follow</button>}
                     </div>
                 </span>
-            <span>
+                <span>
                 <div>{user.name}</div><div>{user.status}</div>
             </span>
-
-        </div>)}
+            </div>
+        })}
     </div>
 }
 

@@ -1,27 +1,30 @@
 import React, {memo, useEffect, useState} from 'react'
 import {compose} from 'redux'
-import {useGetUserStatusQuery, usePassUserStatusMutation} from '../../../../API/profileAPI'
+import {useGetUserStatusQuery, useLazyGetUserStatusQuery, usePassUserStatusMutation} from '../../../../API/profileAPI'
 import {useForm} from 'react-hook-form'
 
 const ProfileStatus = props => {
     let [userId, setUserId] = useState(props.userId)
     let [editMode, setEditMode] = useState(false)
     const status = useGetUserStatusQuery(userId ? userId : props.authUserId).data
+    const [getStatus] = useLazyGetUserStatusQuery()
     const [passUserStatus] = usePassUserStatusMutation()
     const refetch = useGetUserStatusQuery(userId ? userId : props.authUserId).refetch
-    const {register, handleSubmit, formState: {errors}} = useForm({
-        mode: 'onChange',//todo sdielaj
+    let [statusLength, setStatusLength] = useState(0)
+
+    const {register, handleSubmit, formState: {errors}, watch} = useForm({
+        mode: 'onChange',
         defaultValues: async () => {
-            await status
-            return {status: status}
+            const currentStatus = await getStatus(userId ? userId : props.authUserId).unwrap()
+            return {status: currentStatus}
         }
     })
-    debugger
+
     useEffect(() => {
         setUserId(props.userId)
-        // setEditMode(false)
     }, [props.userId])
 
+    const watchMessage = watch((data) => {if (data.status) {setStatusLength(data.status.length)}})
     const activateEditMode = () => {
         if (!userId) {
             userId = props.authUserId.toString()
@@ -32,6 +35,7 @@ const ProfileStatus = props => {
     }
     const deactivateEditMode = async data => {
         setEditMode(false)
+        setStatusLength(0)
         await passUserStatus({status: data.status})
         refetch() //eto nuzhno iz-za togo, chto v deactivateEditMode nie mieniajet'sia state
     }
@@ -45,8 +49,9 @@ const ProfileStatus = props => {
                 <input {...register('status', {
                     onBlur: handleSubmit(deactivateEditMode),
                     maxLength: {value: 300, message: 'max length is 300'}
-                })}></input>
+                })} autoFocus={true}></input>
                 {errors.status && <div style={{color: 'red'}}>{errors.status.message}</div>}
+                {300 - statusLength < 50 && <div>{`${300 - statusLength} symbols left`}</div>}
             </form>
         </div>}
     </div>

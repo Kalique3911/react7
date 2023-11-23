@@ -1,4 +1,4 @@
-import React, {memo} from 'react'
+import React, {memo, useState} from 'react'
 import classes from './MyPosts.module.css'
 import Post from '../Post/Post'
 import {useDispatch, useSelector} from 'react-redux'
@@ -10,12 +10,18 @@ import {useForm} from 'react-hook-form'
 const MyPosts = (props) => {
     const dispatch = useDispatch()
     const postData = useSelector((state) => getPostData(state))
-    const {register, handleSubmit, formState: {errors}, reset} = useForm({mode: 'onChange'})
+    const {register, handleSubmit, formState: {errors}, reset, watch} = useForm({mode: 'onChange'})
+    let [postLength, setPostLength] = useState(0)
 
     const onSubmit = data => {
         dispatch(setPost(data.post))
+        setPostLength(0)
         reset()
     }
+
+    const watchMessage = watch((data) => {debugger
+        if (data.post) {setPostLength(data.post.length)}})
+
 
     return <div className={classes.item}>
         <div>
@@ -28,6 +34,7 @@ const MyPosts = (props) => {
             })} placeholder={'your new post'}
             />
             {errors.post && <div style={{color: 'red'}}>{errors.post.message}</div>}
+            {16384 - postLength < 200 && <div>{`${16384 - postLength} symbols left`}</div>}
             <div>
                 <button>Send</button>
             </div>
