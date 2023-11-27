@@ -1,22 +1,19 @@
 .header {
     grid-area: header;
-    background-color: dimgray;
+    background-color: #222222;
     padding: 5px;
 }
 
-.header img {
+.logo {
     width: 70px;
     border-radius: 20px;
 }
 
+.ava {
+    width: 70px;
+    border-radius: 50%;
+}
+
 .loginBlock {
     float: right;
-}
-
-.loginBlock a {
-    color: white;
-}
-
-.loginBlock {
-    color: white;
 }

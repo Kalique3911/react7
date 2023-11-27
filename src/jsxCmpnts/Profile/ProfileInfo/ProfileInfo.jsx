@@ -31,14 +31,16 @@ const ProfileInfo = () => {
         return <img src={preloader} alt={'preloader'}/>
     }
 
-    return <div>
-        <div className={classes.info}>
-            <img src={profile.photos.large} alt={'large photo'}/>
-            <h3>{profile.fullName}</h3>
-            <ProfileStatus userId={userId} authUserId={authUserId}/>
-            <div>{profile.aboutMe}</div>
-            <div>{profile.lookingForAJob ? 'ищу работу' : 'не ищу работу'}</div>
-            <div>{profile.lookingForAJobDescription}</div>
+    return <div className={classes.info}>
+        <img src={profile.photos.large} alt={'large photo'}/>
+        <h3>{profile.fullName}</h3>
+        <ProfileStatus userId={userId} authUserId={authUserId}/>
+        <div>
+            <p>{profile.aboutMe}</p>
+            <p>{profile.lookingForAJob ? 'ищу работу' : 'не ищу работу'}</p>
+            <p>{profile.lookingForAJobDescription}</p>
+        </div>
+        <div>
             <button onClick={() => dispatch(fakeIncrementor())}>{fake}</button>
         </div>
     </div>

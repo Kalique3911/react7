@@ -36,7 +36,7 @@ const Users = props => {
         return <img src={preloader} alt={'preloader'}/>
     }
 
-    return <div className={classes.user}>
+    return <div className={classes.users}>
         <div className={classes.page}>
             {pages.map(p => {
                 return <span className={currentPage === p ? classes.selectedPage : ''} key={p}
@@ -44,7 +44,7 @@ const Users = props => {
             })}
         </div>
         {usersData.items.map(user => {
-            return <div key={user.id}>
+            return <div key={user.id} className={classes.user}>
 
                 <span>
                     <div>

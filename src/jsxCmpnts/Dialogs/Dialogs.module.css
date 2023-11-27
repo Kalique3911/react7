@@ -1,6 +1,6 @@
 .content {
     grid-area: content;
-    background-color: dimgray;
+    background-color: #222222;
     padding: 20px;
 }
 
@@ -12,8 +12,3 @@
 .dialogs {
     padding: 10px;
 }
-
-.content a {
-    color: white;
-}
-

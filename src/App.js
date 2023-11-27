@@ -52,3 +52,4 @@ export const App = () => {
         </div>
     </BrowserRouter>
 }
+// todo css potom dodielat' kurs

@@ -1,3 +1,11 @@
 .info {
     padding: 20px;
 }
+
+.info img {
+    border-radius: 50%;
+    width: 300px;
+}
+
+.info p {
+}

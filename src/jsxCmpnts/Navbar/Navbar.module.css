@@ -1,9 +1,21 @@
 .nav {
     grid-area: nav;
-    background-color: black;
+    background-color: #141414;
     padding: 20px;
 }
 
-.item a {
-    color: white;
+.nav a {
+    text-decoration: none;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+.nav a:active {
+    color: deepskyblue;
+}
+
+.item {
+    margin-bottom: 10px;
 }
