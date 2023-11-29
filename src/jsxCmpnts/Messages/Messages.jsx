@@ -24,7 +24,7 @@ const Messages = props => {
         reset()
     }
 
-    const watchMessage = watch((data) => {if (data.message) {setMessageLength(data.message.length)}})
+    watch((data) => {if (data.message) {setMessageLength(data.message.length)}})
 
     return <div className={classes.messages}>
         <div>

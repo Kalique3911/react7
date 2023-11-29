@@ -15,6 +15,7 @@ import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
 import {useGetInitQuery} from './API/authAPI'
 import Messages from './jsxCmpnts/Messages/Messages'
+import classes from './content.module.css'
 
 
 export const App = () => {
@@ -38,17 +39,19 @@ export const App = () => {
         <div className="app-wrapper">
             <Header/>
             <Navbar/>
-            <Routes>
-                <Route path="/" element={<News/>}/>
-                <Route path="/news" element={<News/>}/>
-                <Route path="/messages" element={<Dialogs/>}/>
-                <Route path="/messages/dialog/1" element={<Messages/>}/>
-                <Route path="/profile/:userId?" element={<Profile/>}/>
-                <Route path="/settings" element={<Settings/>}/>
-                <Route path="/music" element={<Music/>}/>
-                <Route path="/users" element={<Users/>}/>
-                <Route path="/login" element={<Login/>}/>
-            </Routes>
+            <div className={classes.content}>
+                <Routes>
+                    <Route path="/" element={<News/>}/>
+                    <Route path="/news" element={<News/>}/>
+                    <Route path="/messages" element={<Dialogs/>}/>
+                    <Route path="/messages/dialog/1" element={<Messages/>}/>
+                    <Route path="/profile/:userId?" element={<Profile/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
+                    <Route path="/music" element={<Music/>}/>
+                    <Route path="/users" element={<Users/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                </Routes>
+            </div>
         </div>
     </BrowserRouter>
 }

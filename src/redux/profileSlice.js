@@ -4,11 +4,11 @@ export const profileSlice = createSlice({
     name: 'profile',
     initialState: {
         postData: [{
-            id: 1, text: 'Pillaging Balkans', likes: '15 likes '
+            id: 1, text: 'It is my first post', likes: 15
         }, {
-            id: 2, text: 'Besieging Constantinople', likes: '20 likes '
+            id: 2, text: 'Hello', likes: 20
         }, {
-            id: 3, text: 'Moving to Gaul', likes: '5 likes '
+            id: 3, text: 'Check this out', likes: 5
         },],
         fake: 1
     },
@@ -16,7 +16,7 @@ export const profileSlice = createSlice({
         setPost: (state, action) => {
             // provieriajem, est' li dannyje v pejload
             if (action.payload) {
-                state.postData.push({id: state.postData.length + 1, text: action.payload, likes: '0 likes '})
+                state.postData.push({id: state.postData.length + 1, text: action.payload, likes: 0})
             } else {
                 return undefined
             }

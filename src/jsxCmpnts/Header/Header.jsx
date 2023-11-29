@@ -28,7 +28,7 @@ const Header = props => {
     const [logoutUser] = useLogoutMutation()
 
     return <header className={classes.header}>
-        <img className={classes.logo} src={logo} alt={'logo'}/>
+        <img className={classes.logo} src={logo} alt={'Hyperborea'}/>
         <div className={classes.loginBlock}>
             {isAuth
                 ? <div>

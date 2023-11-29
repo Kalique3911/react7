@@ -1,21 +1,16 @@
 .users {
-    grid-area: content;
-    background-color: dimgray;
-}
-
-.user {
     padding: 10px;
 }
 
 .users img {
     width: 100px;
-    height: 100px;
     border-radius: 80px;
 }
 
 .selectedPage {
     font-weight: bold;
     cursor: pointer;
+    color: red;
 }
 
 .page {

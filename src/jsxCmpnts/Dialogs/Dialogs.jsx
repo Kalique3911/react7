@@ -10,11 +10,9 @@ const Dialogs = props => {
 
     const dialogsData = useSelector((state) => getDialogsData(state))
 
-    return <div className={classes.content}>
-        <div className={classes.page}>
-            <div className={classes.dialogs}>
-                {dialogsData.map(el => <Dialog key={el.id} name={el.name} id={el.id}/>)}
-            </div>
+    return <div className={classes.dialogs}>
+        <div>
+            {dialogsData.map(el => <Dialog key={el.id} name={el.name} id={el.id}/>)}
         </div>
     </div>
 }

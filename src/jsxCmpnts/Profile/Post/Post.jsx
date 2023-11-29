@@ -1,19 +1,18 @@
 import React, {memo} from 'react'
 import classes from './Post.module.css'
-import attila from '../../../images/attila.jpg'
+import defaultAva from '../../../images/defaultAva.jpg'
 import {compose} from 'redux'
 
 const Post = (props) => {
     return <div className={classes.item}>
         <div>
             <div>
-                <img src={attila} alt={'ava'}/>
+                <img src={props.smallPhoto ? props.smallPhoto : defaultAva} alt={'ava'}/>
                 {props.text}
             </div>
-            <div>
-                {props.likes}
-                <span>like</span>
-            </div>
+            <button>
+                {`${props.likes} like`}
+            </button>
         </div>
     </div>
 }

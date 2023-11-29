@@ -24,7 +24,7 @@ const ProfileStatus = props => {
         setUserId(props.userId)
     }, [props.userId])
 
-    const watchMessage = watch((data) => {if (data.status) {setStatusLength(data.status.length)}})
+    watch((data) => {if (data.status) {setStatusLength(data.status.length)}})
     const activateEditMode = () => {
         if (!userId) {
             userId = props.authUserId.toString()

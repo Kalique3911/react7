@@ -19,8 +19,11 @@ const MyPosts = (props) => {
         reset()
     }
 
-    const watchMessage = watch((data) => {debugger
-        if (data.post) {setPostLength(data.post.length)}})
+    watch((data) => {
+        if (data.post) {
+            setPostLength(data.post.length)
+        }
+    })
 
 
     return <div className={classes.item}>
@@ -40,7 +43,7 @@ const MyPosts = (props) => {
             </div>
         </form>
         <div className={classes.posts}>
-            {postData.map(el => <Post key={el.id} text={el.text} likes={el.likes}/>)}
+            {postData.map(el => <Post smallPhoto={props.smallPhoto} key={el.id} text={el.text} likes={el.likes}/>)}
         </div>
     </div>
 }

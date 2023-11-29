@@ -1,9 +1,8 @@
 import React, {memo} from 'react'
-import classes from './Settings.module.css'
 import {compose} from 'redux'
 
 const Settings = props => {
-    return <div className={classes.content}>
+    return <div>
         Settings
     </div>
 }

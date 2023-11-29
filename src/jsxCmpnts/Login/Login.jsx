@@ -16,8 +16,8 @@ const Login = props => {
     let [passwordLength, setPasswordLength] = useState(0)
     const [login] = useLoginMutation()
 
-    const watchEmail = watch((data) => {if (data.email) {setEmailLength(data.email.length)}})
-    const watchPassword = watch((data) => {if (data.password) {setPasswordLength(data.password.length)}})
+    watch((data) => {if (data.email) {setEmailLength(data.email.length)}})
+    watch((data) => {if (data.password) {setPasswordLength(data.password.length)}})
     const onSubmit = async data => {
         const email = data.email
         const password = data.password

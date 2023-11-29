@@ -44,7 +44,7 @@ const Users = props => {
             })}
         </div>
         {usersData.items.map(user => {
-            return <div key={user.id} className={classes.user}>
+            return <div key={user.id}>
 
                 <span>
                     <div>
