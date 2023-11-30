@@ -30,9 +30,6 @@ const Navbar = props => {
         <div className={classes.item}>
             <NavLink to='/music'>Music</NavLink>
         </div>
-        <div className={classes.item}>
-            <NavLink to='/settings'>Settings</NavLink>
-        </div>
     </nav>
 }
 

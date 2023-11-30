@@ -27,12 +27,9 @@ const MyPosts = (props) => {
 
 
     return <div className={classes.item}>
-        <div>
-            create your new post
-        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register('post', {
-                required: 'Post require filed',
+                required: 'Post require filled',
                 maxLength: {value: 16384, message: 'max length is 16384'}
             })} placeholder={'your new post'}
             />

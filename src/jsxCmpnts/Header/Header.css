@@ -1,0 +1,42 @@
+.header {
+    grid-area: header;
+    background-color: #222222;
+    padding: 5px;
+    display: block;
+}
+
+.logo {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 22px;
+    width: 70px;
+    border-radius: 20px;
+}
+
+.ava {
+    float: right;
+    width: 70px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loginBlock {
+    float: right;
+}
+
+.settings {
+    position: absolute;
+    display: none;
+}
+
+.eSettings {
+    border: 2px solid #dfe1e4;
+    position: absolute;
+    float: right;
+    display: block;
+    text-align: center;
+    background-color: #141414;
+}

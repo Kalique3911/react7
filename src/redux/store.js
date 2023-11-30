@@ -1,6 +1,5 @@
 import dialogsReducer from './dialogsSlice'
 import profileSlice from './profileSlice'
-import {reducer as formReducer} from 'redux-form'
 import {configureStore} from '@reduxjs/toolkit'
 import usersSlice from './usersSlice'
 import authSlice from './authSlice'
@@ -17,7 +16,6 @@ export default configureStore({
         [profileAPI.reducerPath]: profileAPI.reducer,
         [usersAPI.reducerPath]: usersAPI.reducer,
         [authAPI.reducerPath]: authAPI.reducer,
-        form: formReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(profileAPI.middleware, usersAPI.middleware, authAPI.middleware)
