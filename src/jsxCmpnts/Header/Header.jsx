@@ -10,48 +10,45 @@ import {useGetAuthUserIdQuery, useGetAuthUserLoginQuery, useLogoutMutation} from
 import {useGetAuthUserAvaQuery} from '../../API/profileAPI'
 import defaultAva from '../../images/defaultAva.jpg'
 import classNames from 'classnames'
+import downArrow from '../../images/downArrow.svg'
 
 const Header = props => {
     const dispatch = useDispatch()
 
     const isAuth = useSelector((state) => getIsAuth(state))
     const {data: login} = useGetAuthUserLoginQuery(undefined, {
-        refetchOnMountOrArgChange: true,
-        skip: !isAuth
+        refetchOnMountOrArgChange: true, skip: !isAuth
     })
     const {data: authUserId} = useGetAuthUserIdQuery(undefined, {
-        refetchOnMountOrArgChange: true,
-        skip: !isAuth
+        refetchOnMountOrArgChange: true, skip: !isAuth
     })
     const {data: smallPhoto} = useGetAuthUserAvaQuery(authUserId, {
-        skip: !authUserId
+        refetchOnMountOrArgChange: true, skip: !authUserId
     })
     const [logoutUser] = useLogoutMutation()
     const [isOpen, setIsOpen] = useState(false)
     const onAvaClick = () => {
-        debugger
         setIsOpen(!isOpen)
     }
 
     return <header className={'header'}>
         <img className={'logo'} src={logo} alt={'Hyperborea'}/>
-        <img className={'ava'} src={smallPhoto ? smallPhoto : defaultAva} alt={'small photo'}
-             onClick={onAvaClick}
-        />
-        <div className={'loginBlock'}>
-            {isAuth
-                ? <div className={classNames({'settings': true, 'eSettings': isOpen})}>
-                    <div>
-                        <div>{login}</div>
-                        <span onDoubleClick={async () => {
-                            await logoutUser()
-                            setIsOpen(false)
-                            dispatch(setAuth(false))
-                        }}>Logout</span>
-                    </div>
-                </div>
-                : <div className={classNames({'settings': true, 'eSettings': isOpen})}><NavLink to={'/login'}>Login</NavLink></div>}
+        <span className={'title'}>Hyperborea</span>
+        <div className={classNames({'loginBlock': true, 'openedSettings': isOpen})} onClick={onAvaClick}>
+            <img className={'ava'} src={smallPhoto && isAuth ? smallPhoto : defaultAva} alt={'small photo'}/>
+            <img className={'arrow'} src={downArrow} alt={'arrow'}/>
         </div>
+        {isAuth ? <span className={classNames({'settings': true, 'eSettings': isOpen})}>
+                <span>
+                    <span>{login}</span>
+                    <div onClick={async () => {
+                        await logoutUser()
+                        setIsOpen(false)
+                        dispatch(setAuth(false))
+                    }} className={'logout'}>Logout</div>
+                </span>
+            </span> : <span className={classNames({'settings': true, 'eSettings': isOpen})}><NavLink
+            to={'/login'}>Login</NavLink></span>}
     </header>
 }
 

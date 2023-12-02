@@ -6,7 +6,7 @@
   "header header"
   "nav content";
 
-    grid-template-rows: 2fr 15fr;
+    grid-template-rows: 120px auto;
     grid-template-columns: 1fr 5fr;
     grid-gap: 10px;
     background-color: #141414;

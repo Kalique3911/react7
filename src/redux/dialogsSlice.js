@@ -8,10 +8,10 @@ const dialogsSlice = createSlice({
             message: 'Hi'
         }, {
             id: 2,
-            message: 'Stop your business'
+            message: 'How are you?'
         }, {
             id: 3,
-            message: 'I offer you gold'
+            message: 'Wish you good luck'
         },
         ],
         dialogsData: [{
