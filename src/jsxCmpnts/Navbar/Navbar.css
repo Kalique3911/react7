@@ -1,0 +1,21 @@
+.nav {
+    grid-area: nav;
+    background-color: #141414;
+    padding: 20px;
+    display: block;
+}
+
+.nav div {
+    height: 40px;
+    width: 170px;
+}
+
+.navLink {
+    vertical-align: center;
+    display: block;
+    max-width: 170px;
+    max-height: 40px;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

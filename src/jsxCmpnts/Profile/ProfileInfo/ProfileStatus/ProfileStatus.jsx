@@ -15,14 +15,16 @@ const ProfileStatus = props => {
     const {register, handleSubmit, formState: {errors}, watch} = useForm({
         mode: 'onChange',
         defaultValues: async () => {
-            const currentStatus = await getStatus(userId ? userId : props.authUserId).unwrap()
+            const currentStatus = await getStatus(props.authUserId, {
+                refetchOnMountOrArgChange: true, skip: !props.authUserId
+            }).unwrap()
             return {status: currentStatus}
         }
     })
 
     useEffect(() => {
         setUserId(props.userId)
-    }, [props.userId])
+    }, [props.userId, props.authUserId])
 
     watch((data) => {if (data.status) {setStatusLength(data.status.length)}})
     const activateEditMode = () => {

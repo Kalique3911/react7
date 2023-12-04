@@ -11,6 +11,10 @@ export const authAPI = createApi({
             query: () => `/me`,
             transformResponse: responseData => responseData.data.login
         }),
+        getAuthUserEmail: build.query({
+            query: () => `/me`,
+            transformResponse: responseData => responseData.data.email
+        }),
         getAuthUserId: build.query({
             query: () => `/me`,
             transformResponse: responseData => responseData.data.id
@@ -35,4 +39,7 @@ export const authAPI = createApi({
     })
 })
 
-export const {useGetAuthUserIdQuery, useGetInitQuery, useGetAuthUserLoginQuery, useLoginMutation, useLogoutMutation} = authAPI
+export const {
+    useGetAuthUserIdQuery, useGetInitQuery, useGetAuthUserLoginQuery,
+    useLoginMutation, useLogoutMutation, useGetAuthUserEmailQuery
+} = authAPI

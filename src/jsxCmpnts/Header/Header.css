@@ -23,7 +23,7 @@
 
 .loginBlock {
     cursor: pointer;
-    width: 110px;
+    width: 120px;
     height: 100%;
     position: relative;
     float: right;
@@ -31,13 +31,14 @@
 
 .ava {
     margin-top: 25px;
-    margin-left: 8px;
+    margin-left: 13px;
     width: 70px;
     border-radius: 50%;
 }
 
 .loginBlock:hover {
     background-color: #3b3b3b;
+    transition: 500ms background-color;
 }
 
 .openedSettings {
@@ -59,16 +60,54 @@
     padding-left: 10px;
     width: 300px;
     right: 50px;
+    font-weight: normal;
+    border-radius: 5px;
 }
 
 .arrow {
     position: absolute;
     width: 20px;
-    left: 75px;
+    left: 80px;
     top: 50px;
     margin-left: 10px;
 }
 
+.logout {
+    width: 100px;
+    margin-left: 100px;
+    margin-top: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login {
+    float: right;
+    width: 42px;
+    height: 20px;
+    margin-top: 50px;
+    margin-right: 40px;
+    text-align: center;
+}
+
+.login a {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.login a:hover {
+    text-decoration: underline;
+}
+
 .logout:hover {
     text-decoration: underline;
+}
+
+.login a:active {
+    color: deepskyblue;
+}
+
+.logout:active {
+    color: deepskyblue;
 }

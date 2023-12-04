@@ -24,6 +24,7 @@ const Login = props => {
         const rememberMe = data.rememberMe
         let response = await login({email, password, rememberMe})
         if (response.data.resultCode === 0) {
+            window.location.reload()
             dispatch(setAuth(true))
             dispatch(setLoginError(null))
         } else if (response.data.resultCode === 1 || response.data.resultCode === 10) {
