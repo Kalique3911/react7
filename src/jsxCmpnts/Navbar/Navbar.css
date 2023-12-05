@@ -1,21 +1,58 @@
 .nav {
     grid-area: nav;
     background-color: #141414;
-    padding: 20px;
+    padding: 25px;
+    margin-left: 10px;
     display: block;
+    max-width: 200px;
 }
 
 .nav div {
+    position: relative;
+    margin-bottom: 10px;
     height: 40px;
-    width: 170px;
+    width: 200px;
 }
 
 .navLink {
     vertical-align: center;
     display: block;
-    max-width: 170px;
+    max-width: 200px;
     max-height: 40px;
-    padding-left: 40px;
+    padding-left: 50px;
     padding-top: 10px;
     padding-bottom: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    background-color: #3b3b3b;
+    transition: 500ms background-color;
+}
+
+.icon {
+    position: absolute;
+    width: 25px;
+    top: 6px;
+    left: 15px;
+}
+
+@media (max-width: 630px) {
+    .nav {
+        padding: 25px 0px 0px 0px;
+        margin-left: 0px;
+        max-width: 100px;
+    }
+    .nav div {
+        margin-left: 30px;
+        width: 100px;
+    }
+    .navLink {
+        padding-left: 10px;
+        max-width: 100px;
+    }
+    .icon {
+        display: none;
+    }
 }

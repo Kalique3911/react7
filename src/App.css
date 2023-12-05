@@ -7,7 +7,7 @@
   "nav content";
 
     grid-template-rows: 120px auto;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 300px auto;
     grid-gap: 10px;
     background-color: #141414;
 }
@@ -21,4 +21,10 @@ body {
 
 body a {
     color: #dfe1e4;
+}
+
+@media (max-width: 630px) {
+    .app-wrapper {
+        grid-template-columns: 150px auto;
+    }
 }

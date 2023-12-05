@@ -14,7 +14,7 @@ import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
 import {useGetInitQuery} from './API/authAPI'
 import Messages from './jsxCmpnts/Messages/Messages'
-import classes from './content.module.css'
+import classes from './content.css'
 
 
 export const App = () => {
@@ -38,7 +38,7 @@ export const App = () => {
         <div className="app-wrapper">
             <Header/>
             <Navbar/>
-            <div className={classes.content}>
+            <div className={'content'}>
                 <Routes>
                     <Route path="/" element={<News/>}/>
                     <Route path="/news" element={<News/>}/>
