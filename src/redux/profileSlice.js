@@ -10,7 +10,6 @@ export const profileSlice = createSlice({
         }, {
             id: 3, text: 'Check this out', likes: 5
         },],
-        fake: 1
     },
     reducers: {
         setPost: (state, action) => {

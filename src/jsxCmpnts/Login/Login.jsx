@@ -1,7 +1,7 @@
 import React, {memo, useState} from 'react'
 import {Navigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {setAuth, setLoginError} from '../../redux/authSlice'
+import {setAuth, setIsLoggingOut, setLoginError} from '../../redux/authSlice'
 import {getIsAuth, getLoginError} from '../../selectors/authSelectors'
 import {compose} from 'redux'
 import {useLoginMutation} from '../../API/authAPI'
@@ -22,11 +22,13 @@ const Login = props => {
         const email = data.email
         const password = data.password
         const rememberMe = data.rememberMe
+        dispatch(setIsLoggingOut(true))
         let response = await login({email, password, rememberMe})
         if (response.data.resultCode === 0) {
-            window.location.reload()
+            await window.location.reload()
             dispatch(setAuth(true))
             dispatch(setLoginError(null))
+            dispatch(setIsLoggingOut(false))
         } else if (response.data.resultCode === 1 || response.data.resultCode === 10) {
             dispatch(setLoginError(response.data.messages[0]))
         }

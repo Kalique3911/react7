@@ -10,18 +10,17 @@
 .nav div {
     position: relative;
     margin-bottom: 10px;
-    height: 40px;
-    width: 200px;
+    width: 230px;
+    height: 60px;
 }
 
 .navLink {
-    vertical-align: center;
     display: block;
-    max-width: 200px;
-    max-height: 40px;
+    max-width: 230px;
+    height: 20px;
     padding-left: 50px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-radius: 5px;
     text-decoration: none;
 }
@@ -34,7 +33,7 @@
 .icon {
     position: absolute;
     width: 25px;
-    top: 6px;
+    top: 16px;
     left: 15px;
 }
 

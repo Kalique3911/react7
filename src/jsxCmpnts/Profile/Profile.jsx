@@ -8,12 +8,11 @@ import {getIsAuth} from '../../selectors/authSelectors'
 import {useGetAuthUserIdQuery} from '../../API/authAPI'
 import {useGetUserProfileQuery} from '../../API/profileAPI'
 import preloader from '../../images/preloader.gif'
+import defaultAva from '../../images/defaultAva.jpg'
 import ProfileStatus from './ProfileInfo/ProfileStatus/ProfileStatus'
-import {fakeIncrementor} from '../../redux/profileSlice'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 
 const Profile = props => {
-    const dispatch = useDispatch()
     //  beriom userId iz URL s pomosch'ju useParams
     let {userId} = useParams()
 
@@ -26,24 +25,19 @@ const Profile = props => {
         skip: !authUserId
     })
 
-    const fake = useSelector((state) => state.profilePage.fake)
-
     if (!profile) {
         return <img src={preloader} alt={'preloader'}/>
     }
 
     return <div className={classes.content}>
         <div className={classes.info}>
-            <img src={profile.photos.large} alt={'large userPhoto'}/>
+            <img src={profile.photos.large ? profile.photos.large : defaultAva} alt={'large userPhoto'}/>
             <h3>{profile.fullName}</h3>
             <ProfileStatus userId={userId} authUserId={authUserId}/>
             <div>
                 <p>{profile.aboutMe}</p>
                 <p>{profile.lookingForAJob ? 'ищу работу' : 'не ищу работу'}</p>
                 <p>{profile.lookingForAJobDescription}</p>
-            </div>
-            <div>
-                <button onClick={() => dispatch(fakeIncrementor())}>{fake}</button>
             </div>
         </div>
         <MyPosts fullName={profile.fullName} smallPhoto={profile.photos.small}/>

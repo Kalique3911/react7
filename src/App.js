@@ -14,19 +14,19 @@ import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
 import {useGetInitQuery} from './API/authAPI'
 import Messages from './jsxCmpnts/Messages/Messages'
-import classes from './content.css'
+import './content.css'
 
 
 export const App = () => {
     const dispatch = useDispatch()
-
+    const isLoggingOut = useSelector(state => state.auth.isLoggingOut)
     const result = useGetInitQuery().data
 
     useEffect(() => {
         dispatch(setInit(true))
     })
 
-    if (!useSelector(state => state.auth.isInit) || result === undefined) {
+    if (!useSelector(state => state.auth.isInit) || result === undefined || isLoggingOut) {
         return <img src={preloader} alt={'preloader'}/>
     }
 
@@ -53,4 +53,3 @@ export const App = () => {
         </div>
     </BrowserRouter>
 }
-// todo css potom dodielat' kurs

@@ -1,13 +1,16 @@
 import React, {memo, useState} from 'react'
 import './Header.css'
-import logo from '../../images/logo.jpg'
+import logo from '../../images/logo.png'
 import {NavLink} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {getIsAuth} from '../../selectors/authSelectors'
-import {setAuth} from '../../redux/authSlice'
+import {setAuth, setIsLoggingOut} from '../../redux/authSlice'
 import {compose} from 'redux'
 import {
-    useGetAuthUserEmailQuery, useGetAuthUserIdQuery, useGetAuthUserLoginQuery, useLogoutMutation
+    useGetAuthUserEmailQuery,
+    useGetAuthUserIdQuery,
+    useGetAuthUserLoginQuery,
+    useLogoutMutation
 } from '../../API/authAPI'
 import {useGetAuthUserAvaQuery} from '../../API/profileAPI'
 import defaultAva from '../../images/defaultAva.jpg'
@@ -54,15 +57,17 @@ const Header = props => {
                     <span>{login}</span>
                     <div>{email}</div>
                     <div onClick={async () => {
+                        dispatch(setIsLoggingOut(true))
                         await logoutUser()
-                        window.location.reload()
+                        await window.location.reload()
+                        dispatch(setIsLoggingOut(false))
                         setIsOpen(false)
                         dispatch(setAuth(false))
                     }} className={'logout'}>Logout</div>
                 </span>
             </span>
         </> : <span className={'login'}><NavLink
-            to={'/login'}>Login</NavLink></span>}
+            to={'/login'}>Log in</NavLink></span>}
     </header>
 }
 
