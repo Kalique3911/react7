@@ -1,0 +1,91 @@
+.head {
+    /*border: 1px solid #dfe1e4;*/
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #141414;
+}
+
+.head img {
+    /*border: 8px solid #141414;*/
+    border-radius: 50%;
+    width: 300px;
+}
+
+.head h3 {
+    margin-block-start: 0px;
+    margin-block-end: 5px;
+    margin-left: 30px;
+    font-size: 25px;
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    background-color: #95969b;
+    margin: 20px 0px 20px 0px;
+    display: block;
+}
+
+.status {
+    font-style: italic;
+    font-weight: 600;
+    font-size: 15px;
+    margin-left: 30px;
+    height: 20px;
+    color: #95969b;
+}
+
+.status span:hover {
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.noStatus {
+    font-style: italic;
+    font-size: 15px;
+    margin-left: 30px;
+    color: #95969b;
+    font-weight: normal;
+    width: 45px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.noStatus span {
+    cursor: pointer;
+}
+
+.noStatus:hover {
+    font-weight: bold;
+}
+
+.noInfo {
+    display: none;
+}
+
+.info {
+    /*border: 1px solid #dfe1e4;*/
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #141414;
+}
+
+.info span {
+    font-weight: normal;
+}
+
+.info a {
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.info a:hover {
+    text-decoration: underline;
+    color: deepskyblue;
+}
+
+.info div {
+    margin: 10px 0px 10px 0px;
+}

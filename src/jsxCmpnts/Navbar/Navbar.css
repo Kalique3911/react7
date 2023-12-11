@@ -37,7 +37,7 @@
     left: 15px;
 }
 
-@media (max-width: 630px) {
+@media (max-width: 770px) {
     .nav {
         padding: 25px 0px 0px 0px;
         margin-left: 0px;

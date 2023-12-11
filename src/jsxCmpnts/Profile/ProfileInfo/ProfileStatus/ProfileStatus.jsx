@@ -2,6 +2,8 @@ import React, {memo, useEffect, useState} from 'react'
 import {compose} from 'redux'
 import {useGetUserStatusQuery, useLazyGetUserStatusQuery, usePassUserStatusMutation} from '../../../../API/profileAPI'
 import {useForm} from 'react-hook-form'
+import '../../Profile.css'
+import classNames from 'classnames'
 
 const ProfileStatus = props => {
     let [userId, setUserId] = useState(props.userId)
@@ -42,18 +44,18 @@ const ProfileStatus = props => {
         refetch() //eto nuzhno iz-za togo, chto v deactivateEditMode nie mieniajet'sia state
     }
 
-    return <div>
+    return <div className={classNames({'status': status, 'noStatus': !status})}>
         {!editMode && <div>
-            <span onDoubleClick={activateEditMode}> {status || '---'}</span>
+            <span onClick={activateEditMode}> {status || 'status'}</span>
         </div>}
         {editMode && <div>
             <form>
                 <input {...register('status', {
                     onBlur: handleSubmit(deactivateEditMode),
-                    maxLength: {value: 300, message: 'max length is 300'}
+                    maxLength: {value: 190, message: 'max length is 190'}
                 })} autoFocus={true}></input>
                 {errors.status && <div style={{color: 'red'}}>{errors.status.message}</div>}
-                {300 - statusLength < 50 && <div>{`${300 - statusLength} symbols left`}</div>}
+                {190 - statusLength < 50 && <div>{`${190 - statusLength} symbols left`}</div>}
             </form>
         </div>}
     </div>
