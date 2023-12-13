@@ -1,7 +1,6 @@
 import React, {memo} from 'react'
 import './Profile.css'
 import {compose} from 'redux'
-import MyPosts from './MyPosts/MyPosts'
 import {useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {getIsAuth} from '../../selectors/authSelectors'
@@ -30,10 +29,11 @@ const Profile = props => {
     const [getProfile] = useLazyGetUserProfileQuery()
     const [getReqId] = useLazyGetAuthUserIdQuery()
     const [passUserProfile] = usePassUserProfileMutation()
+    const [aboutMeLength, setAboutMeLength] = useState(0)
+    const [lookingForAJobDescriptionLength, setLookingForAJobDescriptionLength] = useState(0)
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm({
         mode: 'onChange', defaultValues: async () => {
-            debugger
             const reqId = await getReqId(undefined, {
                 skip: !isAuth
             }).unwrap()
@@ -41,13 +41,18 @@ const Profile = props => {
                 skip: !reqId
             }).unwrap()
             return {
-                fullName: reqProfile.fullName, aboutMe: reqProfile.aboutMe,
+                fullName: reqProfile.fullName,
+                aboutMe: reqProfile.aboutMe,
                 lookingForAJob: reqProfile.lookingForAJob,
                 lookingForAJobDescription: reqProfile.lookingForAJobDescription,
-                github: reqProfile.contacts.github, vk: reqProfile.contacts.vk,
-                facebook: reqProfile.contacts.facebook, instagram: reqProfile.contacts.instagram,
-                twitter: reqProfile.contacts.twitter, website: reqProfile.contacts.website,
-                youtube: reqProfile.contacts.youtube, mainLink: reqProfile.contacts.mainLink
+                github: reqProfile.contacts.github,
+                vk: reqProfile.contacts.vk,
+                facebook: reqProfile.contacts.facebook,
+                instagram: reqProfile.contacts.instagram,
+                twitter: reqProfile.contacts.twitter,
+                website: reqProfile.contacts.website,
+                youtube: reqProfile.contacts.youtube,
+                mainLink: reqProfile.contacts.mainLink
             }
         }
     })
@@ -74,6 +79,17 @@ const Profile = props => {
         refetch()
     }
 
+    watch((data) => {
+        if (data.aboutMe) {
+            setAboutMeLength(data.aboutMe.length)
+        }
+    })
+    watch((data) => {
+        if (data.lookingForAJobDescription) {
+            setLookingForAJobDescriptionLength(data.lookingForAJobDescription.length)
+        }
+    })
+
     if (!profile) {
         return <img src={preloader} alt={'preloader'}/>
     }
@@ -91,47 +107,100 @@ const Profile = props => {
                 'noInfo': !profile.aboutMe && !profile.lookingForAJob && !profile.lookingForAJobDescription && !Object.values(profile.contacts).some(c => c) && !(authUserId === userId)
             })}>
                 {!editMode && <div>
-                    <div>about me: <span>{profile.aboutMe}</span></div>
+                    <div className={'infoItem'}>
+                        <div>About me:</div>
+                        <span>{profile.aboutMe}</span>
+                    </div>
                     {profile.lookingForAJob && <span className={'separator'}></span>}
-                    <div>{profile.lookingForAJob && 'looking for a job'}</div>
-                    <div>my professional
-                        skills: <span>{profile.lookingForAJob && profile.lookingForAJobDescription}</span></div>
+                    <div className={'infoItem'}>
+                        <div>{profile.lookingForAJob && 'I am looking for a job!'}</div>
+                    </div>
+                    {profile.lookingForAJob && <div className={'infoItem'}>
+                        <div>My professional skills:</div>
+                        <span>{profile.lookingForAJobDescription}</span>
+                    </div>}
                     {Object.values(profile.contacts).some(c => c) && <span className={'separator'}></span>}
                     {Object.keys(profile.contacts).map(k => {
                         contactCount += 1
                         if (Object.values(profile.contacts)[contactCount]) {
-                            return <div>{`${k}: `}<a
-                                href={`${Object.values(profile.contacts)[contactCount]}`}>{Object.values(profile.contacts)[contactCount]}</a>
+                            return <div className={'infoItem'}>
+                                <div>{`${k}: `}</div>
+                                <a href={`${Object.values(profile.contacts)[contactCount]}`}>{Object.values(profile.contacts)[contactCount]}</a>
                             </div>
                         } else return <div></div>
                     })}
-                    {(userId ? userId.toString() : authUserId  === authUserId) && <button onClick={() => setEditMode(true)}>edit</button>}
+                    {(userId === authUserId.toString()) && <div className={'infoItem'}>
+                        <div></div>
+                        <div>
+                            <button onClick={() => setEditMode(true)}>Edit</button>
+                        </div>
+                    </div>}
                 </div>}
                 {editMode && <form onSubmit={handleSubmit(onSubmit)}>
-                    <div>name: <input {...register('fullName', {
-                        maxLength: {value: 80, message: 'max length is 50'}
-                    })}/></div>
-                    <div>about me: <input {...register('aboutMe', {
-                        maxLength: {value: 300, message: 'max length is 300'}
-                    })}/></div>
+                    <div className={'infoItem'}>
+                        <div>Name:</div>
+                        <input {...register('fullName', {
+                            required: 'field is required', maxLength: {value: 80, message: 'max length is 50'}
+                        })}/>
+                    </div>
+                    {errors.fullName && <div className={'infoItem'} style={{color: 'red'}}>
+                        <div>error:</div>
+                        <span style={{color: 'red'}}>{errors.fullName.message}</span>
+                    </div>}
+                    <div className={'infoItem'}>
+                        <div>About me:</div>
+                        <textarea {...register('aboutMe', {
+                            required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
+                        })}/>
+                        {300 - aboutMeLength && <div className={'lengthCounter'}>{`${300 - aboutMeLength}`}</div>}
+                    </div>
+                    {errors.aboutMe && <div className={'infoItem'} style={{color: 'red'}}>
+                        <div>error:</div>
+                        <span style={{color: 'red'}}>{errors.aboutMe.message}</span>
+                    </div>}
                     <span className={'separator'}></span>
-                    <div>{'looking for a job?'}<input type={'checkbox'} {...register('lookingForAJob')}/></div>
-                    <div>my professional skills: <input {...register('lookingForAJobDescription', {
-                        maxLength: {value: 300, message: 'max length is 300'}
-                    })}/></div>
+                    <div className={'infoItem'}>
+                        <div>Looking for a job?</div>
+                        <input type={'checkbox'} {...register('lookingForAJob')}/>
+                    </div>
+                    <div className={'infoItem'}>
+                        <div>My professional skills:</div>
+                        <textarea {...register('lookingForAJobDescription', {
+                            required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
+                        })}/>
+                        {300 - lookingForAJobDescriptionLength &&
+                            <div className={'lengthCounter'}>{`${300 - lookingForAJobDescriptionLength}`}</div>}
+                    </div>
                     <span className={'separator'}></span>
                     {Object.keys(profile.contacts).map(k => {
-                        return <div>{`${k}: `}<input {...register(`${k}`, {
-                            maxLength: {
-                                value: 100, message: 'max length is 100'
-                            }
-                        })}/></div>
+                        return <div className={'infoItem'}>
+                            <div>{`${k}: `}</div>
+                            <div>
+                                <input {...register(`${k}`, {
+                                    pattern: {
+                                        value: /^(ftp|http|https):\/\/[^ "]+$/
+                                    },
+                                    maxLength: {
+                                        value: 100
+                                    }
+                                })}/>
+                                {Object.keys(errors).find(key => key === `${k}`) &&
+                                    <div style={{color: 'red', float: 'left'}}>
+                                        <span style={{fontWeight: 'bold'}}>error: </span>
+                                        <span>enter valid link</span>
+                                    </div>}
+                            </div>
+                        </div>
                     })}
-                    <button>send</button>
+                    <div className={'infoItem'}>
+                        <div></div>
+                        <div>
+                            <button>Submit</button>
+                        </div>
+                    </div>
                 </form>}
             </div>
         </div>
-        <MyPosts fullName={profile.fullName} smallPhoto={profile.photos.small}/>
     </div>
 }
 

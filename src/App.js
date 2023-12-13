@@ -44,7 +44,7 @@ export const App = () => {
                     <Route path="/news" element={<News/>}/>
                     <Route path="/messages" element={<Dialogs/>}/>
                     <Route path="/messages/dialog/1" element={<Messages/>}/>
-                    <Route path="/profile/:userId?" element={<Profile/>}/>
+                    <Route path="/profile/:userId" element={<Profile/>}/>
                     <Route path="/music" element={<Music/>}/>
                     <Route path="/users" element={<Users/>}/>
                     <Route path="/login" element={<Login/>}/>

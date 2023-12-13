@@ -35,7 +35,7 @@ const Login = props => {
     }
 
     if (isAuth) {
-        return <Navigate to={'/profile'}/>
+        return <Navigate to={'/news'}/>
     }
 
     return <div>
