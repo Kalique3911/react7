@@ -19,8 +19,13 @@ export const profileAPI = createApi({
         }),
         passUserStatus: build.mutation({
             query: (status) => ({url: `status`, method: 'PUT', body: status})
+        }),
+        passUserProfile: build.mutation({
+            query: (profile) => ({method: 'PUT', body: profile})
         })
     })
 })
 
-export const {useGetUserProfileQuery, useGetUserStatusQuery, usePassUserStatusMutation, useGetAuthUserAvaQuery, useLazyGetUserStatusQuery} = profileAPI
+export const {useLazyGetUserProfileQuery, useGetUserProfileQuery, useGetUserStatusQuery,
+    usePassUserStatusMutation, useGetAuthUserAvaQuery, useLazyGetUserStatusQuery,
+    usePassUserProfileMutation} = profileAPI

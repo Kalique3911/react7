@@ -89,3 +89,20 @@
 .info div {
     margin: 10px 0px 10px 0px;
 }
+
+.info button {
+
+}
+
+.info textarea,
+.info input {
+    display: block;
+    width: 300px;
+    outline: none;
+    height: 20px;
+    text-align: left;
+}
+
+.info textarea {
+    height: 60px;
+}
