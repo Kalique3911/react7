@@ -1,5 +1,4 @@
 .head {
-    /*border: 1px solid #dfe1e4;*/
     border-radius: 20px;
     padding: 20px;
     margin-bottom: 20px;
@@ -7,7 +6,6 @@
 }
 
 .head img {
-    /*border: 8px solid #141414;*/
     border-radius: 50%;
     width: 300px;
 }
@@ -65,10 +63,8 @@
 }
 
 .info {
-    /*border: 1px solid #dfe1e4;*/
     border-radius: 20px;
     padding: 20px;
-    margin-bottom: 20px;
     background-color: #141414;
 }
 

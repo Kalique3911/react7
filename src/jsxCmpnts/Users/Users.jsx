@@ -1,4 +1,4 @@
-import classes from './Users.module.css'
+import './Users.css'
 import defaultAva from '../../images/defaultAva.jpg'
 import React, {memo} from 'react'
 import {NavLink} from 'react-router-dom'
@@ -9,6 +9,7 @@ import preloader from '../../images/preloader.gif'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 import {compose} from 'redux'
 import {useFollowMutation, useGetUsersQuery, useUnfollowMutation} from '../../API/usersAPI'
+import Select from 'react-select'
 
 const Users = props => {
     const dispatch = useDispatch()
@@ -27,22 +28,21 @@ const Users = props => {
             pages.push(i)
         }
     }
+    let options = pages.map(p => ({value: `${p}`, label: `${p} page`}))
 
     const onPageChange = (pageNumber) => {
-        dispatch(setCurrentPage(pageNumber))
+        dispatch(setCurrentPage(pageNumber.value))
+    }
+    const onBlur = () => {
+        debugger
     }
 
     if (isLoading) {
         return <img src={preloader} alt={'preloader'}/>
     }
 
-    return <div className={classes.users}>
-        <div className={classes.page}>
-            {pages.map(p => {
-                return <span className={currentPage === p ? classes.selectedPage : ''} key={p}
-                             onClick={() => onPageChange(p)}>{p}</span>
-            })}
-        </div>
+    return <div className={'users'}>
+        <Select options={options} onChange={onPageChange} className={'react-select-container'} classNamePrefix={'custom-select'} onBlur={onBlur}/>
         {usersData.items.map(user => {
             return <div key={user.id}>
 

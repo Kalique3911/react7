@@ -1,0 +1,46 @@
+.users {
+    padding: 10px;
+}
+
+.users img {
+    width: 100px;
+    border-radius: 80px;
+}
+
+.custom-select__control--is-focused,
+.custom-select__control {
+    background-color: #282828 !important;
+    border-color: #141414 !important;
+}
+
+.custom-select__single-value,
+.custom-select__input-container {
+    color: #dfe1e4 !important;
+}
+
+.custom-select__control:active,
+.custom-select__control:hover {
+    border-color: #282828;
+}
+
+.custom-select__placeholder {
+    color: #dfe1e4 !important;
+}
+
+.custom-select__menu {
+    background-color: #282828 !important;
+}
+
+.custom-select__option {
+    background-color: #282828 !important;
+    transition: 300ms background-color ease-out;
+}
+
+.custom-select__option:active {
+    background-color: #3b3b3b !important;
+}
+
+.custom-select__option:hover {
+    background-color: #3b3b3b !important;
+    transition: 300ms background-color ease-out;
+}

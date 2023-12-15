@@ -125,7 +125,9 @@ const Profile = props => {
                         if (Object.values(profile.contacts)[contactCount]) {
                             return <div className={'infoItem'}>
                                 <div>{`${k}: `}</div>
-                                <a href={`${Object.values(profile.contacts)[contactCount]}`}>{Object.values(profile.contacts)[contactCount]}</a>
+                                <span>
+                                    <a href={`${Object.values(profile.contacts)[contactCount]}`}>{Object.values(profile.contacts)[contactCount]}</a>
+                                </span>
                             </div>
                         } else return <div></div>
                     })}
@@ -179,8 +181,7 @@ const Profile = props => {
                                 <input {...register(`${k}`, {
                                     pattern: {
                                         value: /^(ftp|http|https):\/\/[^ "]+$/
-                                    },
-                                    maxLength: {
+                                    }, maxLength: {
                                         value: 100
                                     }
                                 })}/>
