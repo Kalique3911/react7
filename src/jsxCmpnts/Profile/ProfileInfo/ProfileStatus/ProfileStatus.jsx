@@ -53,7 +53,7 @@ const ProfileStatus = props => {
                 <input {...register('status', {
                     onBlur: handleSubmit(deactivateEditMode),
                     maxLength: {value: 190, message: 'max length is 190'}
-                })} autoFocus={true}></input>
+                })} autoFocus={true}/>
                 {errors.status && <div style={{color: 'red'}}>{errors.status.message}</div>}
                 {190 - statusLength < 50 && <div>{`${190 - statusLength} symbols left`}</div>}
             </form>

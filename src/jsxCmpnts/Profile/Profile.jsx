@@ -13,6 +13,7 @@ import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 import classNames from 'classnames'
 import {useState} from 'react'
 import {useForm} from 'react-hook-form'
+import download from '../../images/download.png'
 
 const Profile = props => {
     //  beriom userId iz URL s pomosch'ju useParams
@@ -31,6 +32,7 @@ const Profile = props => {
     const [passUserProfile] = usePassUserProfileMutation()
     const [aboutMeLength, setAboutMeLength] = useState(0)
     const [lookingForAJobDescriptionLength, setLookingForAJobDescriptionLength] = useState(0)
+    const [hover, setHover] = useState(false)
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm({
         mode: 'onChange', defaultValues: async () => {
@@ -97,7 +99,12 @@ const Profile = props => {
     return <div className={'profile'}>
         <div>
             <div className={'head'}>
-                <img src={profile.photos.large ? profile.photos.large : defaultAva} alt={'large userPhoto'}/>
+                <div>
+                    <div className={'download'}>
+                        <img src={download}/>
+                    </div>
+                    <img src={profile.photos.large ? profile.photos.large : defaultAva} alt={'large userPhoto'}/>
+                </div>
                 <span className={'separator'}></span>
                 <h3>{profile.fullName}</h3>
                 <ProfileStatus userId={userId} authUserId={authUserId}/>
@@ -129,7 +136,7 @@ const Profile = props => {
                                     <a href={`${Object.values(profile.contacts)[contactCount]}`}>{Object.values(profile.contacts)[contactCount]}</a>
                                 </span>
                             </div>
-                        } else return <div></div>
+                        } else return null
                     })}
                     {(userId === authUserId.toString()) && <div className={'infoItem'}>
                         <div></div>

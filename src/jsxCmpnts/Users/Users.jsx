@@ -1,6 +1,6 @@
 import './Users.css'
 import defaultAva from '../../images/defaultAva.jpg'
-import React, {memo} from 'react'
+import React, {memo, useState} from 'react'
 import {NavLink} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {getCurrentPage, getFollowingInProgress, getPageSize} from '../../selectors/usersSelectors'
@@ -19,6 +19,7 @@ const Users = props => {
     const {data: usersData, refetch, isLoading} = useGetUsersQuery({currentPage, pageSize})
     const [follow] = useFollowMutation()
     const [unfollow] = useUnfollowMutation()
+    let [searchOptions, setSearchOptions] = useState([])
     let pages = []
 
     if (usersData) {
@@ -28,55 +29,68 @@ const Users = props => {
             pages.push(i)
         }
     }
-    let options = pages.map(p => ({value: `${p}`, label: `${p} page`}))
+    let pagesOptions = pages.map(p => ({value: `${p}`, label: `${p} page`}))
+    const options = [
+        {value: 'followed', label: 'only followed'},
+        {value: 'ava', label: 'only with ava'},
+        {value: 'status', label: 'only with status'}
+    ]
 
     const onPageChange = (pageNumber) => {
         dispatch(setCurrentPage(pageNumber.value))
     }
-    const onBlur = () => {
-        debugger
+    const onOptionChange = (option) => {
+        setSearchOptions(option)
     }
 
     if (isLoading) {
         return <img src={preloader} alt={'preloader'}/>
     }
 
-    return <div className={'users'}>
-        <Select options={options} onChange={onPageChange} className={'react-select-container'} classNamePrefix={'custom-select'} onBlur={onBlur}/>
+    return <div>
+        <Select options={pagesOptions} onChange={onPageChange} className={'react-select-container'}
+                classNamePrefix={'custom-select'} placeholder={'Select page'}/>
+        <Select options={options} onChange={onOptionChange} className={'react-select-container'}
+                classNamePrefix={'custom-select'} placeholder={'Select options'} isMulti={true}/>
         {usersData.items.map(user => {
-            return <div key={user.id}>
+            if (!user.followed && searchOptions.some(o => o.value === 'followed')) {
+                return null
+            } if (!user.photos.small && searchOptions.some(o => o.value === 'ava')) {
+                return null
+            } if (!user.status && searchOptions.some(o => o.value === 'status')) {
+                return null
+            }
+            return <div key={user.id} className={'user'}>
+                <div>
+                    <NavLink to={'/profile/' + user.id}>
+                        <img src={user.photos.small != null ? user.photos.small : defaultAva} alt={'small photo'}/>
+                    </NavLink>
+                </div>
+                <span className={'uSeparator'}></span>
+                <div>{user.name}</div>
+                {user.status && <div className={'uStatus'}>{user.status}</div>}
+                <div>
+                    {user.followed ? <button
+                            disabled={followingInProgress.some(id => id === user.id)}
+                            onClick={async () => {
+                                dispatch(setToggleIsFollowingProgress(user.id, true))
+                                await unfollow(user.id)
+                                await refetch()
+                                dispatch(setToggleIsFollowingProgress(user.id, false))
+                            }}
+                            className={'followed'}
+                        >Unfollow</button>
 
-                <span>
-                    <div>
-                        <NavLink to={'/profile/' + user.id}>
-                            <img src={user.photos.small != null ? user.photos.small : defaultAva} alt={'small photo'}/>
-                        </NavLink>
-                    </div>
-                    <div>
-                        {user.followed ? <button
-                                disabled={followingInProgress.some(id => id === user.id)}
-                                onClick={async () => {
-                                    dispatch(setToggleIsFollowingProgress(user.id, true))
-                                    await unfollow(user.id)
-                                    await refetch()
-                                    dispatch(setToggleIsFollowingProgress(user.id, false))
-                                }}
-                            >Unfollow</button>
-
-                            : <button
-                                disabled={followingInProgress.some(id => id === user.id)}
-                                onClick={async () => {
-                                    dispatch(setToggleIsFollowingProgress(user.id, true))
-                                    await follow(user.id)
-                                    await refetch()
-                                    dispatch(setToggleIsFollowingProgress(user.id, false))
-                                }}
-                            >Follow</button>}
-                    </div>
-                </span>
-                <span>
-                <div>{user.name}</div><div>{user.status}</div>
-            </span>
+                        : <button
+                            disabled={followingInProgress.some(id => id === user.id)}
+                            onClick={async () => {
+                                dispatch(setToggleIsFollowingProgress(user.id, true))
+                                await follow(user.id)
+                                await refetch()
+                                dispatch(setToggleIsFollowingProgress(user.id, false))
+                            }}
+                        >Follow</button>}
+                </div>
             </div>
         })}
     </div>
