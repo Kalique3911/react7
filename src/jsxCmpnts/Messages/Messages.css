@@ -1,0 +1,10 @@
+.messages {
+    height: 700px;
+    overflow-y: auto;
+    margin-bottom: 50px;
+}
+
+.messages form {
+    position: absolute;
+    bottom: 350px;
+}

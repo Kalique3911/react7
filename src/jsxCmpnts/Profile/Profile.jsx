@@ -5,7 +5,12 @@ import {useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {getIsAuth} from '../../selectors/authSelectors'
 import {useGetAuthUserIdQuery, useLazyGetAuthUserIdQuery} from '../../API/authAPI'
-import {useGetUserProfileQuery, useLazyGetUserProfileQuery, usePassUserProfileMutation} from '../../API/profileAPI'
+import {
+    useGetUserProfileQuery,
+    useLazyGetUserProfileQuery,
+    usePassUserPhotoMutation,
+    usePassUserProfileMutation
+} from '../../API/profileAPI'
 import preloader from '../../images/preloader.gif'
 import defaultAva from '../../images/defaultAva.jpg'
 import ProfileStatus from './ProfileInfo/ProfileStatus/ProfileStatus'
@@ -30,6 +35,7 @@ const Profile = props => {
     const [getProfile] = useLazyGetUserProfileQuery()
     const [getReqId] = useLazyGetAuthUserIdQuery()
     const [passUserProfile] = usePassUserProfileMutation()
+    const [passUserPhoto] = usePassUserPhotoMutation()
     const [aboutMeLength, setAboutMeLength] = useState(0)
     const [lookingForAJobDescriptionLength, setLookingForAJobDescriptionLength] = useState(0)
     const [hover, setHover] = useState(false)
@@ -80,6 +86,12 @@ const Profile = props => {
         setEditMode(false)
         refetch()
     }
+    const onImageChange = async data => {
+        const formData = new FormData()
+        formData.append('files', data.image[0])
+        await passUserPhoto(formData)
+        refetch()
+    }
 
     watch((data) => {
         if (data.aboutMe) {
@@ -100,9 +112,11 @@ const Profile = props => {
         <div>
             <div className={'head'}>
                 <div>
-                    <div className={'download'}>
-                        <img src={download}/>
-                    </div>
+                    {(userId === authUserId.toString()) && <form className={'download'}>
+                        <img src={download} alt={'download'}/>
+                        <input type={'file'} className={'avaInput'}
+                               accept={'image/*'} {...register('image', {onChange: handleSubmit(onImageChange)})}/>
+                    </form>}
                     <img src={profile.photos.large ? profile.photos.large : defaultAva} alt={'large userPhoto'}/>
                 </div>
                 <span className={'separator'}></span>

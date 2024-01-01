@@ -1,12 +1,17 @@
 import React, {memo} from 'react'
-import classes from './Message.module.css'
+import './Message.css'
 import defaultAva from '../../../images/defaultAva.jpg'
 import {compose} from 'redux'
 
 const Message = props => {
-    return <div className={classes.message}>
-        <img src={defaultAva} alt={'ava'}/>
-        {props.text}
+    return <div className={'message'}>
+        <div>
+            <img src={props.photo ? props.photo : defaultAva} alt={'ava'}/>
+            {props.userName}
+        </div>
+        <div>
+            {props.text}
+        </div>
     </div>
 }
 

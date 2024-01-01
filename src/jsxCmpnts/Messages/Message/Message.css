@@ -1,0 +1,10 @@
+.message {
+    padding: 10px;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.message img {
+    width: 40px;
+    border-radius: 50%;
+}

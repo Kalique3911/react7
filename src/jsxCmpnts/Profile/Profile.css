@@ -57,6 +57,21 @@
     transition: 400ms opacity ease-out;
 }
 
+.avaInput {
+    position: absolute;
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: 50%;
+    height: 50%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.avaButton {
+    position: absolute;
+    left: 400px;
+}
+
 /*here starts status*/
 
 .status {

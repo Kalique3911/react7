@@ -2,7 +2,6 @@ import './App.css'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import News from './jsxCmpnts/News/News'
 import Music from './jsxCmpnts/Music/Music'
-import Dialogs from './jsxCmpnts/Dialogs/Dialogs'
 import Users from './jsxCmpnts/Users/Users'
 import Profile from './jsxCmpnts/Profile/Profile'
 import Header from './jsxCmpnts/Header/Header'
@@ -42,8 +41,7 @@ export const App = () => {
                 <Routes>
                     <Route path="/" element={<News/>}/>
                     <Route path="/news" element={<News/>}/>
-                    <Route path="/messages" element={<Dialogs/>}/>
-                    <Route path="/messages/dialog/1" element={<Messages/>}/>
+                    <Route path="/messages" element={<Messages/>}/>
                     <Route path="/profile/:userId" element={<Profile/>}/>
                     <Route path="/music" element={<Music/>}/>
                     <Route path="/users" element={<Users/>}/>
