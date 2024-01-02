@@ -42,7 +42,6 @@ const Messages = props => {
         await ws.send(data.message)
         setMessageLength(0)
         reset()
-        // window.location.reload()
     }
     watch((data) => {
         if (data.message) {
@@ -50,30 +49,37 @@ const Messages = props => {
         }
     })
     const scrollHandler = (e) => {
-        if (((e.currentTarget.scrollHeight - e.currentTarget.scrollTop) - e.currentTarget.clientHeight) > 400) {
+        if (((e.currentTarget.scrollHeight - e.currentTarget.scrollTop) - e.currentTarget.clientHeight) > 300) {
             setScroll(false)
         } else {
             setScroll(true)
         }
     }
 
-    return <div onScroll={scrollHandler} className={'messages'}>
-        <div>
-            {messagesData && messagesData.map(el => <Message key={el.index} userName={el.userName}
-                                                             text={el.message} photo={el.photo}/>)}
+    return <div className={'messages'}>
+        <div className={'chat'} onScroll={scrollHandler}>
+            {messagesData && messagesData.map((el, i) => {
+                if (el.userName === messagesData[i - 1]?.userName) {
+                    return <Message key={el.index} text={el.message} messageType={'normal'}/>
+                } else {
+                    return <Message key={el.index} userName={el.userName}
+                                    text={el.message} photo={el.photo} messageType={'head'}/>
+                }
+            })}
+            <div ref={messagesRef}></div>
         </div>
-        <div ref={messagesRef}></div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register('message', {
-                required: 'Message require filed',
-                maxLength: {value: 2000, message: 'max length is 2000'}
+        <form onSubmit={handleSubmit(onSubmit)} className={'form'}>
+            <span style={{display: 'flex'}}>
+            <textarea {...register('message', {
+                required: 'Message require filed', maxLength: {value: 2000, message: 'max length is 2000'}
             })} placeholder={'your new message'}
             />
+            <span>
+                <button disabled={readyStatus !== 'ready'}>Send</button>
+            </span>
+                </span>
             {errors.message && <div style={{color: 'red'}}>{errors.message.message}</div>}
             {2000 - messageLength < 200 && <div>{`${2000 - messageLength} symbols left`}</div>}
-            <div>
-                <button disabled={readyStatus !== 'ready'}>Send</button>
-            </div>
         </form>
     </div>
 }

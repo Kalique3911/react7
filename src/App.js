@@ -8,7 +8,6 @@ import Header from './jsxCmpnts/Header/Header'
 import Login from './jsxCmpnts/Login/Login'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAuth, setInit} from './redux/authSlice'
-import preloader from './images/preloader.gif'
 import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
 import {useGetInitQuery} from './API/authAPI'
@@ -26,7 +25,7 @@ export const App = () => {
     })
 
     if (!useSelector(state => state.auth.isInit) || result === undefined || isLoggingOut) {
-        return <img src={preloader} alt={'preloader'}/>
+        return <></>
     }
 
     if (result === 0) {

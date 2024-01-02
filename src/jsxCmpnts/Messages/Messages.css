@@ -1,10 +1,54 @@
 .messages {
-    height: 700px;
-    overflow-y: auto;
-    margin-bottom: 50px;
+    height: auto;
 }
 
-.messages form {
-    position: absolute;
-    bottom: 350px;
+.messages textarea {
+    display: flex;
+    width: 100%;
+    outline: none;
+    text-align: left;
+    background-color: #282828;
+    border-radius: 3px;
+    border: 1px solid #3b3b3b;
+    color: #dfe1e4;
+    font-family: Century Gothic, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    height: 40px;
+    resize: none;
+}
+
+.messages button {
+    border-radius: 3px;
+    background-color: #282828;
+    color: #dfe1e4;
+    border: 1px solid #95969b;
+    height: 30px;
+    width: 60px;
+    transition: 400ms background-color ease-out;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+
+.messages button:hover {
+    background-color: #3b3b3b;
+    transition: 400ms background-color ease-out;
+    cursor: pointer;
+}
+
+.form {
+    margin-top: 10px;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #141414;
+}
+
+.chat {
+    height: 600px;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #141414;
+    overflow-y: auto;
+    max-height: 600px;
+    resize: none;
 }

@@ -4,15 +4,33 @@ import defaultAva from '../../../images/defaultAva.jpg'
 import {compose} from 'redux'
 
 const Message = props => {
-    return <div className={'message'}>
-        <div>
+    console.log(props.messageType)
+    if (props.messageType === 'head') {
+        return <div className={'headMessage'}>
+        <span>
             <img src={props.photo ? props.photo : defaultAva} alt={'ava'}/>
-            {props.userName}
+        </span>
+            <div>
+                <div style={{fontWeight: 'bold', fontSize: '15px'}}>
+                    {props.userName}
+                </div>
+                <div style={{marginTop: '10px'}}>
+                    {props.text}
+                </div>
+            </div>
         </div>
-        <div>
-            {props.text}
+    } else {
+        return <div className={'normalMessage'}>
+            <span>
+            </span>
+            <div>
+                <div>
+                    {props.text}
+                </div>
+            </div>
         </div>
-    </div>
+    }
+
 }
 
 export default compose(memo)(Message)
