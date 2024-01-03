@@ -5,7 +5,7 @@ import Music from './jsxCmpnts/Music/Music'
 import Users from './jsxCmpnts/Users/Users'
 import Profile from './jsxCmpnts/Profile/Profile'
 import Header from './jsxCmpnts/Header/Header'
-import Login from './jsxCmpnts/Login/Login'
+import LogIn from './jsxCmpnts/LogIn/LogIn'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAuth, setInit} from './redux/authSlice'
 import Navbar from './jsxCmpnts/Navbar/Navbar'
@@ -44,7 +44,7 @@ export const App = () => {
                     <Route path="/profile/:userId" element={<Profile/>}/>
                     <Route path="/music" element={<Music/>}/>
                     <Route path="/users" element={<Users/>}/>
-                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/login" element={<LogIn/>}/>
                 </Routes>
             </div>
         </div>

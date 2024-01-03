@@ -3,35 +3,63 @@ import React, {memo, useEffect, useRef, useState} from 'react'
 import Message from './Message/Message'
 import {compose} from 'redux'
 import {useForm} from 'react-hook-form'
+import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 
 const Messages = props => {
-    const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
     const {register, handleSubmit, formState: {errors}, reset, watch} = useForm({mode: 'onChange'})
     let [messageLength, setMessageLength] = useState(0)
     let [messagesData, setMessagesData] = useState([])
     let [readyStatus, setReadyStatus] = useState('pending')
     let [scroll, setScroll] = useState(true)
     const messagesRef = useRef()
+    const [wsChannel, setWsChannel] = useState(null)
     window.md = messagesData
+    let createChannel
     useEffect(() => {
-        ws.onmessage = (e) => {
-            setMessagesData((prev) => [...prev, ...JSON.parse(e.data)])
+        let ws
+        const closeHandler = () => {
+            setReadyStatus('closed')
+            setTimeout(createChannel, 3000)
+        }
+        createChannel = () => {
+            if (ws) {
+                ws.removeEventListener('close', closeHandler)
+                ws.close()
+            }
+            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+            ws.addEventListener('close', closeHandler) // this subscription does not work
+            setWsChannel(ws)
+        }
+        createChannel()
+        return () => {
+            ws.removeEventListener('close', closeHandler)
+            ws.close()
         }
     }, [])
     useEffect(() => {
-        ws.onopen = () => {
-            console.log('open')
-            setReadyStatus('ready')
+        if (wsChannel) {
+            wsChannel.onopen = () => {
+                setReadyStatus(`ready`)
+            }
+            return () => {
+                wsChannel.removeEventListener('open', () => {
+                    setReadyStatus(`ready`)
+                })
+            }
         }
-        ws.onclose = () => {
-            console.log('closed')
-            setReadyStatus('closed')
+    }, [wsChannel])
+    useEffect(() => {
+        if (wsChannel) {
+            wsChannel.onmessage = (e) => {
+                setMessagesData((prev) => [...prev, ...JSON.parse(e.data)])
+            }
+            return () => {
+                wsChannel.removeEventListener('message', (e) => {
+                    setMessagesData((prev) => [...prev, ...JSON.parse(e.data)])
+                })
+            }
         }
-        ws.onerror = () => {
-            console.log('error')
-            setReadyStatus('closed')
-        }
-    }, [ws])
+    }, [wsChannel])
     useEffect(() => {
         if (scroll) {
             messagesRef.current?.scrollIntoView({behavior: 'smooth'})
@@ -39,7 +67,7 @@ const Messages = props => {
     }, [messagesData])
 
     const onSubmit = async data => {
-        await ws.send(data.message)
+        await wsChannel.send(data.message)
         setMessageLength(0)
         reset()
     }
@@ -84,4 +112,4 @@ const Messages = props => {
     </div>
 }
 
-export default compose(memo)(Messages)
+export default compose(withAuthNavigate, memo)(Messages)

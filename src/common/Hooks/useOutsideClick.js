@@ -7,7 +7,7 @@ export const useOutsideClick = (callback) => {
         const handleClick = (event) => {
             if (ref.current
                 && !ref.current.contains(event.target)
-                && event.target.className !== 'loginBlock openedSettings'
+                && event.target.className !== 'accountBlock openedSettings'
                 && event.target.className !== 'ava'
                 && event.target.className !== 'arrow'
             ) {

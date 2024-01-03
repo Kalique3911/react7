@@ -48,7 +48,7 @@ const Header = props => {
         <img className={'logo'} src={logo} alt={'Hyperborea'}/>
         <span className={'title'}>Hyperborea</span>
         {isAuth ? <>
-            <div className={classNames({'loginBlock': true, 'openedSettings': isOpen})} onClick={onAvaClick}>
+            <div className={classNames({'accountBlock': true, 'openedSettings': isOpen})} onClick={onAvaClick}>
                 <img className={'ava'} src={smallPhoto && isAuth ? smallPhoto : defaultAva} alt={'avatar'}/>
                 <img className={'arrow'} src={downArrow} alt={'arrow'}/>
             </div>
@@ -63,10 +63,10 @@ const Header = props => {
                         dispatch(setIsLoggingOut(false))
                         setIsOpen(false)
                         dispatch(setAuth(false))
-                    }} className={'logout'}>Logout</div>
+                    }} className={'logOut'}>Logout</div>
                 </span>
             </span>
-        </> : <span className={'login'}><NavLink
+        </> : <span className={'logIn'}><NavLink
             to={'/login'}>Log in</NavLink></span>}
     </header>
 }

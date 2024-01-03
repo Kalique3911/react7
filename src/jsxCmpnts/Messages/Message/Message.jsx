@@ -4,7 +4,6 @@ import defaultAva from '../../../images/defaultAva.jpg'
 import {compose} from 'redux'
 
 const Message = props => {
-    console.log(props.messageType)
     if (props.messageType === 'head') {
         return <div className={'headMessage'}>
         <span>
