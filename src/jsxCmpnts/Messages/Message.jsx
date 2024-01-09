@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
-import './Message.css'
-import defaultAva from '../../../images/defaultAva.jpg'
+import './Messages.css'
+import defaultAva from '../../images/defaultAva.jpg'
 import {compose} from 'redux'
 
 const Message = props => {

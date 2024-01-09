@@ -1,8 +1,8 @@
 import React, {memo, useEffect, useState} from 'react'
 import {compose} from 'redux'
-import {useGetUserStatusQuery, useLazyGetUserStatusQuery, usePassUserStatusMutation} from '../../../../API/profileAPI'
+import {useGetUserStatusQuery, useLazyGetUserStatusQuery, usePassUserStatusMutation} from '../../API/profileAPI'
 import {useForm} from 'react-hook-form'
-import '../../Profile.css'
+import './Profile.css'
 import classNames from 'classnames'
 
 const ProfileStatus = props => {

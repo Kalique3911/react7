@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit'
 export const usersSlice = createSlice({
     name: 'users',
     initialState: {
-        pageSize: 100,
+        pageSize: 10,
         currentPage: 1,
         isFetching: false,
         followingInProgress: [],

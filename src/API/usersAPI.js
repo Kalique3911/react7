@@ -22,4 +22,4 @@ export const usersAPI = createApi({
     })
 })
 
-export const {useGetUsersQuery, useFollowMutation, useUnfollowMutation, useCheckFollowQuery} = usersAPI
+export const {useGetUsersQuery, useFollowMutation, useUnfollowMutation} = usersAPI

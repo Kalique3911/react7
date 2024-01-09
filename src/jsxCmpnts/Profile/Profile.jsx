@@ -1,4 +1,4 @@
-import React, {memo} from 'react'
+import React, {memo, useState} from 'react'
 import './Profile.css'
 import {compose} from 'redux'
 import {useSelector} from 'react-redux'
@@ -12,19 +12,14 @@ import {
     usePassUserProfileMutation
 } from '../../API/profileAPI'
 import preloader from '../../images/preloader.gif'
-import defaultAva from '../../images/defaultAva.jpg'
-import ProfileStatus from './ProfileInfo/ProfileStatus/ProfileStatus'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
-import classNames from 'classnames'
-import {useState} from 'react'
 import {useForm} from 'react-hook-form'
-import download from '../../images/download.png'
+import ProfileInfo from './ProfileInfo'
+import ProfileHead from './ProfileHead'
 
 const Profile = props => {
-    //  beriom userId iz URL s pomosch'ju useParams
     let {userId} = useParams()
     let [editMode, setEditMode] = useState(false)
-    let contactCount = -1
     const isAuth = useSelector((state) => getIsAuth(state))
     const {data: authUserId} = useGetAuthUserIdQuery(undefined, {
         refetchOnMountOrArgChange: true, skip: !isAuth
@@ -38,7 +33,6 @@ const Profile = props => {
     const [passUserPhoto] = usePassUserPhotoMutation()
     const [aboutMeLength, setAboutMeLength] = useState(0)
     const [lookingForAJobDescriptionLength, setLookingForAJobDescriptionLength] = useState(0)
-    const [hover, setHover] = useState(false)
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm({
         mode: 'onChange', defaultValues: async () => {
@@ -109,120 +103,36 @@ const Profile = props => {
     }
 
     return <div className={'profile'}>
-        <div>
-            <div className={'head'}>
+        <ProfileHead userId={userId} authUserId={authUserId}
+                     register={register('image', {onChange: handleSubmit(onImageChange)})} profile={profile}/>
+        <ProfileInfo profile={profile} predicate={c => c} authUserId={authUserId} userId={userId} editMode={editMode}
+                     onClick={() => setEditMode(true)} onSubmit={handleSubmit(onSubmit)}
+                     register={register('fullName', {
+                         required: 'field is required', maxLength: {value: 80, message: 'max length is 50'}
+                     })} errors={errors} register1={register('aboutMe', {
+            required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
+        })} aboutMeLength={aboutMeLength} register2={register('lookingForAJob')}
+                     register3={register('lookingForAJobDescription', {
+                         required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
+                     })} lookingForAJobDescriptionLength={lookingForAJobDescriptionLength} callbackfn1={k => {
+            return <div className={'infoItem'}>
+                <div>{`${k}: `}</div>
                 <div>
-                    {(userId === authUserId.toString()) && <form className={'download'}>
-                        <img src={download} alt={'download'}/>
-                        <input type={'file'} className={'avaInput'}
-                               accept={'image/*'} {...register('image', {onChange: handleSubmit(onImageChange)})}/>
-                    </form>}
-                    <img src={profile.photos.large ? profile.photos.large : defaultAva} alt={'large userPhoto'}/>
+                    <input {...register(`${k}`, {
+                        pattern: {
+                            value: /^(ftp|http|https):\/\/[^ "]+$/
+                        }, maxLength: {
+                            value: 100
+                        }
+                    })}/>
+                    {Object.keys(errors).find(key => key === `${k}`) &&
+                        <div style={{color: 'red', float: 'left'}}>
+                            <span style={{fontWeight: 'bold'}}>error: </span>
+                            <span>enter valid link</span>
+                        </div>}
                 </div>
-                <span className={'separator'}></span>
-                <h3>{profile.fullName}</h3>
-                <ProfileStatus userId={userId} authUserId={authUserId}/>
             </div>
-            <div className={classNames({
-                'info': true,
-                'noInfo': !profile.aboutMe && !profile.lookingForAJob && !profile.lookingForAJobDescription && !Object.values(profile.contacts).some(c => c) && !(authUserId === userId)
-            })}>
-                {!editMode && <div>
-                    <div className={'infoItem'}>
-                        <div>About me:</div>
-                        <span>{profile.aboutMe}</span>
-                    </div>
-                    {profile.lookingForAJob && <span className={'separator'}></span>}
-                    <div className={'infoItem'}>
-                        <div>{profile.lookingForAJob && 'I am looking for a job!'}</div>
-                    </div>
-                    {profile.lookingForAJob && <div className={'infoItem'}>
-                        <div>My professional skills:</div>
-                        <span>{profile.lookingForAJobDescription}</span>
-                    </div>}
-                    {Object.values(profile.contacts).some(c => c) && <span className={'separator'}></span>}
-                    {Object.keys(profile.contacts).map(k => {
-                        contactCount += 1
-                        if (Object.values(profile.contacts)[contactCount]) {
-                            return <div className={'infoItem'}>
-                                <div>{`${k}: `}</div>
-                                <span>
-                                    <a href={`${Object.values(profile.contacts)[contactCount]}`}>{Object.values(profile.contacts)[contactCount]}</a>
-                                </span>
-                            </div>
-                        } else return null
-                    })}
-                    {(userId === authUserId.toString()) && <div className={'infoItem'}>
-                        <div></div>
-                        <div>
-                            <button onClick={() => setEditMode(true)}>Edit</button>
-                        </div>
-                    </div>}
-                </div>}
-                {editMode && <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={'infoItem'}>
-                        <div>Name:</div>
-                        <input {...register('fullName', {
-                            required: 'field is required', maxLength: {value: 80, message: 'max length is 50'}
-                        })}/>
-                    </div>
-                    {errors.fullName && <div className={'infoItem'} style={{color: 'red'}}>
-                        <div>error:</div>
-                        <span style={{color: 'red'}}>{errors.fullName.message}</span>
-                    </div>}
-                    <div className={'infoItem'}>
-                        <div>About me:</div>
-                        <textarea {...register('aboutMe', {
-                            required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
-                        })}/>
-                        {300 - aboutMeLength && <div className={'lengthCounter'}>{`${300 - aboutMeLength}`}</div>}
-                    </div>
-                    {errors.aboutMe && <div className={'infoItem'} style={{color: 'red'}}>
-                        <div>error:</div>
-                        <span style={{color: 'red'}}>{errors.aboutMe.message}</span>
-                    </div>}
-                    <span className={'separator'}></span>
-                    <div className={'infoItem'}>
-                        <div>Looking for a job?</div>
-                        <input type={'checkbox'} {...register('lookingForAJob')}/>
-                    </div>
-                    <div className={'infoItem'}>
-                        <div>My professional skills:</div>
-                        <textarea {...register('lookingForAJobDescription', {
-                            required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
-                        })}/>
-                        {300 - lookingForAJobDescriptionLength &&
-                            <div className={'lengthCounter'}>{`${300 - lookingForAJobDescriptionLength}`}</div>}
-                    </div>
-                    <span className={'separator'}></span>
-                    {Object.keys(profile.contacts).map(k => {
-                        return <div className={'infoItem'}>
-                            <div>{`${k}: `}</div>
-                            <div>
-                                <input {...register(`${k}`, {
-                                    pattern: {
-                                        value: /^(ftp|http|https):\/\/[^ "]+$/
-                                    }, maxLength: {
-                                        value: 100
-                                    }
-                                })}/>
-                                {Object.keys(errors).find(key => key === `${k}`) &&
-                                    <div style={{color: 'red', float: 'left'}}>
-                                        <span style={{fontWeight: 'bold'}}>error: </span>
-                                        <span>enter valid link</span>
-                                    </div>}
-                            </div>
-                        </div>
-                    })}
-                    <div className={'infoItem'}>
-                        <div></div>
-                        <div>
-                            <button>Submit</button>
-                        </div>
-                    </div>
-                </form>}
-            </div>
-        </div>
+        }}/>
     </div>
 }
 

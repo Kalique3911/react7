@@ -1,6 +1,6 @@
 import './Messages.css'
 import React, {memo, useEffect, useRef, useState} from 'react'
-import Message from './Message/Message'
+import Message from './Message'
 import {compose} from 'redux'
 import {useForm} from 'react-hook-form'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
