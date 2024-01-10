@@ -11,7 +11,7 @@ import messages from '../../images/messages.png'
 import news from '../../images/news.png'
 import music from '../../images/music.png'
 
-const Navbar = props => {
+const Navbar = () => {
 
     const isAuth = useSelector((state) => getIsAuth(state))
     const {data: authUserId} = useGetAuthUserIdQuery(undefined, {

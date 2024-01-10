@@ -2,12 +2,15 @@ import React, {memo} from 'react'
 import './Messages.css'
 import defaultAva from '../../images/defaultAva.jpg'
 import {compose} from 'redux'
+import {NavLink} from 'react-router-dom'
 
 const Message = props => {
     if (props.messageType === 'head') {
         return <div className={'headMessage'}>
         <span>
-            <img src={props.photo ? props.photo : defaultAva} alt={'ava'}/>
+            <NavLink to={'/profile/' + props.id}>
+                <img src={props.photo ? props.photo : defaultAva} alt={'ava'}/>
+            </NavLink>
         </span>
             <div>
                 <div style={{fontWeight: 'bold', fontSize: '15px'}}>
@@ -23,13 +26,10 @@ const Message = props => {
             <span>
             </span>
             <div>
-                <div>
-                    {props.text}
-                </div>
+                {props.text}
             </div>
         </div>
     }
-
 }
 
 export default compose(memo)(Message)

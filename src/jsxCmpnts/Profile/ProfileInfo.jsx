@@ -3,7 +3,7 @@ import React from 'react'
 import {compose} from 'redux'
 import {memo} from 'react'
 
-function ProfileInfo(props) {
+const ProfileInfo = props => {
     let contactCount = -1
     return <div className={classNames({
         'info': true,
@@ -23,10 +23,10 @@ function ProfileInfo(props) {
                 <span>{props.profile.lookingForAJobDescription}</span>
             </div>}
             {Object.values(props.profile.contacts).some(props.predicate) && <span className={'separator'}></span>}
-            {Object.keys(props.profile.contacts).map(k => {
+            {Object.keys(props.profile.contacts).map((k, i) => {
                 contactCount += 1
                 if (Object.values(props.profile.contacts)[contactCount]) {
-                    return <div className={'infoItem'}>
+                    return <div className={'infoItem'} key={i}>
                         <div>{`${k}: `}</div>
                         <span>
                                     <a href={`${Object.values(props.profile.contacts)[contactCount]}`}>{Object.values(props.profile.contacts)[contactCount]}</a>

@@ -12,7 +12,6 @@ import Navbar from './jsxCmpnts/Navbar/Navbar'
 import {useEffect} from 'react'
 import {useGetInitQuery} from './API/authAPI'
 import Messages from './jsxCmpnts/Messages/Messages'
-import './content.css'
 
 
 export const App = () => {

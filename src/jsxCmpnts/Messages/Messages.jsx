@@ -5,7 +5,7 @@ import {compose} from 'redux'
 import {useForm} from 'react-hook-form'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 
-const Messages = props => {
+const Messages = () => {
     const {register, handleSubmit, formState: {errors}, reset, watch} = useForm({mode: 'onChange'})
     let [messageLength, setMessageLength] = useState(0)
     let [messagesData, setMessagesData] = useState([])
@@ -88,9 +88,9 @@ const Messages = props => {
         <div className={'chat'} onScroll={scrollHandler}>
             {messagesData && messagesData.map((el, i) => {
                 if (el.userName === messagesData[i - 1]?.userName) {
-                    return <Message key={el.index} text={el.message} messageType={'normal'}/>
+                    return <Message key={i} text={el.message} messageType={'normal'}/>
                 } else {
-                    return <Message key={el.index} userName={el.userName}
+                    return <Message key={i} id={el.userId} userName={el.userName}
                                     text={el.message} photo={el.photo} messageType={'head'}/>
                 }
             })}
@@ -99,7 +99,7 @@ const Messages = props => {
         <form onSubmit={handleSubmit(onSubmit)} className={'form'}>
             <span style={{display: 'flex'}}>
             <textarea {...register('message', {
-                required: 'Message require filed', maxLength: {value: 2000, message: 'max length is 2000'}
+                required: 'Message require filed', maxLength: {value: 100, message: 'max length is 100'}
             })} placeholder={'your new message'}
             />
             <span>
@@ -107,7 +107,7 @@ const Messages = props => {
             </span>
                 </span>
             {errors.message && <div style={{color: 'red'}}>{errors.message.message}</div>}
-            {2000 - messageLength < 200 && <div>{`${2000 - messageLength} symbols left`}</div>}
+            {100 - messageLength < 20 && <div>{`${100 - messageLength} symbols left`}</div>}
         </form>
     </div>
 }

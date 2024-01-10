@@ -1,1 +1,0 @@
-export const getMessagesData = (state) => state.dialogsPage.messagesData

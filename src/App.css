@@ -24,6 +24,15 @@ body a {
     color: #dfe1e4;
 }
 
+.content {
+    grid-area: content;
+    background-color: #222222;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    padding: 40px;
+}
+
 @media (max-width: 770px) {
     .app-wrapper {
         grid-template-columns: 150px auto;

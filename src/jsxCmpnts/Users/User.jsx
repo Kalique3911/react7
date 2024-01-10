@@ -4,8 +4,7 @@ import React from 'react'
 import {compose} from 'redux'
 import {memo} from 'react'
 
-function User(props) {
-    console.log('rerender')
+const User = props => {
     return <div className={'user'}>
         <div>
             <NavLink to={'/profile/' + props.user.id}>
@@ -18,13 +17,13 @@ function User(props) {
         <div>
             {props.user.followed ? <button
                     disabled={props.followingInProgress.some(props.fn)}
-                    onClick={props.onClick}
+                    onClick={props.unfollow}
                     className={'followed'}
                 >Unfollow</button>
 
                 : <button
                     disabled={props.followingInProgress.some(props.fn)}
-                    onClick={props.onClick1}
+                    onClick={props.follow}
                 >Follow</button>}
         </div>
     </div>

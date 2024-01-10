@@ -4,7 +4,7 @@ import ProfileStatus from './ProfileStatus'
 import React, {memo} from 'react'
 import {compose} from 'redux'
 
-function ProfileHead(props) {
+const ProfileHead = props => {
     return <div className={'head'}>
         <div>
             {(props.userId === props.authUserId.toString()) && <form className={'download'}>

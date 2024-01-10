@@ -1,4 +1,3 @@
-import profileSlice from './profileSlice'
 import {configureStore} from '@reduxjs/toolkit'
 import usersSlice from './usersSlice'
 import authSlice from './authSlice'
@@ -8,7 +7,6 @@ import {authAPI} from '../API/authAPI'
 
 export default configureStore({
     reducer: {
-        profilePage: profileSlice,
         usersPage: usersSlice,
         auth: authSlice,
         [profileAPI.reducerPath]: profileAPI.reducer,

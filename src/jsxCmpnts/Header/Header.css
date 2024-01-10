@@ -2,7 +2,7 @@
     position: relative;
     grid-area: header;
     background-color: #222222;
-    padding: 0px 50px 0px 50px;
+    padding: 0 50px 0 50px;
     display: block;
 }
 
@@ -30,6 +30,14 @@
     transition: 500ms background-color;
 }
 
+.arrow {
+    position: absolute;
+    width: 20px;
+    left: 80px;
+    top: 50px;
+    margin-left: 10px;
+}
+
 .ava {
     margin-top: 25px;
     margin-left: 13px;
@@ -41,6 +49,8 @@
     background-color: #3b3b3b;
     transition: 500ms background-color;
 }
+
+/*here starts settings block*/
 
 .openedSettings {
     background-color: #3b3b3b;
@@ -63,14 +73,6 @@
     right: 50px;
     font-weight: normal;
     border-radius: 5px;
-}
-
-.arrow {
-    position: absolute;
-    width: 20px;
-    left: 80px;
-    top: 50px;
-    margin-left: 10px;
 }
 
 .logOut {

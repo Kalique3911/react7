@@ -11,7 +11,7 @@
 
 .logInPage input {
     width: 344px;
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0 10px 0;
     text-align: center;
     outline: none;
     height: 30px;
@@ -41,11 +41,11 @@
     cursor: pointer;
 }
 
-.logInPage input[type="checkbox" i] {
-    width: 20px;
-    height: 20px;
-    accent-color: #282828;
-}
+/*.logInPage input[type="checkbox" i] {*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    accent-color: #282828;*/
+/*}*/
 
 .logInBlock {
     width: 350px;

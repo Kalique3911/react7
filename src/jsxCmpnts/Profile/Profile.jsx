@@ -11,13 +11,12 @@ import {
     usePassUserPhotoMutation,
     usePassUserProfileMutation
 } from '../../API/profileAPI'
-import preloader from '../../images/preloader.gif'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 import {useForm} from 'react-hook-form'
 import ProfileInfo from './ProfileInfo'
 import ProfileHead from './ProfileHead'
 
-const Profile = props => {
+const Profile = () => {
     let {userId} = useParams()
     let [editMode, setEditMode] = useState(false)
     const isAuth = useSelector((state) => getIsAuth(state))
@@ -99,7 +98,7 @@ const Profile = props => {
     })
 
     if (!profile) {
-        return <img src={preloader} alt={'preloader'}/>
+        return <></>
     }
 
     return <div className={'profile'}>
