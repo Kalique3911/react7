@@ -10,7 +10,7 @@ const ProfileHead = props => {
             {(props.userId === props.authUserId.toString()) && <form className={'download'}>
                 <img src={download} alt={'download'}/>
                 <input type={'file'} className={'avaInput'}
-                       accept={'image/*'} {...props.register}/>
+                       accept={'image/*'} {...props.imageRegister}/>
             </form>}
             <img src={props.profile.photos.large ? props.profile.photos.large : defaultAva} alt={'large userPhoto'}/>
         </div>

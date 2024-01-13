@@ -18,7 +18,7 @@ import classNames from 'classnames'
 import downArrow from '../../images/downArrow.svg'
 import {useOutsideClick} from '../../common/Hooks/useOutsideClick'
 
-const Header = props => {
+const Header = () => {
     const dispatch = useDispatch()
 
     const isAuth = useSelector((state) => getIsAuth(state))

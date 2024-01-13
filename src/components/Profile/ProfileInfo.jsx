@@ -37,14 +37,14 @@ const ProfileInfo = props => {
             {(props.userId === props.authUserId.toString()) && <div className={'infoItem'}>
                 <div>{/*this div is needed due to grid requirements*/}</div>
                 <div>
-                    <button onClick={props.onClick}>Edit</button>
+                    <button onClick={props.enableEditMode}>Edit</button>
                 </div>
             </div>}
         </div>}
         {props.editMode && <form onSubmit={props.onSubmit}>
             <div className={'infoItem'}>
                 <div>Name:</div>
-                <input {...props.register}/>
+                <input {...props.fullNameRegister}/>
             </div>
             {props.errors.fullName && <div className={'infoItem'} style={{color: 'red'}}>
                 <div>error:</div>
@@ -52,7 +52,7 @@ const ProfileInfo = props => {
             </div>}
             <div className={'infoItem'}>
                 <div>About me:</div>
-                <textarea {...props.register1}/>
+                <textarea {...props.aboutMeRegister}/>
                 {300 - props.aboutMeLength &&
                     <div className={'lengthCounter'}>{`${300 - props.aboutMeLength}`}</div>}
             </div>
@@ -63,11 +63,11 @@ const ProfileInfo = props => {
             <span className={'separator'}></span>
             <div className={'infoItem'}>
                 <div>Looking for a job?</div>
-                <input type={'checkbox'} {...props.register2}/>
+                <input type={'checkbox'} {...props.lookingForAJobRegister}/>
             </div>
             <div className={'infoItem'}>
                 <div>My professional skills:</div>
-                <textarea {...props.register3}/>
+                <textarea {...props.lookingForAJobDescriptionRegister}/>
                 {300 - props.lookingForAJobDescriptionLength &&
                     <div className={'lengthCounter'}>{`${300 - props.lookingForAJobDescriptionLength}`}</div>}
             </div>

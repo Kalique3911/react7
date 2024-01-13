@@ -1,7 +1,7 @@
 import React, {memo} from 'react'
 import {compose} from 'redux'
 
-const News = props => {
+const News = () => {
     return <div>
         News
     </div>

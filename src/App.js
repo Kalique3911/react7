@@ -1,18 +1,17 @@
 import './App.css'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import News from './jsxCmpnts/News/News'
-import Music from './jsxCmpnts/Music/Music'
-import Users from './jsxCmpnts/Users/Users'
-import Profile from './jsxCmpnts/Profile/Profile'
-import Header from './jsxCmpnts/Header/Header'
-import LogIn from './jsxCmpnts/LogIn/LogIn'
+import News from './components/News/News'
+import Music from './components/Music/Music'
+import Users from './components/Users/Users'
+import Profile from './components/Profile/Profile'
+import Header from './components/Header/Header'
+import LogIn from './components/LogIn/LogIn'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAuth, setInit} from './redux/authSlice'
-import Navbar from './jsxCmpnts/Navbar/Navbar'
+import Navbar from './components/Navbar/Navbar'
 import {useEffect} from 'react'
 import {useGetInitQuery} from './API/authAPI'
-import Messages from './jsxCmpnts/Messages/Messages'
-
+import Messages from './components/Messages/Messages'
 
 export const App = () => {
     const dispatch = useDispatch()
@@ -26,7 +25,6 @@ export const App = () => {
     if (!useSelector(state => state.auth.isInit) || result === undefined || isLoggingOut) {
         return <></>
     }
-
     if (result === 0) {
         dispatch(setAuth(true))
     }

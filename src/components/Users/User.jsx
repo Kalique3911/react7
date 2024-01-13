@@ -8,7 +8,7 @@ const User = props => {
     return <div className={'user'}>
         <div>
             <NavLink to={'/profile/' + props.user.id}>
-                <img src={props.user.photos.small != null ? props.user.photos.small : defaultAva} alt={'small photo'}/>
+                <img src={props.user.photos.small != null ? props.user.photos.small : defaultAva} alt={'small ava'}/>
             </NavLink>
         </div>
         <span className={'uSeparator'}></span>

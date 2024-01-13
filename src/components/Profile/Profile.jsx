@@ -103,18 +103,18 @@ const Profile = () => {
 
     return <div className={'profile'}>
         <ProfileHead userId={userId} authUserId={authUserId}
-                     register={register('image', {onChange: handleSubmit(onImageChange)})} profile={profile}/>
+                     imageRegister={register('image', {onChange: handleSubmit(onImageChange)})} profile={profile}/>
         <ProfileInfo profile={profile} predicate={c => c} authUserId={authUserId} userId={userId} editMode={editMode}
-                     onClick={() => setEditMode(true)} onSubmit={handleSubmit(onSubmit)}
-                     register={register('fullName', {
+                     enableEditMode={() => setEditMode(true)} onSubmit={handleSubmit(onSubmit)}
+                     fullNameRegister={register('fullName', {
                          required: 'field is required', maxLength: {value: 80, message: 'max length is 50'}
-                     })} errors={errors} register1={register('aboutMe', {
+                     })} errors={errors} aboutMeRegister={register('aboutMe', {
             required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
-        })} aboutMeLength={aboutMeLength} register2={register('lookingForAJob')}
-                     register3={register('lookingForAJobDescription', {
+        })} aboutMeLength={aboutMeLength} lookingForAJobRegister={register('lookingForAJob')}
+                     lookingForAJobDescriptionRegister={register('lookingForAJobDescription', {
                          required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
-                     })} lookingForAJobDescriptionLength={lookingForAJobDescriptionLength} callbackfn1={k => {
-            return <div className={'infoItem'}>
+                     })} lookingForAJobDescriptionLength={lookingForAJobDescriptionLength} callbackfn1={(k, i) => {
+            return <div className={'infoItem'} key={i}>
                 <div>{`${k}: `}</div>
                 <div>
                     <input {...register(`${k}`, {
