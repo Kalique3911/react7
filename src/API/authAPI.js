@@ -5,6 +5,9 @@ export const authAPI = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://social-network.samuraijs.com/api/1.0/auth',
         credentials: 'include',
+        headers: {
+            "API=KEY": "12a5bbef-9278-4dc2-ba7a-83b6c77a8a9b"
+        }
     }),
     endpoints: (build) => ({
         getAuthUserLogin: build.query({
