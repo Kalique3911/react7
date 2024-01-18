@@ -6,7 +6,7 @@ export const usersAPI = createApi({
         baseUrl: 'https://social-network.samuraijs.com/api/1.0/',
         credentials: 'include',
         prepareHeaders: (headers, {getState}) => {
-            headers.set('API-KEY', '12a5bbef-9278-4dc2-ba7a-83b6c77a8a9b')
+            headers.set('API-KEY', '1ec0d006-d77f-416c-8e64-8914581958db')
             return headers
         },
     }),
