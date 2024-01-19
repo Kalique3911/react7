@@ -14,36 +14,24 @@ export const authAPI = createApi({
         getAuthUserLogin: build.query({
             query: () => ({
                 url: `/me`,
-                headers: {
-                    'API-KEY': '1ec0d006-d77f-416c-8e64-8914581958db',
-                },
             }),
             transformResponse: responseData => responseData.data.login
         }),
         getAuthUserEmail: build.query({
             query: () => ({
                 url: `/me`,
-                headers: {
-                    'API-KEY': '1ec0d006-d77f-416c-8e64-8914581958db',
-                },
         }),
             transformResponse: responseData => responseData.data.email
         }),
         getAuthUserId: build.query({
             query: () => ({
                 url: `/me`,
-                headers: {
-                    'API-KEY': '1ec0d006-d77f-416c-8e64-8914581958db',
-                },
             }),
             transformResponse: responseData => responseData.data.id
         }),
         getInit: build.query({
             query: () => ({
                 url: `/me`,
-                headers: {
-                    'API-KEY': '1ec0d006-d77f-416c-8e64-8914581958db',
-                },
             }),
             transformResponse: responseData => responseData.resultCode
         }),
