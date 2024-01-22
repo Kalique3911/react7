@@ -6,10 +6,7 @@ import {useParams} from 'react-router-dom'
 import {getIsAuth} from '../../selectors/authSelectors'
 import {useGetAuthUserIdQuery, useLazyGetAuthUserIdQuery} from '../../API/authAPI'
 import {
-    useGetUserProfileQuery,
-    useLazyGetUserProfileQuery,
-    usePassUserPhotoMutation,
-    usePassUserProfileMutation
+    useGetUserProfileQuery, useLazyGetUserProfileQuery, usePassUserPhotoMutation, usePassUserProfileMutation
 } from '../../API/profileAPI'
 import {withAuthNavigate} from '../../common/HOCs/withAuthNavigate'
 import {useForm} from 'react-hook-form'
@@ -85,6 +82,7 @@ const Profile = () => {
         await passUserPhoto(formData)
         refetch()
     }
+    const imageRegister = React.useMemo(() => register('image', {onChange: handleSubmit(onImageChange)}), [])
 
     watch((data) => {
         if (data.aboutMe) {
@@ -102,36 +100,41 @@ const Profile = () => {
     }
 
     return <div className={'profile'}>
-        <ProfileHead userId={userId} authUserId={authUserId}
-                     imageRegister={register('image', {onChange: handleSubmit(onImageChange)})} profile={profile}/>
-        <ProfileInfo profile={profile} predicate={c => c} authUserId={authUserId} userId={userId} editMode={editMode}
-                     enableEditMode={() => setEditMode(true)} onSubmit={handleSubmit(onSubmit)}
+        <ProfileHead userId={userId} authUserId={authUserId} imageRegister={imageRegister}
+                     ava={profile.photos.large} fullName={profile.fullName}/>
+        <ProfileInfo profile={profile} predicate={c => c} authUserId={authUserId} userId={userId}
+                     editMode={editMode} enableEditMode={() => setEditMode(true)}
+                     onSubmit={handleSubmit(onSubmit)} errors={errors} aboutMeLength={aboutMeLength}
                      fullNameRegister={register('fullName', {
                          required: 'field is required', maxLength: {value: 80, message: 'max length is 50'}
-                     })} errors={errors} aboutMeRegister={register('aboutMe', {
-            required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
-        })} aboutMeLength={aboutMeLength} lookingForAJobRegister={register('lookingForAJob')}
+                     })}
+                     aboutMeRegister={register('aboutMe', {
+                         required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
+                     })}
+                     lookingForAJobRegister={register('lookingForAJob')}
                      lookingForAJobDescriptionRegister={register('lookingForAJobDescription', {
                          required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
-                     })} lookingForAJobDescriptionLength={lookingForAJobDescriptionLength} callbackfn1={(k, i) => {
-            return <div className={'infoItem'} key={i}>
-                <div>{`${k}: `}</div>
-                <div>
-                    <input {...register(`${k}`, {
-                        pattern: {
-                            value: /^(ftp|http|https):\/\/[^ "]+$/
-                        }, maxLength: {
-                            value: 100
-                        }
-                    })}/>
-                    {Object.keys(errors).find(key => key === `${k}`) &&
-                        <div style={{color: 'red', float: 'left'}}>
-                            <span style={{fontWeight: 'bold'}}>error: </span>
-                            <span>enter valid link</span>
-                        </div>}
-                </div>
-            </div>
-        }}/>
+                     })}
+                     lookingForAJobDescriptionLength={lookingForAJobDescriptionLength}
+                     callbackfn1={(k, i) => {
+                         return <div className={'infoItem'} key={i}>
+                             <div>{`${k}: `}</div>
+                             <div>
+                                 <input {...register(`${k}`, {
+                                     pattern: {
+                                         value: /^(ftp|http|https):\/\/[^ "]+$/
+                                     }, maxLength: {
+                                         value: 100
+                                     }
+                                 })}/>
+                                 {Object.keys(errors).find(key => key === `${k}`) &&
+                                     <div style={{color: 'red', float: 'left'}}>
+                                         <span style={{fontWeight: 'bold'}}>error: </span>
+                                         <span>enter valid link</span>
+                                     </div>}
+                             </div>
+                         </div>
+                     }}/>
     </div>
 }
 

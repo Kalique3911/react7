@@ -12,10 +12,10 @@ const ProfileHead = props => {
                 <input type={'file'} className={'avaInput'}
                        accept={'image/*'} {...props.imageRegister}/>
             </form>}
-            <img src={props.profile.photos.large ? props.profile.photos.large : defaultAva} alt={'large userPhoto'}/>
+            <img src={props.ava ? props.ava : defaultAva} alt={'large userPhoto'}/>
         </div>
         <span className={'separator'}></span>
-        <h3>{props.profile.fullName}</h3>
+        <h3>{props.fullName}</h3>
         <ProfileStatus userId={props.userId} authUserId={props.authUserId}/>
     </div>
 }
