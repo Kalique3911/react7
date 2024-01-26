@@ -15,8 +15,7 @@ const ProfileStatus = props => {
     let [statusLength, setStatusLength] = useState(0)
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm({
-        mode: 'onChange',
-        defaultValues: async () => {
+        mode: 'onChange', defaultValues: async () => {
             const currentStatus = await getStatus(props.authUserId, {
                 refetchOnMountOrArgChange: true, skip: !props.authUserId
             }).unwrap()
@@ -45,7 +44,7 @@ const ProfileStatus = props => {
         setEditMode(false)
         setStatusLength(0)
         await passUserStatus({status: data.status})
-        refetch() //eto nuzhno iz-za togo, chto v deactivateEditMode nie mieniajet'sia state
+        refetch()
     }
 
     return <div className={classNames({'status': status, 'noStatus': !status})}>
@@ -55,11 +54,10 @@ const ProfileStatus = props => {
         {editMode && <div>
             <form>
                 <input {...register('status', {
-                    onBlur: handleSubmit(deactivateEditMode),
-                    maxLength: {value: 190, message: 'max length is 190'}
+                    onBlur: handleSubmit(deactivateEditMode), maxLength: {value: 190, message: 'max length is 190'}
                 })} autoFocus={true}/>
-                {errors.status && <div style={{color: 'red'}}>{errors.status.message}</div>}
-                {190 - statusLength < 50 && <div>{`${190 - statusLength} symbols left`}</div>}
+                {errors.status && <span style={{color: 'red'}}>{errors.status.message}</span>}
+                {190 - statusLength < 50 && <span style={{textAlign: 'right', width: '100%'}}>{` ${190 - statusLength} symbols left`}</span>}
             </form>
         </div>}
     </div>

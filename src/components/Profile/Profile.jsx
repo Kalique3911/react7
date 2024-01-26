@@ -27,8 +27,6 @@ const Profile = () => {
     const [getReqId] = useLazyGetAuthUserIdQuery()
     const [passUserProfile] = usePassUserProfileMutation()
     const [passUserPhoto] = usePassUserPhotoMutation()
-    const [aboutMeLength, setAboutMeLength] = useState(0)
-    const [lookingForAJobDescriptionLength, setLookingForAJobDescriptionLength] = useState(0)
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm({
         mode: 'onChange', defaultValues: async () => {
@@ -82,18 +80,7 @@ const Profile = () => {
         await passUserPhoto(formData)
         refetch()
     }
-    const imageRegister = React.useMemo(() => register('image', {onChange: handleSubmit(onImageChange)}), [])
-
-    watch((data) => {
-        if (data.aboutMe) {
-            setAboutMeLength(data.aboutMe.length)
-        }
-    })
-    watch((data) => {
-        if (data.lookingForAJobDescription) {
-            setLookingForAJobDescriptionLength(data.lookingForAJobDescription.length)
-        }
-    })
+    const imageRegister = register('image', {onChange: handleSubmit(onImageChange)})
 
     if (!profile) {
         return <></>
@@ -104,7 +91,7 @@ const Profile = () => {
                      ava={profile.photos.large} fullName={profile.fullName}/>
         <ProfileInfo profile={profile} predicate={c => c} authUserId={authUserId} userId={userId}
                      editMode={editMode} enableEditMode={() => setEditMode(true)}
-                     onSubmit={handleSubmit(onSubmit)} errors={errors} aboutMeLength={aboutMeLength}
+                     onSubmit={handleSubmit(onSubmit)} errors={errors} watch={watch}
                      fullNameRegister={register('fullName', {
                          required: 'field is required', maxLength: {value: 80, message: 'max length is 50'}
                      })}
@@ -115,7 +102,6 @@ const Profile = () => {
                      lookingForAJobDescriptionRegister={register('lookingForAJobDescription', {
                          required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
                      })}
-                     lookingForAJobDescriptionLength={lookingForAJobDescriptionLength}
                      createContactInput={(k, i) => {
                          return <div className={'infoItem'} style={{textAlign: 'right'}} key={i}>
                              <div>{`${k}: `}</div>

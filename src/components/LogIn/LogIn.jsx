@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react'
+import React, {memo} from 'react'
 import {Link, Navigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAuth, setIsLoggingOut, setLogInError} from '../../redux/authSlice'
@@ -10,23 +10,11 @@ import './LogIn.css'
 
 const LogIn = () => {
     const dispatch = useDispatch()
-    const {register, handleSubmit, formState: {errors}, watch} = useForm({mode: 'onChange'})
+    const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onChange'})
     const isAuth = useSelector((state) => getIsAuth(state))
     const logInError = useSelector((state) => getLogInError(state))
-    let [emailLength, setEmailLength] = useState(0)
-    let [passwordLength, setPasswordLength] = useState(0)
     const [login] = useLoginMutation()
 
-    watch((data) => {
-        if (data.email) {
-            setEmailLength(data.email.length)
-        }
-    })
-    watch((data) => {
-        if (data.password) {
-            setPasswordLength(data.password.length)
-        }
-    })
     const onSubmit = async data => {
         const email = data.email
         const password = data.password
@@ -66,21 +54,19 @@ const LogIn = () => {
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input {...register('email', {
-                    required: 'Email require filed',
+                    required: 'Email is required',
                     maxLength: {value: 100, message: 'max length is 100'},
                     pattern: {
                         value: /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
                         message: 'Please enter valid email!'
                     }
-                })} placeholder={'email'}></input>
-                {errors.email && <div style={{color: 'red'}}>{errors.email.message}</div>}
-                {100 - emailLength < 20 && <div>{`${100 - emailLength} symbols left`}</div>}
+                })} placeholder={'email'} style={{top: '360px'}}></input>
+                {errors.email && <div style={{color: 'red', position: 'absolute', top: '410px'}}>{errors.email.message}</div>}
                 <input {...register('password', {
-                    required: 'Password require filed',
+                    required: 'Password is required',
                     maxLength: {value: 50, message: 'max length is 50'}
-                })} placeholder={'password'}></input>
-                {errors.password && <div style={{color: 'red'}}>{errors.password.message}</div>}
-                {50 - passwordLength < 10 && <div>{`${50 - passwordLength} symbols left`}</div>}
+                })} placeholder={'password'} style={{top: '430px'}}></input>
+                {errors.password && <div style={{color: 'red', position: 'absolute', top: '480px'}}>{errors.password.message}</div>}
                 {/*<div>*/}
                 {/*    <input {...register('rememberMe')} type={'checkbox'}/>remember me*/}
                 {/*</div>*/}

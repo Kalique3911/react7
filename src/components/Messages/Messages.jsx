@@ -99,15 +99,15 @@ const Messages = () => {
         <form onSubmit={handleSubmit(onSubmit)} className={'form'}>
             <span style={{display: 'flex'}}>
             <textarea {...register('message', {
-                required: 'Message require filed', maxLength: {value: 100, message: 'max length is 100'}
+                required: 'Message is required', maxLength: {value: 100, message: 'max length is 100'}
             })} placeholder={'your new message'}
             />
             <span>
                 <button disabled={readyStatus !== 'ready'}>Send</button>
             </span>
                 </span>
-            {errors.message && <div style={{color: 'red'}}>{errors.message.message}</div>}
-            {100 - messageLength < 20 && <div>{`${100 - messageLength} symbols left`}</div>}
+            {errors.message && <span style={{color: 'red'}}>{errors.message.message}</span>}
+            {100 - messageLength < 20 && <span style={{textAlign: 'right', width: '100%'}}>{` ${100 - messageLength} symbols left`}</span>}
         </form>
     </div>
 }

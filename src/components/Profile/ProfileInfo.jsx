@@ -2,9 +2,24 @@ import classNames from 'classnames'
 import React from 'react'
 import {compose} from 'redux'
 import {memo} from 'react'
+import {useState} from 'react'
 
 const ProfileInfo = props => {
     let contactCount = -1
+    const [aboutMeLength, setAboutMeLength] = useState(0)
+    const [lookingForAJobDescriptionLength, setLookingForAJobDescriptionLength] = useState(0)
+
+    props.watch((data) => {
+        if (data.aboutMe) {
+            setAboutMeLength(data.aboutMe.length)
+        }
+    })
+    props.watch((data) => {
+        if (data.lookingForAJobDescription) {
+            setLookingForAJobDescriptionLength(data.lookingForAJobDescription.length)
+        }
+    })
+
     return <div className={classNames({
         'info': true,
         'noInfo': !props.profile.aboutMe && !props.profile.lookingForAJob && !props.profile.lookingForAJobDescription && !Object.values(props.profile.contacts).some(props.predicate) && !(props.authUserId === props.userId)
@@ -47,17 +62,17 @@ const ProfileInfo = props => {
                 <input {...props.fullNameRegister}/>
             </div>
             {props.errors.fullName && <div className={'infoItem'} style={{color: 'red'}}>
-                <div>error:</div>
+                <div style={{textAlign: 'right'}}>error:</div>
                 <span style={{color: 'red'}}>{props.errors.fullName.message}</span>
             </div>}
             <div className={'infoItem'} style={{textAlign: 'right'}}>
                 <div>About me:</div>
                 <textarea {...props.aboutMeRegister}/>
-                {300 - props.aboutMeLength &&
-                    <div className={'lengthCounter'}>{`${300 - props.aboutMeLength}`}</div>}
+                {300 - aboutMeLength &&
+                    <div className={'lengthCounter'}>{`${300 - aboutMeLength}`}</div>}
             </div>
             {props.errors.aboutMe && <div className={'infoItem'} style={{color: 'red'}}>
-                <div>error:</div>
+                <div style={{textAlign: 'right'}}>error:</div>
                 <span style={{color: 'red'}}>{props.errors.aboutMe.message}</span>
             </div>}
             <span className={'separator'}></span>
@@ -68,9 +83,13 @@ const ProfileInfo = props => {
             <div className={'infoItem'} style={{textAlign: 'right'}}>
                 <div>My professional skills:</div>
                 <textarea {...props.lookingForAJobDescriptionRegister}/>
-                {300 - props.lookingForAJobDescriptionLength &&
-                    <div className={'lengthCounter'}>{`${300 - props.lookingForAJobDescriptionLength}`}</div>}
+                {300 - lookingForAJobDescriptionLength &&
+                    <div className={'lengthCounter'}>{`${300 - lookingForAJobDescriptionLength}`}</div>}
             </div>
+            {props.errors.lookingForAJobDescription && <div className={'infoItem'} style={{color: 'red'}}>
+                <div style={{textAlign: 'right'}}>error:</div>
+                <span style={{color: 'red'}}>{props.errors.lookingForAJobDescription.message}</span>
+            </div>}
             <span className={'separator'}></span>
             {Object.keys(props.profile.contacts).map(props.createContactInput)}
             <div className={'infoItem'}>

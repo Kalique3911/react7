@@ -51,8 +51,7 @@ const Header = () => {
                 <div className={classNames({'accountBlock': true, 'openedSettings': isOpen})} onClick={onAvaClick}>
                     <img className={'ava'} src={smallPhoto && isAuth ? smallPhoto : defaultAva} alt={'avatar'}/>
                     <img className={'arrow'} src={downArrow} alt={'arrow'}/>
-                </div>
-                <span ref={ref} className={classNames({'settings': true, 'eSettings': isOpen})}>
+                    <span ref={ref} className={classNames({'settings': true, 'eSettings': isOpen})}>
                 <span>
                     <span>{login}</span>
                     <div>{email}</div>
@@ -66,6 +65,7 @@ const Header = () => {
                     }} className={'logOut'}>Logout</div>
                 </span>
             </span>
+                </div>
             </> : <NavLink className={'logIn'} to={'/login'}>
                 <button>
                     Sign in

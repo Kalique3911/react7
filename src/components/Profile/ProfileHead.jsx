@@ -5,6 +5,7 @@ import React, {memo} from 'react'
 import {compose} from 'redux'
 
 const ProfileHead = props => {
+    console.log('rerender')
     return <div className={'head'}>
         <div>
             {(props.userId === props.authUserId.toString()) && <form className={'download'}>

@@ -76,15 +76,15 @@
 }
 
 .eSettings {
-    top: 120px;
+    top: 20px;
+    right: 193px;
     border: 2px solid #dfe1e4;
-    position: absolute;
+    position: relative;
     text-align: center;
     background-color: #141414;
     display: table;
     padding-left: 10px;
     width: 300px;
-    right: 10px;
     font-weight: normal;
     border-radius: 5px;
 }
