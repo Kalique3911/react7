@@ -31,7 +31,6 @@ export const App = () => {
     }
 
     return <BrowserRouter>
-        {/*<header className={"header"} style={{height: '120px', position: 'absolute', width: '100vw', padding: '0', boxShadow: '0px 0px 10px 10px rgb(255, 255, 255, 0.01)'}}></header>*/}
         <Header/>
         <div className="app-wrapper">
             <Navbar/>
