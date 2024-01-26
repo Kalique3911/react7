@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import './Navbar.css'
-import {NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {compose} from 'redux'
 import {useGetAuthUserIdQuery} from '../../API/authAPI'
@@ -22,23 +22,23 @@ const Navbar = () => {
     return <nav className={'nav'}>
         <div>
             <img src={profile} alt={'profile'} className={'icon'}/>
-            <NavLink className={'navLink'} to={`/profile/${authUserId}`}>My Page</NavLink>
+            <Link className={'link'} to={`/profile/${authUserId}`}>My Page</Link>
         </div>
         <div>
             <img src={messages} alt={'messages'} className={'icon'}/>
-            <NavLink className={'navLink'} to="/messages">Messages</NavLink>
-        </div>
-        <div>
-            <img src={news} alt={'news'} className={'icon'}/>
-            <NavLink className={'navLink'} to="/news">News</NavLink>
+            <Link className={'link'} to="/messages">Messages</Link>
         </div>
         <div>
             <img src={users} alt={'users'} className={'icon'}/>
-            <NavLink className={'navLink'} to="/users">Users</NavLink>
+            <Link className={'link'} to="/users">Users</Link>
+        </div>
+        <div>
+            <img src={news} alt={'news'} className={'icon'}/>
+            <Link className={'link'} to="/news">News</Link>
         </div>
         <div>
             <img src={music} alt={'music'} className={'icon'}/>
-            <NavLink className={'navLink'} to="/music">Music</NavLink>
+            <Link className={'link'} to="/music">Music</Link>
         </div>
     </nav>
 }

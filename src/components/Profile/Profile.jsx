@@ -116,8 +116,8 @@ const Profile = () => {
                          required: 'field is required', maxLength: {value: 300, message: 'max length is 300'}
                      })}
                      lookingForAJobDescriptionLength={lookingForAJobDescriptionLength}
-                     callbackfn1={(k, i) => {
-                         return <div className={'infoItem'} key={i}>
+                     createContactInput={(k, i) => {
+                         return <div className={'infoItem'} style={{textAlign: 'right'}} key={i}>
                              <div>{`${k}: `}</div>
                              <div>
                                  <input {...register(`${k}`, {

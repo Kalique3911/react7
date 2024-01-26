@@ -7,13 +7,10 @@ import {getIsAuth} from '../../selectors/authSelectors'
 import {setAuth, setIsLoggingOut} from '../../redux/authSlice'
 import {compose} from 'redux'
 import {
-    useGetAuthUserEmailQuery,
-    useGetAuthUserIdQuery,
-    useGetAuthUserLoginQuery,
-    useLogoutMutation
+    useGetAuthUserEmailQuery, useGetAuthUserIdQuery, useGetAuthUserLoginQuery, useLogoutMutation
 } from '../../API/authAPI'
 import {useGetAuthUserAvaQuery} from '../../API/profileAPI'
-import defaultAva from '../../images/defaultAva.jpg'
+import defaultAva from '../../images/defaultAva.svg'
 import classNames from 'classnames'
 import downArrow from '../../images/downArrow.svg'
 import {useOutsideClick} from '../../common/Hooks/useOutsideClick'
@@ -45,14 +42,17 @@ const Header = () => {
     const ref = useOutsideClick(outsideClick)
     window.isOpen = isOpen
     return <header className={'header'}>
-        <img className={'logo'} src={logo} alt={'Hyperborea'}/>
-        <span className={'title'}>Hyperborea</span>
-        {isAuth ? <>
-            <div className={classNames({'accountBlock': true, 'openedSettings': isOpen})} onClick={onAvaClick}>
-                <img className={'ava'} src={smallPhoto && isAuth ? smallPhoto : defaultAva} alt={'avatar'}/>
-                <img className={'arrow'} src={downArrow} alt={'arrow'}/>
+        <div className={'divWrapper'}>
+            <div style={{marginLeft: '35px'}}>
+                <img className={'logo'} src={logo} alt={'Hyperborea'}/>
+                <span className={'title'}>Hyperborea</span>
             </div>
-            <span ref={ref} className={classNames({'settings': true, 'eSettings': isOpen})}>
+            {isAuth ? <>
+                <div className={classNames({'accountBlock': true, 'openedSettings': isOpen})} onClick={onAvaClick}>
+                    <img className={'ava'} src={smallPhoto && isAuth ? smallPhoto : defaultAva} alt={'avatar'}/>
+                    <img className={'arrow'} src={downArrow} alt={'arrow'}/>
+                </div>
+                <span ref={ref} className={classNames({'settings': true, 'eSettings': isOpen})}>
                 <span>
                     <span>{login}</span>
                     <div>{email}</div>
@@ -66,8 +66,12 @@ const Header = () => {
                     }} className={'logOut'}>Logout</div>
                 </span>
             </span>
-        </> : <span className={'logIn'}><NavLink
-            to={'/login'}>Log in</NavLink></span>}
+            </> : <NavLink className={'logIn'} to={'/login'}>
+                <button>
+                    Sign in
+                </button>
+            </NavLink>}
+        </div>
     </header>
 }
 

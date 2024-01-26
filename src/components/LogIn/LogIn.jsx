@@ -1,5 +1,5 @@
 import React, {memo, useState} from 'react'
-import {Navigate} from 'react-router-dom'
+import {Link, Navigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAuth, setIsLoggingOut, setLogInError} from '../../redux/authSlice'
 import {getIsAuth, getLogInError} from '../../selectors/authSelectors'
@@ -8,7 +8,7 @@ import {useLoginMutation} from '../../API/authAPI'
 import {useForm} from 'react-hook-form'
 import './LogIn.css'
 
-const LogIn = props => {
+const LogIn = () => {
     const dispatch = useDispatch()
     const {register, handleSubmit, formState: {errors}, watch} = useForm({mode: 'onChange'})
     const isAuth = useSelector((state) => getIsAuth(state))
@@ -51,6 +51,19 @@ const LogIn = props => {
     return <div className={'logInPage'}>
         <div className={'logInBlock'}>
             <h2>Sign in to your account</h2>
+            <div style={{width: '280px', margin: '0px 35px 0px 35px'}}>
+                <div style={{fontWeight: 'normal'}}>To sign in get registered <Link
+                    to={'https://social-network.samuraijs.com/signUp'}>here</Link> or use free account:
+                </div>
+                <div>
+                    <span style={{fontWeight: 'normal'}}>Email:</span>
+                    <span> free@samuraijs.com</span>
+                </div>
+                <div>
+                    <span style={{fontWeight: 'normal'}}>Password:</span>
+                    <span> free</span>
+                </div>
+            </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input {...register('email', {
                     required: 'Email require filed',
@@ -72,7 +85,7 @@ const LogIn = props => {
                 {/*    <input {...register('rememberMe')} type={'checkbox'}/>remember me*/}
                 {/*</div>*/}
                 <div>
-                    <button>Login</button>
+                    <button>Sign in</button>
                 </div>
                 {logInError && <div style={{color: 'red'}}>{logInError}</div>}
             </form>

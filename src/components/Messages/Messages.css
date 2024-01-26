@@ -1,5 +1,5 @@
 .messages {
-    height: auto;
+    height: 100%;
     min-width: 350px;
 }
 
@@ -42,16 +42,18 @@
     border-radius: 20px;
     padding: 20px;
     background-color: #141414;
+    box-shadow: 0 0 5px 5px rgb(255, 255, 255, 0.005);
 }
 
 .chat {
-    height: 600px;
+    height: calc(100% - 135px);
+    min-height: 500px;
     border-radius: 20px;
     padding: 20px;
     background-color: #141414;
     overflow-y: auto;
-    max-height: 600px;
     resize: none;
+    box-shadow: 0 0 5px 5px rgb(255, 255, 255, 0.005);
 }
 
 /*here starts message*/

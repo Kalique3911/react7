@@ -1,22 +1,35 @@
 .header {
-    position: relative;
+    z-index: +1 !important;
+    position: fixed;
     grid-area: header;
     background-color: #222222;
-    padding: 0 50px 0 50px;
     display: block;
+    width: calc(100vw);
+    height: 120px;
+    box-shadow: 0 0 10px 10px rgb(255, 255, 255, 0.01)
+}
+
+.divWrapper {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1100px;
 }
 
 .logo {
-    position: absolute;
+    position: fixed;
     top: 25px;
     width: 70px;
     border-radius: 20px;
+    box-shadow: 0 0 10px 10px rgb(255, 255, 255, 0.01);
 }
 
 .title {
     position: absolute;
-    margin-top: 42px;
     margin-left: 90px;
+    bottom: 45px;
     font-size: 24px;
 }
 
@@ -43,6 +56,7 @@
     margin-left: 13px;
     width: 70px;
     border-radius: 50%;
+    box-shadow: 0 0 10px 10px rgb(255, 255, 255, 0.01);
 }
 
 .accountBlock:hover {
@@ -70,7 +84,7 @@
     display: table;
     padding-left: 10px;
     width: 300px;
-    right: 50px;
+    right: 10px;
     font-weight: normal;
     border-radius: 5px;
 }
@@ -83,36 +97,32 @@
     cursor: pointer;
 }
 
+.logOut:active {
+    color: deepskyblue;
+}
+
 .logIn {
     float: right;
-    width: 60px;
-    height: 20px;
-    margin-top: 50px;
-    margin-right: 40px;
+    margin-right: 10px;
     text-align: center;
 }
 
-.logIn a {
-    font-size: 18px;
-    font-weight: bold;
+.logIn button {
+    font-size: 16px;
+    float: right;
+    border-radius: 3px;
+    background-color: #282828;
+    color: #17689b;
+    border: 1px solid #3b3b3b;
+    height: 30px;
+    width: 80px;
+    transition: 400ms border ease-out;
+}
+
+.logIn button:hover {
+    border: 1px solid #17689b;
+    transition: 400ms border ease-out;
     cursor: pointer;
-    text-decoration: none;
-}
-
-.logIn a:hover {
-    text-decoration: underline;
-}
-
-.logOut:hover {
-    text-decoration: underline;
-}
-
-.logIn a:active {
-    color: deepskyblue;
-}
-
-.logOut:active {
-    color: deepskyblue;
 }
 
 @media (max-width: 450px) {

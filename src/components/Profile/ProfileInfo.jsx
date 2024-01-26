@@ -42,7 +42,7 @@ const ProfileInfo = props => {
             </div>}
         </div>}
         {props.editMode && <form onSubmit={props.onSubmit}>
-            <div className={'infoItem'}>
+            <div className={'infoItem'} style={{textAlign: 'right'}}>
                 <div>Name:</div>
                 <input {...props.fullNameRegister}/>
             </div>
@@ -50,7 +50,7 @@ const ProfileInfo = props => {
                 <div>error:</div>
                 <span style={{color: 'red'}}>{props.errors.fullName.message}</span>
             </div>}
-            <div className={'infoItem'}>
+            <div className={'infoItem'} style={{textAlign: 'right'}}>
                 <div>About me:</div>
                 <textarea {...props.aboutMeRegister}/>
                 {300 - props.aboutMeLength &&
@@ -61,18 +61,18 @@ const ProfileInfo = props => {
                 <span style={{color: 'red'}}>{props.errors.aboutMe.message}</span>
             </div>}
             <span className={'separator'}></span>
-            <div className={'infoItem'}>
+            <div className={'infoItem'} style={{textAlign: 'right'}}>
                 <div>Looking for a job?</div>
                 <input type={'checkbox'} {...props.lookingForAJobRegister}/>
             </div>
-            <div className={'infoItem'}>
+            <div className={'infoItem'} style={{textAlign: 'right'}}>
                 <div>My professional skills:</div>
                 <textarea {...props.lookingForAJobDescriptionRegister}/>
                 {300 - props.lookingForAJobDescriptionLength &&
                     <div className={'lengthCounter'}>{`${300 - props.lookingForAJobDescriptionLength}`}</div>}
             </div>
             <span className={'separator'}></span>
-            {Object.keys(props.profile.contacts).map(props.callbackfn1)}
+            {Object.keys(props.profile.contacts).map(props.createContactInput)}
             <div className={'infoItem'}>
                 <div></div>
                 <div>

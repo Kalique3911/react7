@@ -1,5 +1,5 @@
 import {NavLink} from 'react-router-dom'
-import defaultAva from '../../images/defaultAva.jpg'
+import defaultAva from '../../images/defaultAva.svg'
 import React from 'react'
 import {compose} from 'redux'
 import {memo} from 'react'

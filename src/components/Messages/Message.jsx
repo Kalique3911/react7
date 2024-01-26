@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import './Messages.css'
-import defaultAva from '../../images/defaultAva.jpg'
+import defaultAva from '../../images/defaultAva.svg'
 import {compose} from 'redux'
 import {NavLink} from 'react-router-dom'
 
