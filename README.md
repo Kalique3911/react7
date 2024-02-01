@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Hyperbopea
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+<img src="./src/images/logo.png" style="border-radius: 5px" alt="">
+</p>
+An SPA representing a social network built with ReactJS.
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This is a project in which I learned web development, namely front-end development. During the development of
+this project, I understood how the browser and web applications work, how the architecture of the web application
+is built, got to know how to optimize it and what are the principles of its design, also learned many other aspects of
+web development.
+Over the course of numerous commits, this social network has evolved from older technologies to the power of
+modern JavaScript and React. This project serves as a testament to continuous learning and improvement.
+___
+It is designed on the base
+of [Samurai Way course](https://www.youtube.com/playlist?list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8)
+by IT-KAMASUTRA.
 
-### `npm start`
+## Libraries used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
++ React
++ React Router DOM
++ Redux Toolkit
++ classnames
++ reselect
++ React Hook Form
++ React Select
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
++ **API** is provided from https://social-network.samuraijs.com/, all data was fetched using RTK Query
++ **Build tool:** Create React App
++ **Validation** and **Filling out** for forms is done with the help of React Hook Forms
++ **Optimization** is implemented through decomposition of components and using special React HOCs and hooks
++ introduced **Authorization** and **Initialization** that affect interaction with the social network
++ **Styling** is performed on vanilla CSS and includes adaptability and cross-browser compatibility
++ **User's actions** in social network:
+    + ***profile editing:*** changing status, name, avatar and other information
+    + ***chatting*** is realized with WebSockets
+    + ***interacting with other users:*** you can browse profiles of other users, follow or unfollow them
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Try it
 
-### `npm run build`
+### on GH Pages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Social network is deployed on [GitHub Pages](https://kalique3911.github.io/react7/), so you can try it without
+installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### By installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You also can clone the repository on your computer, run `npm start` in the local terminal and then
+open http://localhost:3000 to view it in your browser. 

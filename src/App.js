@@ -8,7 +8,7 @@ import LogIn from './components/LogIn/LogIn'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAuth, setInit} from './redux/authSlice'
 import Navbar from './components/Navbar/Navbar'
-import {lazy, useEffect, Suspense} from 'react'
+import {lazy, Suspense, useEffect} from 'react'
 import {useGetInitQuery} from './API/authAPI'
 import Messages from './components/Messages/Messages'
 import './components/Header/Header.css'
@@ -36,7 +36,7 @@ export const App = () => {
             <Navbar/>
             <div className={'content'}>
                 <Routes>
-                    <Route path="/" element={<News/>}/>
+                    <Route path="/" element={<Suspense fallback={<div></div>}><Users/></Suspense>}/>
                     <Route path="/news" element={<News/>}/>
                     <Route path="/messages" element={<Messages/>}/>
                     <Route path="/profile/:userId" element={<Profile/>}/>
